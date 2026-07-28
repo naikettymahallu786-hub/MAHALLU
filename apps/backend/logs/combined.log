@@ -11399,3 +11399,26 @@ Use mongoose.model(name, schema)
 2026-07-21 20:34:57 [info]: 🚀 Mahallu ERP Backend running on port 5000
 2026-07-21 20:34:57 [info]: 📡 Environment: undefined
 2026-07-21 20:34:57 [info]: 🌐 API Base: http://0.0.0.0:5000/api/v1
+2026-07-28 20:21:55 [info]: ✅ MongoDB connected: ac-sbq0ezg-shard-00-00.s6lu4m7.mongodb.net
+2026-07-28 20:21:55 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-28 20:21:55 [warn]: Redis reconnecting...
+2026-07-28 20:21:55 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-28 20:21:56 [warn]: Redis reconnecting...
+2026-07-28 20:21:56 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-28 20:21:56 [warn]: Redis reconnecting...
+2026-07-28 20:21:56 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-28 20:21:56 [warn]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-28 20:21:56 [info]: ✅ Cron jobs initialized
+2026-07-28 20:21:56 [info]: 🚀 Mahallu ERP Backend running on port 5000
+2026-07-28 20:21:56 [info]: 📡 Environment: development
+2026-07-28 20:21:56 [info]: 🌐 API Base: http://0.0.0.0:5000/api/v1

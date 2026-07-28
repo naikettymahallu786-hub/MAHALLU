@@ -3502,3 +3502,15 @@ Use mongoose.model(name, schema)
 2026-07-21 20:34:57 [error]: AggregateError [ECONNREFUSED]: 
     at internalConnectMultiple (node:net:1135:18)
     at afterConnectMultiple (node:net:1716:7)
+2026-07-28 20:21:55 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-28 20:21:55 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-28 20:21:56 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-28 20:21:56 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
