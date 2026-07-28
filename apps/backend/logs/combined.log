@@ -11431,3 +11431,12 @@ Use mongoose.model(name, schema)
 2026-07-28 22:18:38 [info]: ✅ Super Admin created: admin@mahallu.app
 2026-07-28 22:18:39 [info]: ✅ Madrasa Admin & Sadar Mualim created: madrasa.admin@mahallu.app, sadar@mahallu.app
 2026-07-28 22:18:39 [info]: ✅ Default settings configured.
+2026-07-28 22:20:52 [info]: ⚠️ Connecting to remote MongoDB database...
+2026-07-28 22:20:52 [info]: ✅ Connected to remote MongoDB.
+2026-07-28 22:20:52 [info]: Wiping remote database: test...
+2026-07-28 22:20:52 [info]: ✅ Remote database dropped successfully.
+2026-07-28 22:20:52 [info]: Re-establishing database schema on remote...
+2026-07-28 22:20:52 [info]: ✅ Tenant created: Jamia Masjid Mahallu (JMM001)
+2026-07-28 22:20:53 [info]: ✅ Super Admin created: admin@mahallu.app
+2026-07-28 22:20:53 [info]: ✅ Madrasa Admin & Sadar Mualim created: madrasa.admin@mahallu.app, sadar@mahallu.app
+2026-07-28 22:20:53 [info]: ✅ Default settings configured.

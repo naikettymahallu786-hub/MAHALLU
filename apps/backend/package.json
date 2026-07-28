@@ -9,6 +9,7 @@
     "start": "node dist/server.js",
     "seed": "tsx src/scripts/seed.ts",
     "clear-db": "tsx src/scripts/clear-db.ts",
+    "clear-remote": "tsx src/scripts/clear-remote.ts",
     "test": "jest --coverage",
     "lint": "eslint src --ext .ts"
   },

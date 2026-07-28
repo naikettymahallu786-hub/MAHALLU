@@ -13,7 +13,7 @@ import { toast } from 'sonner';
 
 const memberSchema = z.object({
   name: z.string().min(1, 'Name is required'),
-  phone: z.string().min(10, 'Phone must be at least 10 digits'),
+  phone: z.string().min(1, 'Phone number is required'),
   gender: z.enum(['male', 'female']),
   dateOfBirth: z.string().optional(),
   bloodGroup: z.string().optional(),
