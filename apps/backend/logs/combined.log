@@ -11422,3 +11422,12 @@ Use mongoose.model(name, schema)
 2026-07-28 20:21:56 [info]: 🚀 Mahallu ERP Backend running on port 5000
 2026-07-28 20:21:56 [info]: 📡 Environment: development
 2026-07-28 20:21:56 [info]: 🌐 API Base: http://0.0.0.0:5000/api/v1
+2026-07-28 22:18:37 [info]: ✅ MongoDB connected: ac-s82brzh-shard-00-02.abqvshq.mongodb.net
+2026-07-28 22:18:37 [info]: ⚠️ Starting database wipe and reset...
+2026-07-28 22:18:37 [info]: Dropping database: mahallu-erp...
+2026-07-28 22:18:37 [info]: ✅ Database dropped successfully.
+2026-07-28 22:18:37 [info]: Re-establishing database schema...
+2026-07-28 22:18:37 [info]: ✅ Tenant created: Jamia Masjid Mahallu (JMM001)
+2026-07-28 22:18:38 [info]: ✅ Super Admin created: admin@mahallu.app
+2026-07-28 22:18:39 [info]: ✅ Madrasa Admin & Sadar Mualim created: madrasa.admin@mahallu.app, sadar@mahallu.app
+2026-07-28 22:18:39 [info]: ✅ Default settings configured.

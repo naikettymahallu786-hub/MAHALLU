@@ -8,6 +8,7 @@
     "build": "tsc -p packages/shared-types && tsc -p packages/shared-config && (tsc --skipLibCheck || echo 'Bypassing compiler checks')",
     "start": "node dist/server.js",
     "seed": "tsx src/scripts/seed.ts",
+    "clear-db": "tsx src/scripts/clear-db.ts",
     "test": "jest --coverage",
     "lint": "eslint src --ext .ts"
   },

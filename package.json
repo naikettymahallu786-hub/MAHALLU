@@ -14,6 +14,7 @@
     "build:backend": "npm run build --workspace=apps/backend",
     "build:dashboard": "npm run build --workspace=apps/dashboard",
     "seed": "npm run seed --workspace=apps/backend",
+    "clear-db": "npm run clear-db --workspace=apps/backend",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down"
   },
