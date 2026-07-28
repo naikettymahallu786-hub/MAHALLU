@@ -5,7 +5,7 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsc --skipLibCheck || echo 'Bypassing compiler checks'",
+    "build": "tsc -p packages/shared-types && tsc -p packages/shared-config && (tsc --skipLibCheck || echo 'Bypassing compiler checks')",
     "start": "node dist/server.js",
     "seed": "tsx src/scripts/seed.ts",
     "test": "jest --coverage",

@@ -2,10 +2,10 @@
   "name": "@mahallu/shared-config",
   "version": "1.0.0",
   "description": "Shared configuration, constants and RBAC for Mahallu ERP",
-  "main": "src/index.ts",
-  "types": "src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc --noEmit"
+    "build": "tsc"
   },
   "dependencies": {
     "@mahallu/shared-types": "file:../shared-types"
