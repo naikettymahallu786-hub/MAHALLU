@@ -1,0 +1,12 @@
+import { Router } from 'express';
+import { authenticate, authorize } from '../middleware/auth';
+import { PERMISSIONS } from '@mahallu/shared-config';
+import { Zakat } from '../models/Zakat';
+import { AuthRequest } from '../middleware/auth';
+const r = Router();
+r.use(authenticate);
+r.get('/', authorize(PERMISSIONS.ZAKAT_VIEW), async (req: AuthRequest, res, next) => { try { const z = await Zakat.find({ tenantId: req.user!.tenantId }).sort({ year: -1 }).lean(); res.json({ success: true, data: z }); } catch (e) { next(e); } });
+r.post('/', authorize(PERMISSIONS.ZAKAT_MANAGE), async (req: AuthRequest, res, next) => { try { const z = await Zakat.create({ ...req.body, tenantId: req.user!.tenantId }); res.status(201).json({ success: true, data: z }); } catch (e) { next(e); } });
+r.post('/:id/apply', authorize(PERMISSIONS.MEMBER_VIEW), async (req: AuthRequest, res, next) => { try { const z = await Zakat.findOneAndUpdate({ _id: req.params.id, tenantId: req.user!.tenantId }, { $push: { applicants: { ...req.body, status: 'pending' } } }, { new: true }); res.json({ success: true, data: z }); } catch (e) { next(e); } });
+r.patch('/:id/applicants/:memberId', authorize(PERMISSIONS.ZAKAT_DISTRIBUTE), async (req: AuthRequest, res, next) => { try { await Zakat.updateOne({ _id: req.params.id, tenantId: req.user!.tenantId, 'applicants.memberId': req.params.memberId }, { $set: { 'applicants.$.status': req.body.status, 'applicants.$.amountApproved': req.body.amountApproved } }); res.json({ success: true }); } catch (e) { next(e); } });
+export default r;

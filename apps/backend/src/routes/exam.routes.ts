@@ -1,0 +1,11 @@
+import { Router } from 'express';
+import { authenticate, authorize } from '../middleware/auth';
+import { PERMISSIONS } from '@mahallu/shared-config';
+import { Exam } from '../models/Exam';
+import { AuthRequest } from '../middleware/auth';
+const r = Router();
+r.use(authenticate);
+r.get('/', authorize(PERMISSIONS.EXAM_VIEW), async (req: AuthRequest, res, next) => { try { const exams = await Exam.find({ tenantId: req.user!.tenantId, ...(req.query.classId ? { classId: req.query.classId } : {}) }).sort({ date: -1 }).lean(); res.json({ success: true, data: exams }); } catch (e) { next(e); } });
+r.post('/', authorize(PERMISSIONS.EXAM_CREATE), async (req: AuthRequest, res, next) => { try { const exam = await Exam.create({ ...req.body, tenantId: req.user!.tenantId }); res.status(201).json({ success: true, data: exam }); } catch (e) { next(e); } });
+r.put('/:id/results', authorize(PERMISSIONS.EXAM_GRADE), async (req: AuthRequest, res, next) => { try { const exam = await Exam.findOneAndUpdate({ _id: req.params.id, tenantId: req.user!.tenantId }, { $set: { results: req.body.results, isPublished: req.body.isPublished } }, { new: true }); res.json({ success: true, data: exam }); } catch (e) { next(e); } });
+export default r;

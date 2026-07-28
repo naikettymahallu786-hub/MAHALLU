@@ -1,0 +1,28 @@
+npm verbose cli /usr/local/bin/node /usr/local/bin/npm
+npm info using npm@10.8.2
+npm info using node@v20.19.6
+npm verbose title npm install
+npm verbose argv "install" "--legacy-peer-deps" "--loglevel" "verbose"
+npm verbose logfile logs-max:10 dir:/Users/sajalurahman/.npm/_logs/2026-07-08T21_23_13_427Z-
+npm verbose logfile /Users/sajalurahman/.npm/_logs/2026-07-08T21_23_13_427Z-debug-0.log
+npm http fetch GET 200 https://registry.npmjs.org/axios 7ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/dayjs 2ms (cache hit)
+npm verbose stack TypeError: Invalid Version: 
+npm verbose stack     at new SemVer (/usr/local/lib/node_modules/npm/node_modules/semver/classes/semver.js:38:13)
+npm verbose stack     at compare (/usr/local/lib/node_modules/npm/node_modules/semver/functions/compare.js:3:32)
+npm verbose stack     at Object.gte (/usr/local/lib/node_modules/npm/node_modules/semver/functions/gte.js:2:30)
+npm verbose stack     at Node.canDedupe (/usr/local/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/node.js:1081:32)
+npm verbose stack     at PlaceDep.pruneDedupable (/usr/local/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/place-dep.js:426:14)
+npm verbose stack     at PlaceDep.pruneDedupable (/usr/local/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/place-dep.js:450:16)
+npm verbose stack     at new PlaceDep (/usr/local/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/place-dep.js:219:12)
+npm verbose stack     at #buildDepStep (/usr/local/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/build-ideal-tree.js:917:18)
+npm verbose stack     at async Arborist.buildIdealTree (/usr/local/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/build-ideal-tree.js:181:7)
+npm verbose stack     at async Promise.all (index 1)
+npm error Invalid Version: 
+npm verbose cwd /Users/sajalurahman/Desktop/mahallu
+npm verbose os Darwin 25.5.0
+npm verbose node v20.19.6
+npm verbose npm  v10.8.2
+npm verbose exit 1
+npm verbose code 1
+npm error A complete log of this run can be found in: /Users/sajalurahman/.npm/_logs/2026-07-08T21_23_13_427Z-debug-0.log

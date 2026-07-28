@@ -1,0 +1,10 @@
+import { Router } from 'express';
+import { authenticate, authorize } from '../middleware/auth';
+import { PERMISSIONS } from '@mahallu/shared-config';
+import { DeathRecord } from '../models/DeathRecord';
+import { AuthRequest } from '../middleware/auth';
+const r = Router();
+r.use(authenticate);
+r.get('/', authorize(PERMISSIONS.DEATH_VIEW), async (req: AuthRequest, res, next) => { try { const records = await DeathRecord.find({ tenantId: req.user!.tenantId }).populate('memberId', 'name photo').sort({ dateOfDeath: -1 }).lean(); res.json({ success: true, data: records }); } catch (e) { next(e); } });
+r.post('/', authorize(PERMISSIONS.DEATH_CREATE), async (req: AuthRequest, res, next) => { try { const d = await DeathRecord.create({ ...req.body, tenantId: req.user!.tenantId }); res.status(201).json({ success: true, data: d }); } catch (e) { next(e); } });
+export default r;

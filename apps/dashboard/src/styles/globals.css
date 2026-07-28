@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Sans+Malayalam:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* =============================================
+   MAHALLU ERP — Design System
+   Islamic Green Theme with Dark Mode
+   ============================================= */
+
+@layer base {
+  :root {
+    /* Islamic Green Palette */
+    --brand-50:  #ecfdf5;
+    --brand-100: #d1fae5;
+    --brand-200: #a7f3d0;
+    --brand-300: #6ee7b7;
+    --brand-400: #34d399;
+    --brand-500: #10b981;
+    --brand-600: #059669;
+    --brand-700: #047857;
+    --brand-800: #065f46;
+    --brand-900: #064e3b;
+    --brand-950: #022c22;
+
+    /* Light Mode Tokens */
+    --background: 0 0% 98%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 160 84% 39%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 160 60% 95%;
+    --accent-foreground: 160 84% 29%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 160 84% 39%;
+    --radius: 0.75rem;
+
+    /* Sidebar */
+    --sidebar-bg: 0 0% 100%;
+    --sidebar-fg: 222 47% 11%;
+    --sidebar-hover: 160 84% 39%;
+    --sidebar-active: 160 84% 29%;
+    --sidebar-width: 260px;
+    --sidebar-collapsed-width: 70px;
+
+    /* Shadow tokens */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    --shadow-brand: 0 4px 14px 0 rgb(5 150 105 / 0.3);
+  }
+
+  .dark {
+    --background: 222 47% 7%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 10%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 10%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 160 84% 39%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 160 60% 15%;
+    --accent-foreground: 160 84% 60%;
+    --destructive: 0 62% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 160 84% 39%;
+
+    --sidebar-bg: 222 47% 5%;
+    --sidebar-fg: 210 40% 90%;
+    --shadow-brand: 0 4px 14px 0 rgb(5 150 105 / 0.4);
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', 'Noto Sans Malayalam', sans-serif;
+  }
+
+  /* Arabic text */
+  [lang="ar"], .arabic {
+    font-family: 'Noto Naskh Arabic', serif;
+    direction: rtl;
+    text-align: right;
+  }
+
+  /* Malayalam text */
+  [lang="ml"], .malayalam {
+    font-family: 'Noto Sans Malayalam', sans-serif;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { @apply bg-muted; }
+  ::-webkit-scrollbar-thumb { @apply bg-border rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-muted-foreground; }
+}
+
+@layer components {
+  /* ---- Glass Card ---- */
+  .glass-card {
+    @apply bg-white/70 dark:bg-white/5 backdrop-blur-xl border border-white/20 dark:border-white/10;
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* ---- KPI Card ---- */
+  .kpi-card {
+    @apply relative overflow-hidden rounded-2xl p-6 transition-all duration-300;
+    background: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--card)) 100%);
+    box-shadow: var(--shadow-md);
+  }
+  .kpi-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl);
+  }
+  .kpi-card::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-300;
+    background: radial-gradient(ellipse at top right, hsl(var(--primary) / 0.05), transparent 60%);
+  }
+  .kpi-card:hover::before { @apply opacity-100; }
+
+  /* ---- Nav Item ---- */
+  .nav-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 cursor-pointer;
+    color: hsl(var(--sidebar-fg) / 0.7);
+  }
+  .nav-item:hover {
+    background: hsl(var(--primary) / 0.15);
+    color: hsl(var(--primary));
+  }
+  .nav-item.active {
+    background: hsl(var(--primary) / 0.2);
+    color: hsl(var(--primary));
+    font-weight: 600;
+    box-shadow: inset 3px 0 0 hsl(var(--primary));
+  }
+
+  /* ---- Status Badge ---- */
+  .badge-active { @apply bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400; }
+  .badge-inactive { @apply bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-400; }
+  .badge-pending { @apply bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400; }
+  .badge-overdue { @apply bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400; }
+
+  /* ---- Brand Button ---- */
+  .btn-brand {
+    @apply relative overflow-hidden bg-emerald-600 text-white font-semibold px-5 py-2.5 rounded-xl transition-all duration-200;
+    box-shadow: var(--shadow-brand);
+  }
+  .btn-brand:hover {
+    @apply bg-emerald-500;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px 0 rgb(5 150 105 / 0.4);
+  }
+  .btn-brand:active { transform: translateY(0); }
+
+  /* ---- Data Table ---- */
+  .data-table { @apply w-full text-sm; }
+  .data-table th { @apply px-4 py-3 text-left font-semibold text-muted-foreground border-b; }
+  .data-table td { @apply px-4 py-3 border-b border-border/50; }
+  .data-table tr:hover td { @apply bg-muted/40; }
+
+  /* ---- Page Header ---- */
+  .page-header {
+    @apply flex items-center justify-between mb-6;
+  }
+  .page-title {
+    @apply text-2xl font-bold tracking-tight;
+  }
+  .page-subtitle {
+    @apply text-sm text-muted-foreground mt-0.5;
+  }
+
+  /* ---- Section Card ---- */
+  .section-card {
+    @apply bg-card rounded-2xl border border-border p-6;
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* ---- Animated Counter ---- */
+  @keyframes count-up {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .animate-count { animation: count-up 0.6s ease-out forwards; }
+
+  /* ---- Shimmer Loading ---- */
+  @keyframes shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  .shimmer {
+    background: linear-gradient(90deg, hsl(var(--muted)) 25%, hsl(var(--muted-foreground) / 0.1) 50%, hsl(var(--muted)) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  /* ---- Islamic geometric decorative element ---- */
+  .islamic-pattern {
+    @apply absolute opacity-5 pointer-events-none;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23059669' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .gradient-brand {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  }
+  .gradient-brand-soft {
+    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  }
+}

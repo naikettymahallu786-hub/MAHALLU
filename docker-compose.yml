@@ -1,0 +1,83 @@
+version: '3.9'
+
+services:
+  # MongoDB (local dev only — use Atlas in production)
+  mongo:
+    image: mongo:7.0
+    container_name: mahallu_mongo
+    restart: unless-stopped
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+      MONGO_INITDB_DATABASE: mahallu-erp
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - mahallu_network
+
+  # Redis (sessions, rate-limit, pub/sub)
+  redis:
+    image: redis:7.2-alpine
+    container_name: mahallu_redis
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    command: redis-server --requirepass redispassword
+    volumes:
+      - redis_data:/data
+    networks:
+      - mahallu_network
+
+  # Backend API
+  backend:
+    build:
+      context: ./apps/backend
+      dockerfile: Dockerfile
+    container_name: mahallu_backend
+    restart: unless-stopped
+    ports:
+      - '5000:5000'
+    environment:
+      NODE_ENV: production
+      MONGODB_URI: mongodb://root:rootpassword@mongo:27017/mahallu-erp?authSource=admin
+      REDIS_URL: redis://:redispassword@redis:6379
+    env_file:
+      - .env
+    depends_on:
+      - mongo
+      - redis
+    networks:
+      - mahallu_network
+    volumes:
+      - ./apps/backend:/app
+      - /app/node_modules
+
+  # Admin Dashboard
+  dashboard:
+    build:
+      context: ./apps/dashboard
+      dockerfile: Dockerfile
+    container_name: mahallu_dashboard
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    environment:
+      NEXT_PUBLIC_API_URL: http://backend:5000/api/v1
+    env_file:
+      - .env
+    depends_on:
+      - backend
+    networks:
+      - mahallu_network
+
+volumes:
+  mongo_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  mahallu_network:
+    driver: bridge
