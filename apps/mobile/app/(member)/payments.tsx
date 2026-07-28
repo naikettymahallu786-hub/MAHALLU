@@ -76,7 +76,7 @@ export default function PaymentsScreen() {
       const redirectUrl = Linking.createURL('/(member)/payments');
 
       // 3. Build the checkout page URL
-      const backendUrl = 'https://mahallu-backend-clae.onrender.com';
+      const backendUrl = 'https://mahallu-4d9t.onrender.com';
       const checkoutUrl = `${backendUrl}/api/v1/payments/checkout` +
         `?orderId=${order.id}` +
         `&paymentId=${payment._id}` +

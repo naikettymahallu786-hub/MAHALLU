@@ -99,7 +99,7 @@ export function createApp(): Application {
         'http://localhost:3001',
         'https://mahallu.app',
         'https://mahallu-dashbaord-five.vercel.app',  
-        'https://mahallu-backend-clae.onrender.com',
+        'https://mahallu-4d9t.onrender.com',
         /\.mahallu\.app$/,
         /\.vercel\.app$/,
       ];

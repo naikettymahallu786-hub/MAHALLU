@@ -162,7 +162,7 @@ router.get('/checkout', async (req, res) => {
                   document.getElementById('loading').style.display = 'none';
                   try {
                     // Verify the payment signature on the backend
-                    const verifyRes = await fetch('https://mahallu-backend-clae.onrender.com/api/v1/payments/verify', {
+                    const verifyRes = await fetch(window.location.origin + '/api/v1/payments/verify', {
                       method: 'POST',
                       headers: { 'Content-Type': 'application/json' },
                       body: JSON.stringify({

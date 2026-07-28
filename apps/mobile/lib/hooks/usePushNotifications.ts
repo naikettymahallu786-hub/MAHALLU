@@ -29,7 +29,7 @@ export function usePushNotifications() {
     requestPermissions();
 
     // 2. Connect to real-time Socket.io server
-    const socket = io('https://mahallu-backend-clae.onrender.com');
+    const socket = io('https://mahallu-4d9t.onrender.com');
 
     socket.on('connect', () => {
       socket.emit('join-tenant', user.tenantId);

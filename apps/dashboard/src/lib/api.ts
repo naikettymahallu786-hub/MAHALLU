@@ -1,7 +1,7 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 
 export const apiClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'https://mahallu-backend-clae.onrender.com/api/v1',
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'https://mahallu-4d9t.onrender.com/api/v1',
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
