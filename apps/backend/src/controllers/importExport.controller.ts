@@ -130,7 +130,14 @@ export class ImportExportController {
         const stream = Readable.from(req.file.buffer);
         await workbook.csv.read(stream);
       } else {
-        await workbook.xlsx.load(req.file.buffer as any);
+        try {
+          await workbook.xlsx.load(req.file.buffer as any);
+        } catch (excelError: any) {
+          return res.status(400).json({
+            success: false,
+            message: 'Invalid file format. Please upload a valid Excel (.xlsx) file. Excel 97-2003 (.xls) format is not supported.',
+          });
+        }
       }
 
       const sheet = workbook.worksheets[0];
@@ -192,11 +199,18 @@ export class ImportExportController {
         totalRecords++;
 
         // Basic Row Validation
-        if (!familyCode || !addressLine || !memberName || !gender || !phone) {
+        const missingFields: string[] = [];
+        if (!familyCode) missingFields.push('Family Code / House Name');
+        if (!addressLine) missingFields.push('Address Line');
+        if (!memberName) missingFields.push('Member Name');
+        if (!gender) missingFields.push('Gender');
+        if (!phone) missingFields.push('Phone');
+
+        if (missingFields.length > 0) {
           failedCount++;
           errorDetails.push({
             row: rowNumber,
-            message: `Missing required fields (Family Code, Address, Member Name, Gender, or Phone required)`,
+            message: `Missing required fields: ${missingFields.join(', ')}`,
           });
           continue;
         }
@@ -232,6 +246,20 @@ export class ImportExportController {
           let member = await Member.findOne({ tenantId, phone, name: memberName });
           const isHead = relationship === 'head' || relationship === 'head of family' || family.members.length === 0;
 
+          // Parse DOB safely
+          let dateOfBirth: Date | undefined = undefined;
+          if (dob) {
+            const rawDob = row.getCell(9).value;
+            if (rawDob instanceof Date) {
+              dateOfBirth = rawDob;
+            } else {
+              const d = new Date(dob);
+              if (!isNaN(d.getTime())) {
+                dateOfBirth = d;
+              }
+            }
+          }
+
           if (!member) {
             member = await Member.create({
               tenantId,
@@ -239,6 +267,8 @@ export class ImportExportController {
               name: memberName,
               gender: gender === 'female' ? Gender.FEMALE : Gender.MALE,
               phone,
+              email: familyEmail || undefined,
+              dateOfBirth,
               occupation,
               aadhaarNumber: aadhaar,
               familyId: family._id,
@@ -286,9 +316,35 @@ export class ImportExportController {
           successCount++;
         } catch (err: any) {
           failedCount++;
+          let msg = err.message || 'Error processing row';
+          
+          // Friendly formatting for validation and duplicate key errors
+          if (err.name === 'ValidationError') {
+            const paths = Object.keys(err.errors);
+            msg = `Validation failed: ${paths.map(p => {
+              const e = err.errors[p];
+              if (e.kind === 'enum') {
+                return `"${e.value}" is not a valid option for ${p} (must be one of: ${e.properties.enumValues.join(', ')})`;
+              }
+              return e.message;
+            }).join(', ')}`;
+          } else if (err.code === 11000) {
+            const key = Object.keys(err.keyValue || {})[0] || '';
+            const val = err.keyValue?.[key] || '';
+            if (key === 'phone') {
+              msg = `Duplicate error: The phone number "${val}" is already registered to another user/member.`;
+            } else if (key === 'email') {
+              msg = `Duplicate error: The email address "${val}" is already registered to another user/family.`;
+            } else if (key === 'familyCode') {
+              msg = `Duplicate error: The family code "${val}" is already taken.`;
+            } else {
+              msg = `Duplicate entry found for ${key}: "${val}"`;
+            }
+          }
+          
           errorDetails.push({
             row: rowNumber,
-            message: err.message || 'Error processing row',
+            message: msg,
           });
         }
       }
