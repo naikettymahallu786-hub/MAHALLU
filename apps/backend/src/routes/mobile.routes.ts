@@ -74,6 +74,50 @@ router.get('/me/family', async (req: AuthRequest, res, next) => {
 });
 
 // ──────────────────────────────────────────────────
+// PUT /mobile/me/family
+// Update family details & recurring donation options for logged-in user
+// ──────────────────────────────────────────────────
+router.put('/me/family', async (req: AuthRequest, res, next) => {
+  try {
+    const user = await User.findById(req.user!.userId).select('memberId').lean();
+    if (!user?.memberId) throw new AppError('Member account not found', 404);
+
+    const member = await Member.findById(user.memberId).select('familyId').lean();
+    if (!member?.familyId) throw new AppError('Family not found', 404);
+
+    const { line1, wardNo, recurringDonationType, recurringDonationAmount, recurringPaymentDay, recurringPaymentMonth } = req.body;
+
+    const updateFields: Record<string, any> = {};
+    if (line1 !== undefined) updateFields['address.line1'] = line1;
+    if (wardNo !== undefined) updateFields.wardNo = wardNo;
+    if (recurringDonationType !== undefined) updateFields.recurringDonationType = recurringDonationType;
+    if (recurringDonationAmount !== undefined) updateFields.recurringDonationAmount = Number(recurringDonationAmount) || 0;
+    if (recurringPaymentDay !== undefined) updateFields.recurringPaymentDay = Number(recurringPaymentDay) || 1;
+    if (recurringPaymentMonth !== undefined) updateFields.recurringPaymentMonth = Number(recurringPaymentMonth) || 1;
+
+    // Calculate nextPaymentDueDate
+    const { calculateNextDueDate } = await import('./family.routes');
+    const nextPaymentDueDate = calculateNextDueDate(
+      recurringDonationType ?? 'none',
+      Number(recurringPaymentDay) || 1,
+      Number(recurringPaymentMonth) || 1
+    );
+    if (nextPaymentDueDate) updateFields.nextPaymentDueDate = nextPaymentDueDate;
+
+    const updatedFamily = await Family.findByIdAndUpdate(
+      member.familyId,
+      { $set: updateFields },
+      { new: true }
+    )
+      .populate('headMemberId', 'name phone photo email gender dateOfBirth occupation qualification bloodGroup')
+      .populate('members.memberId', 'name phone photo email gender dateOfBirth occupation qualification bloodGroup status memberId')
+      .lean();
+
+    res.json({ success: true, data: updatedFamily });
+  } catch (e) { next(e); }
+});
+
+// ──────────────────────────────────────────────────
 // GET /mobile/me/payments
 // Payment history for the logged-in member
 // ──────────────────────────────────────────────────

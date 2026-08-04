@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { authenticate, authorize } from '../middleware/auth';
 import { PERMISSIONS } from '@mahallu/shared-config';
 import { Family } from '../models/Family';
+import { Member } from '../models/Member';
 import { AppError } from '../middleware/errorHandler';
 import { AuthRequest } from '../middleware/auth';
 import QRCode from 'qrcode';
@@ -42,17 +43,45 @@ router.use(authenticate);
 
 router.get('/', authorize(PERMISSIONS.FAMILY_VIEW), async (req: AuthRequest, res, next) => {
   try {
-    const { page = 1, limit = 20, search } = req.query;
+    const { page = 1, limit = 20, search, sortBy = 'familyCode', sortOrder = 'asc' } = req.query;
     const tenantId = req.user!.tenantId;
     const pageNum = Math.max(1, parseInt(page as string));
     const limitNum = Math.min(parseInt(limit as string), 500);
-    const filter: Record<string, unknown> = { tenantId };
-    if (search) filter.$or = [
-      { familyCode: { $regex: search, $options: 'i' } },
-      { 'address.line1': { $regex: search, $options: 'i' } },
-    ];
+    const filter: Record<string, unknown> = { tenantId, isDeleted: { $ne: true } };
+
+    if (search) {
+      const cleanSearch = String(search).trim();
+      const searchRegex = new RegExp(cleanSearch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+
+      const matchingMembers = await Member.find({
+        tenantId,
+        $or: [
+          { name: searchRegex },
+          { phone: searchRegex },
+        ],
+      }).select('_id').lean();
+
+      const memberIds = matchingMembers.map(m => m._id);
+
+      filter.$or = [
+        { familyCode: searchRegex },
+        { 'address.line1': searchRegex },
+        { headMemberId: { $in: memberIds } },
+        { 'members.memberId': { $in: memberIds } },
+      ];
+    }
+
+    const sortDir = sortOrder === 'desc' ? -1 : 1;
+    const sortObj: Record<string, 1 | -1> = { [sortBy as string]: sortDir };
+
     const [families, total] = await Promise.all([
-      Family.find(filter).populate('headMemberId', 'name phone photo').sort({ createdAt: -1 }).skip((pageNum - 1) * limitNum).limit(limitNum).lean(),
+      Family.find(filter)
+        .collation({ locale: 'en', numericOrdering: true })
+        .populate('headMemberId', 'name phone photo')
+        .sort(sortObj)
+        .skip((pageNum - 1) * limitNum)
+        .limit(limitNum)
+        .lean(),
       Family.countDocuments(filter),
     ]);
 

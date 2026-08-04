@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import Constants, { ExecutionEnvironment } from 'expo-constants';
 import { useAuthStore } from '../../store/auth.store';
 import { io } from 'socket.io-client';
+import { baseOrigin } from '../api';
 
 const isExpoGo = Constants.executionEnvironment === ExecutionEnvironment.StoreClient;
 
@@ -43,7 +44,7 @@ export function usePushNotifications() {
     }
 
     // 2. Connect to real-time Socket.io server
-    const socket = io('https://mahallu-4d9t.onrender.com');
+    const socket = io(baseOrigin);
 
     socket.on('connect', () => {
       socket.emit('join-tenant', user.tenantId);

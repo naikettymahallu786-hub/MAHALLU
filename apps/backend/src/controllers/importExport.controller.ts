@@ -364,7 +364,7 @@ export class ImportExportController {
                 }
 
                 if (existingUser) {
-                  existingUser.passwordHash = familyPassword;
+                  (existingUser as any).passwordHash = familyPassword;
                   if (member._id) existingUser.memberId = member._id;
                   await existingUser.save();
                   user = existingUser;

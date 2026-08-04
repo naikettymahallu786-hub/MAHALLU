@@ -42893,3 +42893,338 @@ Use mongoose.model(name, schema)
 2026-08-05 00:14:56 [info]: 📡 Environment: development
 2026-08-05 00:14:56 [info]: 🌐 API Base: http://0.0.0.0:5000/api/v1
 2026-08-05 00:15:08 [info]: SIGTERM received. Shutting down gracefully...
+2026-08-05 00:15:21 [info]: ✅ MongoDB connected: ac-s82brzh-shard-00-02.abqvshq.mongodb.net
+2026-08-05 00:15:21 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:15:21 [warn]: Redis reconnecting...
+2026-08-05 00:15:21 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:15:22 [warn]: Redis reconnecting...
+2026-08-05 00:15:22 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:15:22 [warn]: Redis reconnecting...
+2026-08-05 00:15:22 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:15:22 [warn]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:15:22 [info]: ✅ Cron jobs initialized
+2026-08-05 00:15:22 [info]: 🚀 Mahallu ERP Backend running on port 5000
+2026-08-05 00:15:22 [info]: 📡 Environment: development
+2026-08-05 00:15:22 [info]: 🌐 API Base: http://0.0.0.0:5000/api/v1
+2026-08-05 00:15:38 [info]: SIGTERM received. Shutting down gracefully...
+2026-08-05 00:15:41 [info]: ✅ MongoDB connected: ac-s82brzh-shard-00-01.abqvshq.mongodb.net
+2026-08-05 00:15:41 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:15:42 [warn]: Redis reconnecting...
+2026-08-05 00:15:42 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:15:42 [warn]: Redis reconnecting...
+2026-08-05 00:15:42 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:15:43 [warn]: Redis reconnecting...
+2026-08-05 00:15:43 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:15:43 [warn]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:15:43 [info]: ✅ Cron jobs initialized
+2026-08-05 00:15:43 [info]: 🚀 Mahallu ERP Backend running on port 5000
+2026-08-05 00:15:43 [info]: 📡 Environment: development
+2026-08-05 00:15:43 [info]: 🌐 API Base: http://0.0.0.0:5000/api/v1
+2026-08-05 00:16:29 [debug]: GET /api/v1/registrations/pending - IP: 127.0.0.1
+2026-08-05 00:16:29 [http]: 127.0.0.1 - - [04/Aug/2026:18:46:29 +0000] "GET /api/v1/registrations/pending HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:17:29 [debug]: GET /api/v1/registrations/pending - IP: 127.0.0.1
+2026-08-05 00:17:29 [http]: 127.0.0.1 - - [04/Aug/2026:18:47:29 +0000] "GET /api/v1/registrations/pending HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:17:34 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:17:35 [http]: 127.0.0.1 - - [04/Aug/2026:18:47:35 +0000] "GET /api/v1/families?page=1&limit=200&search= HTTP/1.1" 200 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:19:00 [debug]: GET /api/v1/registrations/pending - IP: 127.0.0.1
+2026-08-05 00:19:02 [http]: 127.0.0.1 - - [04/Aug/2026:18:49:02 +0000] "GET /api/v1/registrations/pending HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:21:27 [debug]: POST /api/v1/auth/login - IP: 10.243.250.228
+2026-08-05 00:21:28 [http]: 10.243.250.228 - - [04/Aug/2026:18:51:28 +0000] "POST /api/v1/auth/login HTTP/1.1" 200 917 "-" "okhttp/4.12.0"
+2026-08-05 00:21:28 [debug]: GET /api/v1/mobile/me/profile - IP: 10.243.250.228
+2026-08-05 00:21:28 [debug]: GET /api/v1/mobile/prayer-times - IP: 10.243.250.228
+2026-08-05 00:21:28 [debug]: GET /api/v1/mobile/announcements - IP: 10.243.250.228
+2026-08-05 00:21:29 [http]: 10.243.250.228 - - [04/Aug/2026:18:51:29 +0000] "GET /api/v1/mobile/announcements HTTP/1.1" 200 26 "-" "okhttp/4.12.0"
+2026-08-05 00:21:29 [http]: 10.243.250.228 - - [04/Aug/2026:18:51:29 +0000] "GET /api/v1/mobile/me/profile HTTP/1.1" 200 - "-" "okhttp/4.12.0"
+2026-08-05 00:21:30 [http]: 10.243.250.228 - - [04/Aug/2026:18:51:30 +0000] "GET /api/v1/mobile/prayer-times HTTP/1.1" 200 337 "-" "okhttp/4.12.0"
+2026-08-05 00:21:39 [debug]: GET /api/v1/mobile/me/family - IP: 10.243.250.228
+2026-08-05 00:21:48 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:21:49 [http]: 10.243.250.228 - - [04/Aug/2026:18:51:49 +0000] "GET /api/v1/mobile/me/family HTTP/1.1" 200 - "-" "okhttp/4.12.0"
+2026-08-05 00:21:49 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:21:50 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:21:50 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:21:50 [http]: 127.0.0.1 - - [04/Aug/2026:18:51:50 +0000] "GET /api/v1/families?page=1&limit=200&search=Ab HTTP/1.1" 200 119 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:21:50 [http]: 127.0.0.1 - - [04/Aug/2026:18:51:50 +0000] "GET /api/v1/families?page=1&limit=200&search=Abd HTTP/1.1" 200 119 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:21:50 [http]: 127.0.0.1 - - [04/Aug/2026:18:51:50 +0000] "GET /api/v1/families?page=1&limit=200&search=Abdu HTTP/1.1" 200 119 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:21:50 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:21:50 [http]: 127.0.0.1 - - [04/Aug/2026:18:51:50 +0000] "GET /api/v1/families?page=1&limit=200&search=A HTTP/1.1" 200 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:21:50 [http]: 127.0.0.1 - - [04/Aug/2026:18:51:50 +0000] "GET /api/v1/families?page=1&limit=200&search=Abdul HTTP/1.1" 200 119 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:21:57 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:21:57 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:21:57 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:21:58 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:21:59 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:21:59 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:22:06 [http]: 127.0.0.1 - - [04/Aug/2026:18:52:06 +0000] "GET /api/v1/families?page=1&limit=200&search=Abdul+n HTTP/1.1" 200 119 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:22:06 [http]: 127.0.0.1 - - [04/Aug/2026:18:52:06 +0000] "GET /api/v1/families?page=1&limit=200&search=Abdul+ HTTP/1.1" 200 119 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:22:06 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:22:06 [debug]: GET /api/v1/registrations/pending - IP: 127.0.0.1
+2026-08-05 00:22:06 [http]: 127.0.0.1 - - [04/Aug/2026:18:52:06 +0000] "GET /api/v1/families?page=1&limit=200&search=Abdul+na HTTP/1.1" 200 119 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:22:06 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:22:06 [http]: 127.0.0.1 - - [04/Aug/2026:18:52:06 +0000] "GET /api/v1/families?page=1&limit=200&search=Abdul+nas HTTP/1.1" 200 119 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:22:06 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:22:07 [http]: 127.0.0.1 - - [04/Aug/2026:18:52:07 +0000] "GET /api/v1/families?page=1&limit=200&search=Abdul+nase HTTP/1.1" 200 119 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:22:09 [http]: 127.0.0.1 - - [04/Aug/2026:18:52:09 +0000] "GET /api/v1/families?page=1&limit=200&search=Abdul+naser HTTP/1.1" 200 119 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:22:10 [http]: 127.0.0.1 - - [04/Aug/2026:18:52:10 +0000] "GET /api/v1/registrations/pending HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:22:10 [http]: 127.0.0.1 - - [04/Aug/2026:18:52:10 +0000] "GET /api/v1/families?page=1&limit=200&search=Abdul+naser+ HTTP/1.1" 200 119 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:22:10 [http]: 127.0.0.1 - - [04/Aug/2026:18:52:10 +0000] "GET /api/v1/families?page=1&limit=200&search=Abdul+naser+nb HTTP/1.1" 200 119 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:22:10 [http]: 127.0.0.1 - - [04/Aug/2026:18:52:10 +0000] "GET /api/v1/families?page=1&limit=200&search=Abdul+naser+n HTTP/1.1" 200 119 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:22:13 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:22:14 [http]: 127.0.0.1 - - [04/Aug/2026:18:52:14 +0000] "GET /api/v1/families?page=1&limit=200&search= HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:22:17 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:22:17 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:22:18 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:22:18 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:22:19 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:22:19 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:22:22 [http]: 127.0.0.1 - - [04/Aug/2026:18:52:22 +0000] "GET /api/v1/families?page=1&limit=200&search=AB HTTP/1.1" 200 119 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:22:22 [http]: 127.0.0.1 - - [04/Aug/2026:18:52:22 +0000] "GET /api/v1/families?page=1&limit=200&search=ABD HTTP/1.1" 200 119 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:22:22 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:22:23 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:22:23 [http]: 127.0.0.1 - - [04/Aug/2026:18:52:23 +0000] "GET /api/v1/families?page=1&limit=200&search=ABDU HTTP/1.1" 200 119 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:22:23 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:22:24 [http]: 127.0.0.1 - - [04/Aug/2026:18:52:24 +0000] "GET /api/v1/families?page=1&limit=200&search=ABDUL+ HTTP/1.1" 200 119 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:22:24 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:22:24 [http]: 127.0.0.1 - - [04/Aug/2026:18:52:24 +0000] "GET /api/v1/families?page=1&limit=200&search=ABDUL HTTP/1.1" 200 119 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:22:24 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:22:26 [http]: 127.0.0.1 - - [04/Aug/2026:18:52:26 +0000] "GET /api/v1/families?page=1&limit=200&search=ABDUL+N HTTP/1.1" 200 119 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:22:26 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:22:29 [http]: 127.0.0.1 - - [04/Aug/2026:18:52:29 +0000] "GET /api/v1/families?page=1&limit=200&search=ABDUL+NA HTTP/1.1" 200 119 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:22:29 [http]: 127.0.0.1 - - [04/Aug/2026:18:52:29 +0000] "GET /api/v1/families?page=1&limit=200&search=ABDUL+NAS HTTP/1.1" 200 119 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:22:29 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:22:29 [http]: 127.0.0.1 - - [04/Aug/2026:18:52:29 +0000] "GET /api/v1/families?page=1&limit=200&search=ABDUL+NASE HTTP/1.1" 200 119 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:22:31 [http]: 127.0.0.1 - - [04/Aug/2026:18:52:31 +0000] "GET /api/v1/families?page=1&limit=200&search=ABDUL+NASER HTTP/1.1" 200 119 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:22:32 [http]: 127.0.0.1 - - [04/Aug/2026:18:52:32 +0000] "GET /api/v1/families?page=1&limit=200&search=ABDUL+NASER+ HTTP/1.1" 200 119 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:22:32 [http]: 127.0.0.1 - - [04/Aug/2026:18:52:32 +0000] "GET /api/v1/families?page=1&limit=200&search=ABDUL+NASER+N HTTP/1.1" 200 119 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:22:36 [http]: 127.0.0.1 - - [04/Aug/2026:18:52:36 +0000] "GET /api/v1/families?page=1&limit=200&search=ABDUL+NASER+NB HTTP/1.1" 200 119 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:22:39 [debug]: GET /api/v1/dashboard/kpis - IP: 127.0.0.1
+2026-08-05 00:22:39 [debug]: GET /api/v1/dashboard/charts/income-expense - IP: 127.0.0.1
+2026-08-05 00:22:40 [debug]: GET /api/v1/registrations/pending - IP: 127.0.0.1
+2026-08-05 00:22:41 [http]: 127.0.0.1 - - [04/Aug/2026:18:52:41 +0000] "GET /api/v1/dashboard/charts/income-expense HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:22:42 [http]: 127.0.0.1 - - [04/Aug/2026:18:52:42 +0000] "GET /api/v1/dashboard/kpis HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:22:42 [http]: 127.0.0.1 - - [04/Aug/2026:18:52:42 +0000] "GET /api/v1/registrations/pending HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:22:57 [info]: ✅ MongoDB connected: ac-s82brzh-shard-00-02.abqvshq.mongodb.net
+2026-08-05 00:22:57 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:22:57 [warn]: Redis reconnecting...
+2026-08-05 00:22:57 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:22:58 [warn]: Redis reconnecting...
+2026-08-05 00:22:58 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:22:58 [warn]: Redis reconnecting...
+2026-08-05 00:22:58 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:22:58 [warn]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:22:58 [info]: ✅ Cron jobs initialized
+2026-08-05 00:22:58 [info]: 🚀 Mahallu ERP Backend running on port 5000
+2026-08-05 00:22:58 [info]: 📡 Environment: development
+2026-08-05 00:22:58 [info]: 🌐 API Base: http://0.0.0.0:5000/api/v1
+2026-08-05 00:23:01 [debug]: GET /api/v1/registrations/pending - IP: 127.0.0.1
+2026-08-05 00:23:01 [debug]: GET /api/v1/inbox - IP: 127.0.0.1
+2026-08-05 00:23:01 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:02 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:02 +0000] "GET /api/v1/registrations/pending HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:02 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:02 +0000] "GET /api/v1/families?page=1&limit=20&search= HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:02 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:02 +0000] "GET /api/v1/inbox?status=PENDING HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:05 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:05 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:05 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:05 +0000] "GET /api/v1/families?page=1&limit=20&search=a HTTP/1.1" 200 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:05 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:05 +0000] "GET /api/v1/families?page=1&limit=20&search=ab HTTP/1.1" 200 118 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:06 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:06 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:06 +0000] "GET /api/v1/families?page=1&limit=20&search=abd HTTP/1.1" 200 118 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:06 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:06 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:06 +0000] "GET /api/v1/families?page=1&limit=20&search=abdu HTTP/1.1" 200 118 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:06 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:06 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:06 +0000] "GET /api/v1/families?page=1&limit=20&search=abdul HTTP/1.1" 200 118 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:08 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:08 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:08 +0000] "GET /api/v1/families?page=1&limit=20&search=abdul+ HTTP/1.1" 200 118 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:10 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:10 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:10 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:10 +0000] "GET /api/v1/families?page=1&limit=20&search=abdul+n HTTP/1.1" 200 118 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:10 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:10 +0000] "GET /api/v1/families?page=1&limit=20&search=abdul+na HTTP/1.1" 200 118 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:11 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:11 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:11 +0000] "GET /api/v1/families?page=1&limit=20&search=abdul+nas HTTP/1.1" 200 118 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:11 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:11 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:11 +0000] "GET /api/v1/families?page=1&limit=20&search=abdul+nase HTTP/1.1" 200 118 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:11 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:11 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:11 +0000] "GET /api/v1/families?page=1&limit=20&search=abdul+naser HTTP/1.1" 200 118 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:11 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:11 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:11 +0000] "GET /api/v1/families?page=1&limit=20&search=abdul+naser+ HTTP/1.1" 200 118 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:12 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:12 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:12 +0000] "GET /api/v1/families?page=1&limit=20&search=abdul+naser+n HTTP/1.1" 200 118 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:13 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:13 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:13 +0000] "GET /api/v1/families?page=1&limit=20&search=abdul+naser+nn HTTP/1.1" 200 118 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:14 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:14 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:14 +0000] "GET /api/v1/families?page=1&limit=20&search=Admin%40123456 HTTP/1.1" 200 118 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:16 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:17 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:17 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:17 +0000] "GET /api/v1/families?page=1&limit=20&search=A HTTP/1.1" 200 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:17 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:17 +0000] "GET /api/v1/families?page=1&limit=20&search=AB HTTP/1.1" 200 118 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:17 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:17 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:17 +0000] "GET /api/v1/families?page=1&limit=20&search=ABD HTTP/1.1" 200 118 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:17 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:18 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:18 +0000] "GET /api/v1/families?page=1&limit=20&search=ABDU HTTP/1.1" 200 118 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:18 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:18 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:18 +0000] "GET /api/v1/families?page=1&limit=20&search=ABDUL HTTP/1.1" 200 118 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:18 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:19 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:19 +0000] "GET /api/v1/families?page=1&limit=20&search=ABDUL+ HTTP/1.1" 200 118 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:19 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:19 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:19 +0000] "GET /api/v1/families?page=1&limit=20&search=ABDUL+N HTTP/1.1" 200 118 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:19 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:19 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:19 +0000] "GET /api/v1/families?page=1&limit=20&search=ABDUL+NA HTTP/1.1" 200 118 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:19 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:20 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:20 +0000] "GET /api/v1/families?page=1&limit=20&search=ABDUL+NAS HTTP/1.1" 200 118 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:20 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:20 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:20 +0000] "GET /api/v1/families?page=1&limit=20&search=ABDUL+NASE HTTP/1.1" 200 118 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:20 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:20 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:20 +0000] "GET /api/v1/families?page=1&limit=20&search=ABDUL+NASER HTTP/1.1" 200 118 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:20 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:20 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:20 +0000] "GET /api/v1/families?page=1&limit=20&search=ABDUL+NASER+ HTTP/1.1" 200 118 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:21 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:21 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:21 +0000] "GET /api/v1/families?page=1&limit=20&search=ABDUL+NASER+N HTTP/1.1" 200 118 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:21 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:23:21 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:21 +0000] "GET /api/v1/families?page=1&limit=20&search=ABDUL+NASER+NB HTTP/1.1" 200 118 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:23:32 [debug]: GET /api/v1/registrations/pending - IP: 127.0.0.1
+2026-08-05 00:23:32 [http]: 127.0.0.1 - - [04/Aug/2026:18:53:32 +0000] "GET /api/v1/registrations/pending HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:24:35 [debug]: GET /api/v1/mobile/me/profile - IP: 10.243.250.228
+2026-08-05 00:24:35 [http]: 10.243.250.228 - - [04/Aug/2026:18:54:35 +0000] "GET /api/v1/mobile/me/profile HTTP/1.1" 304 - "-" "okhttp/4.12.0"
+2026-08-05 00:24:37 [debug]: GET /api/v1/mobile/me/notifications - IP: 10.243.250.228
+2026-08-05 00:24:38 [http]: 10.243.250.228 - - [04/Aug/2026:18:54:38 +0000] "GET /api/v1/mobile/me/notifications HTTP/1.1" 200 26 "-" "okhttp/4.12.0"
+2026-08-05 00:24:44 [debug]: GET /api/v1/mobile/me/payments - IP: 10.243.250.228
+2026-08-05 00:24:44 [debug]: GET /api/v1/mobile/me/dues - IP: 10.243.250.228
+2026-08-05 00:24:48 [http]: 10.243.250.228 - - [04/Aug/2026:18:54:48 +0000] "GET /api/v1/mobile/me/payments?page=1 HTTP/1.1" 200 86 "-" "okhttp/4.12.0"
+2026-08-05 00:24:48 [http]: 10.243.250.228 - - [04/Aug/2026:18:54:48 +0000] "GET /api/v1/mobile/me/dues HTTP/1.1" 200 26 "-" "okhttp/4.12.0"
+2026-08-05 00:24:53 [debug]: GET /api/v1/mobile/me/profile - IP: 10.243.250.228
+2026-08-05 00:25:02 [http]: 10.243.250.228 - - [04/Aug/2026:18:55:02 +0000] "GET /api/v1/mobile/me/profile HTTP/1.1" 304 - "-" "okhttp/4.12.0"
+2026-08-05 00:25:31 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:25:31 [http]: 127.0.0.1 - - [04/Aug/2026:18:55:31 +0000] "GET /api/v1/families?page=1&limit=20&search=1 HTTP/1.1" 401 266 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:25:31 [debug]: POST /api/v1/auth/refresh - IP: 127.0.0.1
+2026-08-05 00:25:31 [http]: 127.0.0.1 - - [04/Aug/2026:18:55:31 +0000] "POST /api/v1/auth/refresh HTTP/1.1" 401 441 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:25:39 [debug]: POST /api/v1/auth/login - IP: 127.0.0.1
+2026-08-05 00:25:56 [http]: 127.0.0.1 - - [04/Aug/2026:18:55:56 +0000] "POST /api/v1/auth/login HTTP/1.1" 200 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:25:56 [debug]: GET /api/v1/inbox - IP: 127.0.0.1
+2026-08-05 00:25:56 [debug]: GET /api/v1/dashboard/charts/attendance - IP: 127.0.0.1
+2026-08-05 00:25:56 [debug]: GET /api/v1/registrations/pending - IP: 127.0.0.1
+2026-08-05 00:25:56 [debug]: GET /api/v1/dashboard/kpis - IP: 127.0.0.1
+2026-08-05 00:25:56 [debug]: GET /api/v1/dashboard/charts/income-expense - IP: 127.0.0.1
+2026-08-05 00:25:56 [debug]: GET /api/v1/dashboard/charts/member-growth - IP: 127.0.0.1
+2026-08-05 00:25:56 [http]: 127.0.0.1 - - [04/Aug/2026:18:55:56 +0000] "GET /api/v1/registrations/pending HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:25:56 [http]: 127.0.0.1 - - [04/Aug/2026:18:55:56 +0000] "GET /api/v1/dashboard/charts/attendance HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:25:56 [http]: 127.0.0.1 - - [04/Aug/2026:18:55:56 +0000] "GET /api/v1/dashboard/charts/member-growth HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:25:56 [http]: 127.0.0.1 - - [04/Aug/2026:18:55:56 +0000] "GET /api/v1/dashboard/charts/income-expense HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:25:57 [http]: 127.0.0.1 - - [04/Aug/2026:18:55:57 +0000] "GET /api/v1/dashboard/kpis HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:25:57 [http]: 127.0.0.1 - - [04/Aug/2026:18:55:57 +0000] "GET /api/v1/inbox?status=PENDING HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:26:00 [debug]: GET /api/v1/donations - IP: 127.0.0.1
+2026-08-05 00:26:00 [debug]: GET /api/v1/members - IP: 127.0.0.1
+2026-08-05 00:26:00 [debug]: GET /api/v1/receipts - IP: 127.0.0.1
+2026-08-05 00:26:00 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:26:00 [http]: 127.0.0.1 - - [04/Aug/2026:18:56:00 +0000] "GET /api/v1/donations?page=1&limit=20&campaign= HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:26:00 [http]: 127.0.0.1 - - [04/Aug/2026:18:56:00 +0000] "GET /api/v1/receipts HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:26:00 [http]: 127.0.0.1 - - [04/Aug/2026:18:56:00 +0000] "GET /api/v1/members HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:26:01 [http]: 127.0.0.1 - - [04/Aug/2026:18:56:01 +0000] "GET /api/v1/families?search= HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:26:06 [debug]: GET /api/v1/members/stats - IP: 127.0.0.1
+2026-08-05 00:26:06 [debug]: GET /api/v1/members - IP: 127.0.0.1
+2026-08-05 00:26:08 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:26:11 [info]: SIGTERM received. Shutting down gracefully...
+2026-08-05 00:26:14 [http]: 127.0.0.1 - - [04/Aug/2026:18:56:14 +0000] "GET /api/v1/members/stats HTTP/1.1" 200 104 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:26:37 [info]: ✅ MongoDB connected: ac-s82brzh-shard-00-02.abqvshq.mongodb.net
+2026-08-05 00:26:37 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:26:37 [warn]: Redis reconnecting...
+2026-08-05 00:26:37 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:26:38 [warn]: Redis reconnecting...
+2026-08-05 00:26:38 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:26:38 [warn]: Redis reconnecting...
+2026-08-05 00:26:38 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:26:38 [warn]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:26:38 [info]: ✅ Cron jobs initialized
+2026-08-05 00:26:38 [info]: 🚀 Mahallu ERP Backend running on port 5000
+2026-08-05 00:26:38 [info]: 📡 Environment: development
+2026-08-05 00:26:38 [info]: 🌐 API Base: http://0.0.0.0:5000/api/v1
+2026-08-05 00:26:39 [debug]: GET /api/v1/registrations/pending - IP: 127.0.0.1
+2026-08-05 00:26:39 [debug]: GET /api/v1/inbox - IP: 127.0.0.1
+2026-08-05 00:26:39 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:26:39 [http]: 127.0.0.1 - - [04/Aug/2026:18:56:39 +0000] "GET /api/v1/registrations/pending HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:26:39 [http]: 127.0.0.1 - - [04/Aug/2026:18:56:39 +0000] "GET /api/v1/families?page=1&limit=20&search= HTTP/1.1" 200 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:26:39 [http]: 127.0.0.1 - - [04/Aug/2026:18:56:39 +0000] "GET /api/v1/inbox?status=PENDING HTTP/1.1" 304 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:26:44 [debug]: GET /api/v1/families - IP: 127.0.0.1
+2026-08-05 00:27:05 [http]: 127.0.0.1 - - [04/Aug/2026:18:57:05 +0000] "GET /api/v1/families?page=1&limit=20&search=1 HTTP/1.1" 200 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:27:44 [debug]: POST /api/v1/auth/login - IP: 10.243.250.228
+2026-08-05 00:27:45 [http]: 10.243.250.228 - - [04/Aug/2026:18:57:45 +0000] "POST /api/v1/auth/login HTTP/1.1" 200 923 "-" "okhttp/4.12.0"
+2026-08-05 00:27:45 [debug]: GET /api/v1/mobile/me/profile - IP: 10.243.250.228
+2026-08-05 00:27:45 [debug]: GET /api/v1/mobile/announcements - IP: 10.243.250.228
+2026-08-05 00:27:45 [http]: 10.243.250.228 - - [04/Aug/2026:18:57:45 +0000] "GET /api/v1/mobile/announcements HTTP/1.1" 304 - "-" "okhttp/4.12.0"
+2026-08-05 00:27:46 [http]: 10.243.250.228 - - [04/Aug/2026:18:57:46 +0000] "GET /api/v1/mobile/me/profile HTTP/1.1" 200 - "-" "okhttp/4.12.0"
+2026-08-05 00:27:50 [debug]: GET /api/v1/mobile/me/family - IP: 10.243.250.228
+2026-08-05 00:27:51 [http]: 10.243.250.228 - - [04/Aug/2026:18:57:51 +0000] "GET /api/v1/mobile/me/family HTTP/1.1" 200 - "-" "okhttp/4.12.0"
+2026-08-05 00:28:07 [debug]: GET /api/v1/mobile/me/family - IP: 10.243.250.228
+2026-08-05 00:28:08 [http]: 10.243.250.228 - - [04/Aug/2026:18:58:08 +0000] "GET /api/v1/mobile/me/family HTTP/1.1" 304 - "-" "okhttp/4.12.0"
+2026-08-05 00:28:08 [debug]: GET /api/v1/mobile/me/family - IP: 10.243.250.228
+2026-08-05 00:28:09 [http]: 10.243.250.228 - - [04/Aug/2026:18:58:09 +0000] "GET /api/v1/mobile/me/family HTTP/1.1" 304 - "-" "okhttp/4.12.0"
+2026-08-05 00:28:09 [debug]: GET /api/v1/mobile/me/family - IP: 10.243.250.228
+2026-08-05 00:28:10 [http]: 10.243.250.228 - - [04/Aug/2026:18:58:10 +0000] "GET /api/v1/mobile/me/family HTTP/1.1" 304 - "-" "okhttp/4.12.0"
+2026-08-05 00:29:04 [debug]: GET /api/v1/mobile/me/family - IP: 10.243.250.228
+2026-08-05 00:29:11 [http]: 10.243.250.228 - - [04/Aug/2026:18:59:11 +0000] "GET /api/v1/mobile/me/family HTTP/1.1" 304 - "-" "okhttp/4.12.0"
+2026-08-05 00:29:21 [debug]: GET /api/v1/families/6a6b6543138d5573624d2cf3 - IP: 127.0.0.1
+2026-08-05 00:29:29 [http]: 127.0.0.1 - - [04/Aug/2026:18:59:29 +0000] "GET /api/v1/families/6a6b6543138d5573624d2cf3 HTTP/1.1" 200 - "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+2026-08-05 00:29:58 [info]: SIGTERM received. Shutting down gracefully...
+2026-08-05 00:30:02 [info]: ✅ MongoDB connected: ac-s82brzh-shard-00-01.abqvshq.mongodb.net
+2026-08-05 00:30:02 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:30:02 [warn]: Redis reconnecting...
+2026-08-05 00:30:02 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:30:03 [warn]: Redis reconnecting...
+2026-08-05 00:30:03 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:30:04 [warn]: Redis reconnecting...
+2026-08-05 00:30:04 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:30:04 [warn]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:30:04 [info]: ✅ Cron jobs initialized
+2026-08-05 00:30:04 [info]: 🚀 Mahallu ERP Backend running on port 5000
+2026-08-05 00:30:04 [info]: 📡 Environment: development
+2026-08-05 00:30:04 [info]: 🌐 API Base: http://0.0.0.0:5000/api/v1
+2026-08-05 00:30:39 [debug]: GET /api/v1/mobile/me/family - IP: 10.243.250.228
+2026-08-05 00:30:39 [http]: 10.243.250.228 - - [04/Aug/2026:19:00:39 +0000] "GET /api/v1/mobile/me/family HTTP/1.1" 304 - "-" "okhttp/4.12.0"
+2026-08-05 00:30:46 [debug]: GET /api/v1/mobile/me/family - IP: 10.243.250.228

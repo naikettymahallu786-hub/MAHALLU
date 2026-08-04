@@ -11,7 +11,7 @@ import { Badge, getPaymentStatusVariant } from '../../components/ui/Badge';
 import dayjs from 'dayjs';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import * as Linking from 'expo-linking';
-import { apiClient } from '../../lib/api';
+import { apiClient, baseOrigin } from '../../lib/api';
 import { useLanguageStore } from '../../lib/store/languageStore';
 import { t } from '../../lib/i18n';
 
@@ -76,7 +76,7 @@ export default function PaymentsScreen() {
       const redirectUrl = Linking.createURL('/(member)/payments');
 
       // 3. Build the checkout page URL
-      const backendUrl = 'https://mahallu-4d9t.onrender.com';
+      const backendUrl = baseOrigin;
       const checkoutUrl = `${backendUrl}/api/v1/payments/checkout` +
         `?orderId=${order.id}` +
         `&paymentId=${payment._id}` +

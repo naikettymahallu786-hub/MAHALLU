@@ -4,7 +4,15 @@ import Constants from 'expo-constants';
 
 const hostUri = Constants.expoConfig?.hostUri;
 const ip = hostUri ? hostUri.split(':')[0] : '127.0.0.1';
-const baseURL = process.env.EXPO_PUBLIC_API_URL || 'https://mahallu-4d9t.onrender.com/api/v1';
+
+let rawUrl = process.env.EXPO_PUBLIC_API_URL || `http://${ip}:5000/api/v1`;
+
+if (ip && ip !== '127.0.0.1' && ip !== 'localhost') {
+  rawUrl = rawUrl.replace('localhost', ip).replace('127.0.0.1', ip);
+}
+
+export const baseURL = rawUrl;
+export const baseOrigin = baseURL.replace(/\/api\/v1\/?$/, '');
 
 export const apiClient = axios.create({
   baseURL,
