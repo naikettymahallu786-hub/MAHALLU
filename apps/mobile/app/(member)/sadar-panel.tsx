@@ -314,7 +314,7 @@ export default function SadarPanelScreen() {
                         style={{
                           flexDirection: 'row',
                           alignItems: 'center',
-                          justify: 'space-between',
+                          justifyContent: 'space-between',
                           backgroundColor: isSelected ? '#ecfdf5' : '#f8fafc',
                           borderWidth: 1.5,
                           borderColor: isSelected ? TEAL : '#e2e8f0',
@@ -361,7 +361,7 @@ export default function SadarPanelScreen() {
                             style={{
                               flexDirection: 'row',
                               alignItems: 'center',
-                              justify: 'space-between',
+                              justifyContent: 'space-between',
                               backgroundColor: isSelected ? '#ecfdf5' : '#f8fafc',
                               borderWidth: 1.5,
                               borderColor: isSelected ? TEAL : '#e2e8f0',

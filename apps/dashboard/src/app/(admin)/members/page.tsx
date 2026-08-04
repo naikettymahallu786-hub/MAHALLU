@@ -21,14 +21,15 @@ const STATUS_COLORS = {
 export default function MembersPage() {
   const { t } = useTranslation();
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(20);
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState('');
   const [gender, setGender] = useState('');
 
   const { data, isLoading } = useQuery({
-    queryKey: ['members', page, search, status, gender],
+    queryKey: ['members', page, limit, search, status, gender],
     queryFn: () => apiClient.get('/members', {
-      params: { page, limit: 20, search, status, gender },
+      params: { page, limit, search, status, gender },
     }).then(r => r.data),
   });
 
@@ -229,16 +230,35 @@ export default function MembersPage() {
         )}
 
         {/* Pagination */}
-        {pagination && pagination.totalPages > 1 && (
-          <div className="flex items-center justify-between px-6 py-4 border-t border-border">
-            <p className="text-sm text-muted-foreground">
-              Showing {((page - 1) * 20) + 1}–{Math.min(page * 20, pagination.total)} of {pagination.total} members
-            </p>
+        {pagination && pagination.total > 0 && (
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4 border-t border-border">
+            <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+              <span>
+                Showing {((page - 1) * limit) + 1}–{Math.min(page * limit, pagination.total)} of {pagination.total} members
+              </span>
+              <div className="flex items-center gap-1.5 ml-2">
+                <span className="text-xs font-medium">Show:</span>
+                <select
+                  value={limit}
+                  onChange={(e) => {
+                    setLimit(Number(e.target.value));
+                    setPage(1);
+                  }}
+                  className="px-2.5 py-1 rounded-lg border border-border bg-background text-xs font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer shadow-sm"
+                >
+                  {[10, 20, 50, 80, 100, 200].map((count) => (
+                    <option key={count} value={count}>
+                      {count} per page
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setPage(p => Math.max(1, p - 1))}
-                disabled={!pagination.hasPrev}
-                className="px-3 py-1.5 rounded-lg border border-border text-sm disabled:opacity-40 hover:bg-muted transition-colors"
+                disabled={!(pagination.hasPrev ?? (page > 1))}
+                className="px-3 py-1.5 rounded-lg border border-border text-sm font-medium disabled:opacity-40 hover:bg-muted transition-colors"
               >
                 Previous
               </button>
@@ -259,8 +279,8 @@ export default function MembersPage() {
               })}
               <button
                 onClick={() => setPage(p => p + 1)}
-                disabled={!pagination.hasNext}
-                className="px-3 py-1.5 rounded-lg border border-border text-sm disabled:opacity-40 hover:bg-muted transition-colors"
+                disabled={!(pagination.hasNext ?? (page * limit < pagination.total))}
+                className="px-3 py-1.5 rounded-lg border border-border text-sm font-medium disabled:opacity-40 hover:bg-muted transition-colors"
               >
                 Next
               </button>

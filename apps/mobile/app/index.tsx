@@ -17,7 +17,7 @@ export default function Index() {
     case UserRole.IMAM:
       return <Redirect href={"/(admin)/home" as any} />;
     case UserRole.MADRASA_PRINCIPAL:
-      return <Redirect href={"/(teacher)/home" as any} />;
+      return <Redirect href={"/(member)/ustadh" as any} />;
     case UserRole.USTADH:
     case UserRole.PARENT:
       return <Redirect href={"/(member)/home" as any} />;

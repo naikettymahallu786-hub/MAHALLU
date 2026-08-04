@@ -3,6 +3,8 @@ import speakeasy from 'speakeasy';
 import QRCode from 'qrcode';
 import { User, UserDocument } from '../models/User';
 import { Tenant } from '../models/Tenant';
+import { Member } from '../models/Member';
+import { Family } from '../models/Family';
 import { ROLE_PERMISSIONS } from '@mahallu/shared-config';
 import { UserRole, AuthTokens, JwtPayload } from '@mahallu/shared-types';
 import { AppError } from '../middleware/errorHandler';
@@ -27,28 +29,46 @@ export class AuthService {
     password: string,
     tenantCode?: string,
   ): Promise<{ tokens: AuthTokens; user: Partial<UserDocument> }> {
+    const cleanIdentifier = identifier ? identifier.trim() : '';
+    const isEmail = cleanIdentifier.includes('@');
+    const emailLower = cleanIdentifier.toLowerCase();
+
     // Find tenant
     let tenantId: string | undefined;
     if (tenantCode) {
-      const tenant = await Tenant.findOne({ mahalluCode: tenantCode.toUpperCase(), isActive: true });
+      const cleanTenantCode = tenantCode.trim().toUpperCase();
+      const tenant = await Tenant.findOne({ mahalluCode: cleanTenantCode, isActive: true });
       if (!tenant) throw new AppError('Mahallu not found or inactive', 404);
       tenantId = tenant._id.toString();
     }
 
-    // Find user by email or phone
-    const isEmail = identifier.includes('@');
-    const emailLower = identifier.toLowerCase();
-    const query = {
-      ...(tenantId && { tenantId }),
-      ...(isEmail ? { email: emailLower } : { phone: identifier }),
-      isDeleted: false,
-    };
+    let user: UserDocument | null = null;
 
-    let user = await User.findOne(query).select('+passwordHash +refreshTokens').lean<UserDocument>();
+    if (isEmail) {
+      user = await User.findOne({
+        ...(tenantId && { tenantId }),
+        email: emailLower,
+        isDeleted: false,
+      }).select('+passwordHash +refreshTokens').lean<UserDocument>();
+    } else {
+      const digitsOnly = cleanIdentifier.replace(/\D/g, '');
+      const possiblePhones = Array.from(new Set([
+        cleanIdentifier,
+        digitsOnly,
+        `+91${digitsOnly}`,
+        digitsOnly.startsWith('91') && digitsOnly.length > 10 ? digitsOnly.slice(2) : digitsOnly,
+      ])).filter(Boolean);
+
+      user = await User.findOne({
+        ...(tenantId && { tenantId }),
+        phone: { $in: possiblePhones },
+        isDeleted: false,
+      }).select('+passwordHash +refreshTokens').lean<UserDocument>();
+    }
 
     // Auto-provision demo accounts if missing on database
     if (!user && (emailLower === 'madrasa.admin@mahallu.app' || emailLower === 'sadar@mahallu.app' || emailLower === 'admin@mahallu.app')) {
-      let tenantDoc = await Tenant.findOne({ mahalluCode: tenantCode ? tenantCode.toUpperCase() : 'JMM001' });
+      let tenantDoc = await Tenant.findOne({ mahalluCode: tenantCode ? tenantCode.trim().toUpperCase() : 'JMM001' });
       if (!tenantDoc) {
         tenantDoc = await Tenant.create({
           name: 'Jamia Masjid Mahallu',
@@ -84,6 +104,81 @@ export class AuthService {
       });
 
       user = await User.findOne({ email: emailLower, tenantId: tenantDoc._id }).select('+passwordHash +refreshTokens').lean<UserDocument>();
+    }
+
+    // Fallback search: match Member (by email/phone/memberId) or Family (by familyCode)
+    if (!user && tenantId) {
+      const digitsOnly = cleanIdentifier.replace(/\D/g, '');
+      const possiblePhones = Array.from(new Set([
+        cleanIdentifier,
+        digitsOnly,
+        `+91${digitsOnly}`,
+        digitsOnly.startsWith('91') && digitsOnly.length > 10 ? digitsOnly.slice(2) : digitsOnly,
+      ])).filter(Boolean);
+
+      const member = await Member.findOne({
+        tenantId,
+        $or: [
+          ...(isEmail ? [{ email: emailLower }] : []),
+          { phone: { $in: possiblePhones } },
+          { memberId: cleanIdentifier },
+        ],
+      });
+
+      if (member) {
+        if (member.userId) {
+          user = await User.findOne({ _id: member.userId, isDeleted: false }).select('+passwordHash +refreshTokens').lean<UserDocument>();
+        } else {
+          // Auto-create user account for this imported member
+          const newUser = await User.create({
+            tenantId,
+            name: member.name,
+            email: member.email || `${digitsOnly || Date.now()}@mahallu.local`,
+            phone: member.phone || '+910000000000',
+            passwordHash: password,
+            role: UserRole.PARENT,
+            memberId: member._id,
+            isActive: true,
+          });
+
+          member.userId = newUser._id;
+          await member.save();
+
+          user = await User.findById(newUser._id).select('+passwordHash +refreshTokens').lean<UserDocument>();
+        }
+      }
+
+      if (!user) {
+        const family = await Family.findOne({
+          tenantId,
+          familyCode: new RegExp(`^${cleanIdentifier.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'i'),
+        });
+
+        if (family && family.headMemberId) {
+          const headMember = await Member.findById(family.headMemberId);
+          if (headMember) {
+            if (headMember.userId) {
+              user = await User.findOne({ _id: headMember.userId, isDeleted: false }).select('+passwordHash +refreshTokens').lean<UserDocument>();
+            } else {
+              const newUser = await User.create({
+                tenantId,
+                name: headMember.name,
+                email: headMember.email || `${family.familyCode.toLowerCase()}@mahallu.local`,
+                phone: headMember.phone || '+910000000000',
+                passwordHash: password,
+                role: UserRole.PARENT,
+                memberId: headMember._id,
+                isActive: true,
+              });
+
+              headMember.userId = newUser._id;
+              await headMember.save();
+
+              user = await User.findById(newUser._id).select('+passwordHash +refreshTokens').lean<UserDocument>();
+            }
+          }
+        }
+      }
     }
 
     if (!user) throw new AppError('Invalid credentials', 401);

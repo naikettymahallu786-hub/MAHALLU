@@ -5,6 +5,7 @@ import ExcelJS from 'exceljs';
 import bcrypt from 'bcryptjs';
 import { Family, Member, User, ImportExportLog, Tenant } from '../models';
 import { UserRole, MemberStatus, Gender } from '@mahallu/shared-types';
+import { logger } from '../config/logger';
 
 export class ImportExportController {
   /**
@@ -116,6 +117,7 @@ export class ImportExportController {
    * Bulk Import Families and Members from Excel (.xlsx) / CSV (.csv)
    */
   static async importData(req: AuthRequest, res: Response) {
+    let logId: string | null = null;
     try {
       if (!req.file) {
         return res.status(400).json({ success: false, message: 'No spreadsheet file uploaded' });
@@ -123,6 +125,8 @@ export class ImportExportController {
 
       const tenantId = req.user!.tenantId;
       const isCsv = req.file.originalname.toLowerCase().endsWith('.csv') || req.file.mimetype === 'text/csv';
+
+      logger.info(`[Import] Starting file parse for ${req.file.originalname} (${req.file.size} bytes)`);
 
       const workbook = new ExcelJS.Workbook();
 
@@ -133,6 +137,7 @@ export class ImportExportController {
         try {
           await workbook.xlsx.load(req.file.buffer as any);
         } catch (excelError: any) {
+          logger.error(`[Import] ExcelJS load failed: ${excelError.message}`);
           return res.status(400).json({
             success: false,
             message: 'Invalid file format. Please upload a valid Excel (.xlsx) file. Excel 97-2003 (.xls) format is not supported.',
@@ -142,16 +147,40 @@ export class ImportExportController {
 
       const sheet = workbook.worksheets[0];
       if (!sheet) {
+        logger.warn('[Import] Worksheet not found in workbook');
         return res.status(400).json({ success: false, message: 'File is empty' });
       }
+
+      logger.info(`[Import] Sheet loaded. Total rows: ${sheet.rowCount}, Actual rows: ${sheet.actualRowCount}`);
 
       let totalRecords = 0;
       let successCount = 0;
       let failedCount = 0;
       const errorDetails: Array<{ row: number; message: string }> = [];
 
-      // Maps familyCode -> Family Mongo Document
-      const familyMap = new Map<string, any>();
+      logger.info('[Import] Pre-fetching existing families, members, and users to build in-memory cache...');
+      const [existingFamilies, existingMembers, existingUsers] = await Promise.all([
+        Family.find({ tenantId }),
+        Member.find({ tenantId }),
+        User.find({ tenantId }),
+      ]);
+
+      const familyCache = new Map<string, any>();
+      existingFamilies.forEach(f => {
+        familyCache.set(f.familyCode, f);
+      });
+
+      const memberCache = new Map<string, any>();
+      existingMembers.forEach(m => {
+        memberCache.set(`${m.phone}_${m.name.toLowerCase()}`, m);
+      });
+
+      const userCache = new Map<string, any>();
+      existingUsers.forEach(u => {
+        userCache.set(u.email.toLowerCase(), u);
+      });
+
+      logger.info(`[Import] Cache built: ${familyCache.size} families, ${memberCache.size} members, ${userCache.size} users.`);
 
       // Automatically detect header row
       let startRowIndex = 2;
@@ -162,6 +191,8 @@ export class ImportExportController {
         }
       });
 
+      logger.info(`[Import] startRowIndex set to ${startRowIndex}`);
+
       const rowList: any[] = [];
       sheet.eachRow((row, rowNumber) => {
         if (rowNumber >= startRowIndex) {
@@ -169,6 +200,26 @@ export class ImportExportController {
         }
       });
 
+      logger.info(`[Import] Extracted ${rowList.length} rows to process.`);
+      totalRecords = rowList.length;
+
+      // Create log document as 'PROCESSING' at start
+      const log = await ImportExportLog.create({
+        tenantId,
+        type: 'IMPORT',
+        entity: 'FAMILIES_MEMBERS',
+        fileName: req.file.originalname,
+        status: 'PROCESSING',
+        totalRecords,
+        successCount: 0,
+        failedCount: 0,
+        errorDetails: [],
+        performedBy: req.user?.name || 'Admin',
+      });
+      logId = log._id.toString();
+
+      const familyMap = new Map<string, any>();
+      let processedRows = 0;
       for (const item of rowList) {
         const { row, rowNumber } = item;
 
@@ -193,10 +244,12 @@ export class ImportExportController {
         const occupation = getVal(12);
         const aadhaar = getVal(13);
 
-        // Skip empty rows
-        if (!familyCode && !memberName) continue;
+        if (!familyCode && !memberName) {
+          totalRecords--; // Reduce totalRecords for empty skipped rows
+          continue;
+        }
 
-        totalRecords++;
+        processedRows++;
 
         // Basic Row Validation
         const missingFields: string[] = [];
@@ -208,42 +261,42 @@ export class ImportExportController {
 
         if (missingFields.length > 0) {
           failedCount++;
+          const errStr = `Missing required fields: ${missingFields.join(', ')}`;
           errorDetails.push({
             row: rowNumber,
-            message: `Missing required fields: ${missingFields.join(', ')}`,
+            message: errStr,
           });
           continue;
         }
 
         try {
-          // Find or create Family
-          let family = familyMap.get(familyCode);
+          // Find or create Family (from memory map)
+          let family = familyMap.get(familyCode) || familyCache.get(familyCode);
           if (!family) {
-            family = await Family.findOne({ tenantId, familyCode });
-            if (!family) {
-              family = await Family.create({
-                tenantId,
-                familyCode,
-                address: {
-                  line1: addressLine,
-                  city: 'Mahallu City',
-                  district: 'State',
-                  state: 'Kerala',
-                  pincode: '670001',
-                  country: 'India',
-                },
-                wardNo,
-                members: [],
-                outstandingBalance: 0,
-                recurringDonationType: 'none',
-                recurringDonationAmount: 0,
-              });
-            }
+            family = await Family.create({
+              tenantId,
+              familyCode,
+              address: {
+                line1: addressLine,
+                city: 'Mahallu City',
+                district: 'State',
+                state: 'Kerala',
+                pincode: '670001',
+                country: 'India',
+              },
+              wardNo,
+              members: [],
+              outstandingBalance: 0,
+              recurringDonationType: 'none',
+              recurringDonationAmount: 0,
+            });
+            familyCache.set(familyCode, family);
             familyMap.set(familyCode, family);
           }
 
-          // Check if Member already exists by phone & tenantId
-          let member = await Member.findOne({ tenantId, phone, name: memberName });
+          // Check if Member already exists by phone & tenantId (from memory map)
+          const memberKey = `${phone}_${memberName.toLowerCase()}`;
+          let member = memberCache.get(memberKey);
           const isHead = relationship === 'head' || relationship === 'head of family' || family.members.length === 0;
 
           // Parse DOB safely
@@ -275,6 +328,7 @@ export class ImportExportController {
               relationship: relationship || 'member',
               status: MemberStatus.ACTIVE,
             });
+            memberCache.set(memberKey, member);
           }
 
           // Attach member to Family if not present
@@ -291,34 +345,59 @@ export class ImportExportController {
           }
           await family.save();
 
-          // Create User login account if Family Email & Password are provided
-          if (familyEmail && familyPassword) {
-            let user = await User.findOne({ tenantId, email: familyEmail });
+          // Create or update User login account if Password and Email/Phone are provided
+          const userIdentifier = familyEmail || phone;
+          if (userIdentifier && familyPassword) {
+            let user = userCache.get(userIdentifier);
             if (!user) {
-              user = await User.create({
-                tenantId,
-                email: familyEmail,
-                phone,
-                name: memberName,
-                passwordHash: familyPassword,
-                role: UserRole.PARENT,
-                memberId: member._id,
-                isEmailVerified: true,
-                isPhoneVerified: true,
-                isActive: true,
-              });
+              try {
+                const queryConditions: any[] = [];
+                if (familyEmail) queryConditions.push({ email: familyEmail });
+                if (phone) queryConditions.push({ phone });
 
-              member.userId = user._id;
-              await member.save();
+                let existingUser = null;
+                if (queryConditions.length > 0) {
+                  existingUser = await User.findOne({
+                    tenantId,
+                    $or: queryConditions,
+                  });
+                }
+
+                if (existingUser) {
+                  existingUser.passwordHash = familyPassword;
+                  if (member._id) existingUser.memberId = member._id;
+                  await existingUser.save();
+                  user = existingUser;
+                } else {
+                  user = await User.create({
+                    tenantId,
+                    email: familyEmail || `${phone.replace(/\D/g, '') || Date.now()}@mahallu.local`,
+                    phone: phone || '+910000000000',
+                    name: memberName,
+                    passwordHash: familyPassword,
+                    role: UserRole.PARENT,
+                    memberId: member._id,
+                    isEmailVerified: true,
+                    isPhoneVerified: true,
+                    isActive: true,
+                  });
+                }
+                userCache.set(userIdentifier, user);
+
+                member.userId = user._id;
+                await member.save();
+              } catch (userErr: any) {
+                logger.warn(`[Import] Row ${rowNumber} - User login account creation skipped: ${userErr.message}`);
+              }
             }
           }
 
           successCount++;
         } catch (err: any) {
+          logger.error(`[Import] Row ${rowNumber} - Error: ${err.message}`);
           failedCount++;
           let msg = err.message || 'Error processing row';
           
-          // Friendly formatting for validation and duplicate key errors
           if (err.name === 'ValidationError') {
             const paths = Object.keys(err.errors);
             msg = `Validation failed: ${paths.map(p => {
@@ -329,16 +408,23 @@ export class ImportExportController {
               return e.message;
             }).join(', ')}`;
           } else if (err.code === 11000) {
-            const key = Object.keys(err.keyValue || {})[0] || '';
-            const val = err.keyValue?.[key] || '';
+            const keyValueObj = err.keyValue || {};
+            const keys = Object.keys(keyValueObj).filter(k => k !== 'tenantId');
+            const key = keys[0] || Object.keys(keyValueObj)[0] || '';
+            const val = keyValueObj[key] || '';
+
             if (key === 'phone') {
-              msg = `Duplicate error: The phone number "${val}" is already registered to another user/member.`;
+              msg = `Duplicate phone number: "${val}" is already registered to another member/user.`;
             } else if (key === 'email') {
-              msg = `Duplicate error: The email address "${val}" is already registered to another user/family.`;
+              msg = `Duplicate email address: "${val}" is already registered to another family/user.`;
             } else if (key === 'familyCode') {
-              msg = `Duplicate error: The family code "${val}" is already taken.`;
-            } else {
+              msg = `Duplicate family code: "${val}" already exists in database.`;
+            } else if (key === 'memberId') {
+              msg = `Duplicate member ID: "${val}" already exists in database.`;
+            } else if (key) {
               msg = `Duplicate entry found for ${key}: "${val}"`;
+            } else {
+              msg = `Duplicate entry error: Record already exists in database.`;
             }
           }
           
@@ -347,27 +433,35 @@ export class ImportExportController {
             message: msg,
           });
         }
+
+        // Periodically update database log with status progress (every 50 rows)
+        if (processedRows % 50 === 0 || processedRows === totalRecords) {
+          logger.info(`[Import] Progress: ${processedRows}/${totalRecords} rows processed.`);
+          await ImportExportLog.findByIdAndUpdate(logId, {
+            totalRecords,
+            successCount,
+            failedCount,
+            errorDetails,
+          });
+        }
       }
 
-      // Save Import Log
-      const log = await ImportExportLog.create({
-        tenantId,
-        type: 'IMPORT',
-        entity: 'FAMILIES_MEMBERS',
-        fileName: req.file.originalname,
-        status: failedCount === 0 ? 'COMPLETED' : 'COMPLETED',
+      logger.info(`[Import] Loop completed. Success: ${successCount}, Failed: ${failedCount}`);
+
+      // Finalize log document
+      await ImportExportLog.findByIdAndUpdate(logId, {
+        status: 'COMPLETED',
         totalRecords,
         successCount,
         failedCount,
         errorDetails,
-        performedBy: req.user?.name || 'Admin',
       });
 
       return res.status(200).json({
         success: true,
         message: `Import processed: ${successCount} succeeded, ${failedCount} failed`,
         data: {
-          logId: log._id,
+          logId,
           totalRecords,
           successCount,
           failedCount,
@@ -375,7 +469,17 @@ export class ImportExportController {
         },
       });
     } catch (error: any) {
-      console.error('Error importing families/members:', error);
+      logger.error(`[Import] Request level crash: ${error.message}`);
+      if (logId) {
+        try {
+          await ImportExportLog.findByIdAndUpdate(logId, {
+            status: 'FAILED',
+            errorDetails: [{ row: 0, message: error.message || 'Request level crash' }],
+          });
+        } catch (dbErr) {
+          logger.error(`[Import] Failed to mark log as FAILED: ${dbErr}`);
+        }
+      }
       return res.status(500).json({ success: false, message: error.message || 'Failed to process import' });
     }
   }

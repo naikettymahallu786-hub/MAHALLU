@@ -44,8 +44,8 @@ router.get('/', authorize(PERMISSIONS.FAMILY_VIEW), async (req: AuthRequest, res
   try {
     const { page = 1, limit = 20, search } = req.query;
     const tenantId = req.user!.tenantId;
-    const pageNum = parseInt(page as string);
-    const limitNum = Math.min(parseInt(limit as string), 100);
+    const pageNum = Math.max(1, parseInt(page as string));
+    const limitNum = Math.min(parseInt(limit as string), 500);
     const filter: Record<string, unknown> = { tenantId };
     if (search) filter.$or = [
       { familyCode: { $regex: search, $options: 'i' } },
@@ -68,7 +68,18 @@ router.get('/', authorize(PERMISSIONS.FAMILY_VIEW), async (req: AuthRequest, res
       };
     });
 
-    res.json({ success: true, data: enhancedFamilies, pagination: { page: pageNum, limit: limitNum, total, totalPages: Math.ceil(total / limitNum) } });
+    res.json({
+      success: true,
+      data: enhancedFamilies,
+      pagination: {
+        page: pageNum,
+        limit: limitNum,
+        total,
+        totalPages: Math.ceil(total / limitNum),
+        hasNext: pageNum * limitNum < total,
+        hasPrev: pageNum > 1,
+      },
+    });
   } catch (e) { next(e); }
 });
 

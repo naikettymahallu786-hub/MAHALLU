@@ -49,7 +49,6 @@ export default function RootLayout() {
             <Stack screenOptions={{ headerShown: false }}>
               <Stack.Screen name="(auth)" />
               <Stack.Screen name="(admin)" />
-              <Stack.Screen name="(teacher)" />
               <Stack.Screen name="(member)" />
               <Stack.Screen name="(student)" />
               {/* <Stack.Screen name="+not-found" /> */}

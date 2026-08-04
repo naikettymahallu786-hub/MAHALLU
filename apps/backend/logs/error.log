@@ -3514,3 +3514,566 @@ Use mongoose.model(name, schema)
 2026-07-28 20:21:56 [error]: AggregateError [ECONNREFUSED]: 
     at internalConnectMultiple (node:net:1135:18)
     at afterConnectMultiple (node:net:1716:7)
+2026-07-29 14:29:04 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 14:29:05 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 14:29:05 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 14:29:06 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 14:36:59 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 14:36:59 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 14:37:00 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 14:37:00 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 14:38:34 [error]: ReferenceError: logger is not defined
+    at importData (/Users/sajalurahman/Desktop/Backup/mahallu/apps/backend/src/controllers/importExport.controller.ts:403:7)
+    at Layer.handle [as handle_request] (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/layer.js:95:5)
+    at next (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/route.js:149:13)
+    at done (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/multer/lib/make-middleware.js:47:7)
+    at indicateDone (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/multer/lib/make-middleware.js:51:68)
+    at Multipart.<anonymous> (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/multer/lib/make-middleware.js:168:7)
+    at Multipart.emit (node:events:519:28)
+    at emitCloseNT (node:internal/streams/destroy:148:10)
+    at process.processTicksAndRejections (node:internal/process/task_queues:88:21)
+2026-07-29 14:45:20 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 14:45:20 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 14:45:21 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 14:45:21 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 14:45:39 [error]: [Import] Row 13 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:39 [error]: [Import] Row 15 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:40 [error]: [Import] Row 17 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:40 [error]: [Import] Row 18 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:41 [error]: [Import] Row 20 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:42 [error]: [Import] Row 22 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:43 [error]: [Import] Row 23 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:43 [error]: [Import] Row 24 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:44 [error]: [Import] Row 26 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:45 [error]: [Import] Row 28 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:45 [error]: [Import] Row 29 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:45 [error]: [Import] Row 30 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:46 [error]: [Import] Row 31 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:46 [error]: [Import] Row 32 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:47 [error]: [Import] Row 33 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:47 [error]: [Import] Row 34 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:48 [error]: [Import] Row 35 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:49 [error]: [Import] Row 41 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:50 [error]: [Import] Row 42 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:50 [error]: [Import] Row 43 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:51 [error]: [Import] Row 44 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:52 [error]: [Import] Row 45 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:52 [error]: [Import] Row 46 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:52 [error]: [Import] Row 47 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:53 [error]: [Import] Row 49 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:54 [error]: [Import] Row 50 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:54 [error]: [Import] Row 51 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:54 [error]: [Import] Row 13 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:55 [error]: [Import] Row 53 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:55 [error]: [Import] Row 15 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:55 [error]: [Import] Row 54 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:56 [error]: [Import] Row 55 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:56 [error]: [Import] Row 17 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:56 [error]: [Import] Row 56 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:57 [error]: [Import] Row 18 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:57 [error]: [Import] Row 20 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:58 [error]: [Import] Row 22 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:58 [error]: [Import] Row 23 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:45:59 [error]: [Import] Row 24 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:46:00 [error]: [Import] Row 26 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:46:00 [error]: [Import] Row 28 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:46:01 [error]: [Import] Row 29 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:46:01 [error]: [Import] Row 30 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:46:02 [error]: [Import] Row 31 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:46:02 [error]: [Import] Row 32 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:46:02 [error]: [Import] Row 33 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:46:03 [error]: [Import] Row 34 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:46:03 [error]: [Import] Row 35 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:46:05 [error]: [Import] Row 41 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:46:05 [error]: [Import] Row 42 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:46:06 [error]: [Import] Row 43 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:46:06 [error]: [Import] Row 44 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:46:07 [error]: [Import] Row 45 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:46:07 [error]: [Import] Row 46 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:46:08 [error]: [Import] Row 47 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:46:08 [error]: [Import] Row 49 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:46:09 [error]: [Import] Row 50 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:46:09 [error]: [Import] Row 51 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:46:10 [error]: [Import] Row 53 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:46:10 [error]: [Import] Row 54 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:46:11 [error]: [Import] Row 122 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "9446643774" }
+2026-07-29 14:46:11 [error]: [Import] Row 55 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:46:11 [error]: [Import] Row 56 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:46:22 [error]: [Import] Row 122 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "9446643774" }
+2026-07-29 14:47:13 [error]: [Import] Row 518 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:47:14 [error]: [Import] Row 519 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:47:14 [error]: [Import] Row 520 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:47:15 [error]: [Import] Row 521 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:47:27 [error]: [Import] Row 518 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:47:27 [error]: [Import] Row 519 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:47:27 [error]: [Import] Row 520 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:47:28 [error]: [Import] Row 521 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:48:02 [error]: [Import] Row 816 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "9744812567" }
+2026-07-29 14:48:03 [error]: [Import] Row 817 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "9744812567" }
+2026-07-29 14:48:03 [error]: [Import] Row 818 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "9744812567" }
+2026-07-29 14:48:06 [error]: [Import] Row 833 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "7306764717" }
+2026-07-29 14:48:06 [error]: [Import] Row 834 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "7306764717" }
+2026-07-29 14:48:07 [error]: [Import] Row 835 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "7306764717" }
+2026-07-29 14:48:07 [error]: [Import] Row 836 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "7306764717" }
+2026-07-29 14:48:16 [error]: [Import] Row 816 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "9744812567" }
+2026-07-29 14:48:16 [error]: [Import] Row 817 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "9744812567" }
+2026-07-29 14:48:16 [error]: [Import] Row 818 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "9744812567" }
+2026-07-29 14:48:19 [error]: [Import] Row 833 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "7306764717" }
+2026-07-29 14:48:20 [error]: [Import] Row 834 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "7306764717" }
+2026-07-29 14:48:20 [error]: [Import] Row 835 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "7306764717" }
+2026-07-29 14:48:20 [error]: [Import] Row 836 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "7306764717" }
+2026-07-29 14:49:38 [error]: [Import] Row 1395 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "8111908646" }
+2026-07-29 14:49:39 [error]: [Import] Row 1396 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "8111908646" }
+2026-07-29 14:49:39 [error]: [Import] Row 1397 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "8111908646" }
+2026-07-29 14:49:39 [error]: [Import] Row 1398 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "8111908646" }
+2026-07-29 14:49:40 [error]: [Import] Row 1399 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "8111908646" }
+2026-07-29 14:49:48 [error]: [Import] Row 1448 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "9947121185" }
+2026-07-29 14:49:51 [error]: [Import] Row 1395 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "8111908646" }
+2026-07-29 14:49:52 [error]: [Import] Row 1396 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "8111908646" }
+2026-07-29 14:49:52 [error]: [Import] Row 1397 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "8111908646" }
+2026-07-29 14:49:52 [error]: [Import] Row 1398 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "8111908646" }
+2026-07-29 14:49:53 [error]: [Import] Row 1399 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "8111908646" }
+2026-07-29 14:50:02 [error]: [Import] Row 1448 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "9947121185" }
+2026-07-29 14:50:23 [error]: [Import] Row 1574 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "321" }
+2026-07-29 14:50:24 [error]: [Import] Row 1575 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family321@naiketty.mahallu" }
+2026-07-29 14:50:25 [error]: [Import] Row 1577 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family322@naiketty.mahallu" }
+2026-07-29 14:50:25 [error]: [Import] Row 1580 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "323" }
+2026-07-29 14:50:26 [error]: [Import] Row 1581 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family323@naiketty.mahallu" }
+2026-07-29 14:50:28 [error]: [Import] Row 1587 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family326@naiketty.mahallu" }
+2026-07-29 14:50:29 [error]: [Import] Row 1593 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "327" }
+2026-07-29 14:50:30 [error]: [Import] Row 1594 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family327@naiketty.mahallu" }
+2026-07-29 14:50:30 [error]: [Import] Row 1597 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "328" }
+2026-07-29 14:50:31 [error]: [Import] Row 1598 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family328@naiketty.mahallu" }
+2026-07-29 14:50:32 [error]: [Import] Row 1600 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family329@naiketty.mahallu" }
+2026-07-29 14:50:33 [error]: [Import] Row 1603 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "330" }
+2026-07-29 14:50:33 [error]: [Import] Row 1604 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family330@naiketty.mahallu" }
+2026-07-29 14:50:34 [error]: [Import] Row 1607 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family331@naiketty.mahallu" }
+2026-07-29 14:50:35 [error]: [Import] Row 1608 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "332" }
+2026-07-29 14:50:37 [error]: [Import] Row 1613 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family334@naiketty.mahallu" }
+2026-07-29 14:50:37 [error]: [Import] Row 1617 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "335" }
+2026-07-29 14:50:38 [error]: [Import] Row 1618 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family335@naiketty.mahallu" }
+2026-07-29 14:50:39 [error]: [Import] Row 1623 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "336" }
+2026-07-29 14:50:40 [error]: [Import] Row 1624 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family336@naiketty.mahallu" }
+2026-07-29 14:50:40 [error]: [Import] Row 1625 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family337@naiketty.mahallu" }
+2026-07-29 14:50:42 [error]: [Import] Row 1631 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "338" }
+2026-07-29 14:50:42 [error]: [Import] Row 1632 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family338@naiketty.mahallu" }
+2026-07-29 14:50:43 [error]: [Import] Row 1636 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "339" }
+2026-07-29 14:50:44 [error]: [Import] Row 1637 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family339@naiketty.mahallu" }
+2026-07-29 14:50:44 [error]: [Import] Row 1641 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "340" }
+2026-07-29 14:50:45 [error]: [Import] Row 1642 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family340@naiketty.mahallu" }
+2026-07-29 14:50:46 [error]: [Import] Row 1647 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "341" }
+2026-07-29 14:50:47 [error]: [Import] Row 1648 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family341@naiketty.mahallu" }
+2026-07-29 14:50:47 [error]: [Import] Row 1652 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "342" }
+2026-07-29 14:50:48 [error]: [Import] Row 1653 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family342@naiketty.mahallu" }
+2026-07-29 14:50:49 [error]: [Import] Row 1655 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family343@naiketty.mahallu" }
+2026-07-29 14:50:50 [error]: [Import] Row 1660 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "344" }
+2026-07-29 14:50:51 [error]: [Import] Row 1661 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family344@naiketty.mahallu" }
+2026-07-29 14:50:52 [error]: [Import] Row 1664 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family345@naiketty.mahallu" }
+2026-07-29 14:50:54 [error]: [Import] Row 1673 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "346" }
+2026-07-29 14:50:54 [error]: [Import] Row 1674 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family346@naiketty.mahallu" }
+2026-07-29 14:50:55 [error]: [Import] Row 1679 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "347" }
+2026-07-29 14:50:56 [error]: [Import] Row 1680 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family347@naiketty.mahallu" }
+2026-07-29 14:50:56 [error]: [Import] Row 1684 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "348" }
+2026-07-29 14:50:57 [error]: [Import] Row 1685 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family348@naiketty.mahallu" }
+2026-07-29 14:50:58 [error]: [Import] Row 1689 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "349" }
+2026-07-29 14:50:59 [error]: [Import] Row 1689 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family349@naiketty.mahallu" }
+2026-07-29 14:51:00 [error]: [Import] Row 1692 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family350@naiketty.mahallu" }
+2026-07-29 14:51:01 [error]: [Import] Row 1697 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "351" }
+2026-07-29 14:51:02 [error]: [Import] Row 1698 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family351@naiketty.mahallu" }
+2026-07-29 14:51:03 [error]: [Import] Row 1700 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family352@naiketty.mahallu" }
+2026-07-29 14:51:04 [error]: [Import] Row 1707 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "353" }
+2026-07-29 14:51:05 [error]: [Import] Row 1708 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family353@naiketty.mahallu" }
+2026-07-29 14:51:05 [error]: [Import] Row 1713 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "354" }
+2026-07-29 14:51:06 [error]: [Import] Row 1714 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family354@naiketty.mahallu" }
+2026-07-29 14:51:08 [error]: [Import] Row 1725 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "358" }
+2026-07-29 14:51:09 [error]: [Import] Row 1726 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family358@naiketty.mahallu" }
+2026-07-29 14:51:10 [error]: [Import] Row 1731 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "359" }
+2026-07-29 14:51:11 [error]: [Import] Row 1732 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family359@naiketty.mahallu" }
+2026-07-29 14:51:12 [error]: [Import] Row 1738 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "360" }
+2026-07-29 14:51:12 [error]: [Import] Row 1739 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family360@naiketty.mahallu" }
+2026-07-29 14:51:13 [error]: [Import] Row 1743 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "361" }
+2026-07-29 14:51:14 [error]: [Import] Row 1744 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family361@naiketty.mahallu" }
+2026-07-29 14:51:15 [error]: [Import] Row 1747 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family362@naiketty.mahallu" }
+2026-07-29 14:51:16 [error]: [Import] Row 1753 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "363" }
+2026-07-29 14:51:17 [error]: [Import] Row 1754 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family363@naiketty.mahallu" }
+2026-07-29 14:51:18 [error]: [Import] Row 1759 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "364" }
+2026-07-29 14:51:18 [error]: [Import] Row 1760 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family364@naiketty.mahallu" }
+2026-07-29 14:51:19 [error]: [Import] Row 1761 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family365@naiketty.mahallu" }
+2026-07-29 14:51:21 [error]: [Import] Row 1771 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "366" }
+2026-07-29 14:51:22 [error]: [Import] Row 1772 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family366@naiketty.mahallu" }
+2026-07-29 14:51:23 [error]: [Import] Row 1775 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family367@naiketty.mahallu" }
+2026-07-29 14:51:24 [error]: [Import] Row 1780 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "368" }
+2026-07-29 14:51:24 [error]: [Import] Row 1781 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family368@naiketty.mahallu" }
+2026-07-29 14:51:25 [error]: [Import] Row 1783 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family369@naiketty.mahallu" }
+2026-07-29 14:51:26 [error]: [Import] Row 1787 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "370" }
+2026-07-29 14:51:27 [error]: [Import] Row 1788 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family370@naiketty.mahallu" }
+2026-07-29 14:51:28 [error]: [Import] Row 1794 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "372" }
+2026-07-29 14:51:29 [error]: [Import] Row 1795 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family372@naiketty.mahallu" }
+2026-07-29 14:51:29 [error]: [Import] Row 1796 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family374@naiketty.mahallu" }
+2026-07-29 14:51:30 [error]: [Import] Row 1801 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "375" }
+2026-07-29 14:51:31 [error]: [Import] Row 1802 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family375@naiketty.mahallu" }
+2026-07-29 14:51:32 [error]: [Import] Row 1806 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "376" }
+2026-07-29 14:51:32 [error]: [Import] Row 1807 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family376@naiketty.mahallu" }
+2026-07-29 14:51:33 [error]: [Import] Row 1810 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family377@naiketty.mahallu" }
+2026-07-29 14:51:36 [error]: [Import] Row 1820 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family378@naiketty.mahallu" }
+2026-07-29 14:51:37 [error]: [Import] Row 1825 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "379" }
+2026-07-29 14:51:37 [error]: [Import] Row 1826 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family379@naiketty.mahallu" }
+2026-07-29 14:51:38 [error]: [Import] Row 1829 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "380" }
+2026-07-29 14:51:39 [error]: [Import] Row 1830 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family380@naiketty.mahallu" }
+2026-07-29 14:51:40 [error]: [Import] Row 1835 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family381@naiketty.mahallu" }
+2026-07-29 14:51:40 [error]: [Import] Row 1837 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "382" }
+2026-07-29 14:51:41 [error]: [Import] Row 1838 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family382@naiketty.mahallu" }
+2026-07-29 14:51:42 [error]: [Import] Row 1841 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "383" }
+2026-07-29 14:51:42 [error]: [Import] Row 1842 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family383@naiketty.mahallu" }
+2026-07-29 14:51:43 [error]: [Import] Row 1845 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family384@naiketty.mahallu" }
+2026-07-29 14:51:44 [error]: [Import] Row 1850 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "385" }
+2026-07-29 14:51:45 [error]: [Import] Row 1851 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family385@naiketty.mahallu" }
+2026-07-29 14:51:46 [error]: [Import] Row 1856 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "386" }
+2026-07-29 14:51:47 [error]: [Import] Row 1857 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family386@naiketty.mahallu" }
+2026-07-29 14:51:48 [error]: [Import] Row 1859 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family387@naiketty.mahallu" }
+2026-07-29 14:51:49 [error]: [Import] Row 1868 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "388" }
+2026-07-29 14:51:50 [error]: [Import] Row 1869 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family388@naiketty.mahallu" }
+2026-07-29 14:51:51 [error]: [Import] Row 1873 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "389" }
+2026-07-29 14:51:51 [error]: [Import] Row 1874 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family389@naiketty.mahallu" }
+2026-07-29 14:51:53 [error]: [Import] Row 1883 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "390" }
+2026-07-29 14:51:54 [error]: [Import] Row 1884 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family390@naiketty.mahallu" }
+2026-07-29 14:51:54 [error]: [Import] Row 1889 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "391" }
+2026-07-29 14:51:55 [error]: [Import] Row 1890 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family391@naiketty.mahallu" }
+2026-07-29 14:51:56 [error]: [Import] Row 1893 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family392@naiketty.mahallu" }
+2026-07-29 14:51:57 [error]: [Import] Row 1899 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "393" }
+2026-07-29 14:51:58 [error]: [Import] Row 1900 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family393@naiketty.mahallu" }
+2026-07-29 14:51:59 [error]: [Import] Row 1904 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "394" }
+2026-07-29 14:51:59 [error]: [Import] Row 1905 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family394@naiketty.mahallu" }
+2026-07-29 14:52:01 [error]: [Import] Row 1911 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "396" }
+2026-07-29 14:52:02 [error]: [Import] Row 1918 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "398" }
+2026-07-29 14:52:03 [error]: [Import] Row 1919 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family398@naiketty.mahallu" }
+2026-07-29 14:52:04 [error]: [Import] Row 1920 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family399@naiketty.mahallu" }
+2026-07-29 14:52:05 [error]: [Import] Row 1926 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "401" }
+2026-07-29 14:52:06 [error]: [Import] Row 1927 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family401@naiketty.mahallu" }
+2026-07-29 14:52:07 [error]: [Import] Row 1929 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family402@naiketty.mahallu" }
+2026-07-29 14:52:08 [error]: [Import] Row 1937 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "405" }
+2026-07-29 14:52:09 [error]: [Import] Row 1938 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family405@naiketty.mahallu" }
+2026-07-29 14:52:09 [error]: [Import] Row 1942 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "406" }
+2026-07-29 14:52:10 [error]: [Import] Row 1943 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family406@naiketty.mahallu" }
+2026-07-29 14:52:11 [error]: [Import] Row 1947 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "408" }
+2026-07-29 14:52:11 [error]: [Import] Row 1948 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family408@naiketty.mahallu" }
+2026-07-29 14:52:12 [error]: [Import] Row 1953 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "409" }
+2026-07-29 14:52:13 [error]: [Import] Row 1953 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:52:13 [error]: [Import] Row 1954 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:52:14 [error]: [Import] Row 1954 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 14:52:15 [error]: [Import] Row 1961 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "412" }
+2026-07-29 14:52:16 [error]: [Import] Row 1962 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family412@naiketty.mahallu" }
+2026-07-29 14:52:17 [error]: [Import] Row 1965 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family413@naiketty.mahallu" }
+2026-07-29 14:52:18 [error]: [Import] Row 1972 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "414" }
+2026-07-29 14:52:19 [error]: [Import] Row 1973 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family414@naiketty.mahallu" }
+2026-07-29 14:52:20 [error]: [Import] Row 1975 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family415@naiketty.mahallu" }
+2026-07-29 14:52:22 [error]: [Import] Row 1986 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "417" }
+2026-07-29 14:52:22 [error]: [Import] Row 1987 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family417@naiketty.mahallu" }
+2026-07-29 14:52:23 [error]: [Import] Row 1988 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family418@naiketty.mahallu" }
+2026-07-29 14:52:24 [error]: [Import] Row 1993 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "419" }
+2026-07-29 14:52:25 [error]: [Import] Row 1994 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family419@naiketty.mahallu" }
+2026-07-29 14:52:26 [error]: [Import] Row 1997 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family420@naiketty.mahallu" }
+2026-07-29 14:52:27 [error]: [Import] Row 2002 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "421" }
+2026-07-29 14:52:28 [error]: [Import] Row 2003 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family421@naiketty.mahallu" }
+2026-07-29 14:52:29 [error]: [Import] Row 2005 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family422@naiketty.mahallu" }
+2026-07-29 14:52:29 [error]: [Import] Row 2010 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "423" }
+2026-07-29 14:52:30 [error]: [Import] Row 2011 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family423@naiketty.mahallu" }
+2026-07-29 14:52:31 [error]: [Import] Row 2015 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "424" }
+2026-07-29 14:52:31 [error]: [Import] Row 2016 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family424@naiketty.mahallu" }
+2026-07-29 14:52:33 [error]: [Import] Row 2021 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family425@naiketty.mahallu" }
+2026-07-29 14:52:33 [error]: [Import] Row 2024 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "427" }
+2026-07-29 14:52:34 [error]: [Import] Row 2025 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family427@naiketty.mahallu" }
+2026-07-29 14:52:35 [error]: [Import] Row 2030 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "428" }
+2026-07-29 14:52:36 [error]: [Import] Row 2031 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family428@naiketty.mahallu" }
+2026-07-29 14:52:36 [error]: [Import] Row 2035 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "429" }
+2026-07-29 14:52:37 [error]: [Import] Row 2036 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family429@naiketty.mahallu" }
+2026-07-29 14:52:38 [error]: [Import] Row 2039 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "430" }
+2026-07-29 14:52:38 [error]: [Import] Row 2040 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family430@naiketty.mahallu" }
+2026-07-29 14:52:39 [error]: [Import] Row 2044 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "431" }
+2026-07-29 14:52:40 [error]: [Import] Row 2045 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family431@naiketty.mahallu" }
+2026-07-29 14:52:40 [error]: [Import] Row 2049 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "432" }
+2026-07-29 14:52:41 [error]: [Import] Row 2050 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family432@naiketty.mahallu" }
+2026-07-29 14:52:42 [error]: [Import] Row 2051 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family433@naiketty.mahallu" }
+2026-07-29 14:52:42 [error]: [Import] Row 2055 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "434" }
+2026-07-29 14:52:43 [error]: [Import] Row 2056 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family434@naiketty.mahallu" }
+2026-07-29 14:52:44 [error]: [Import] Row 2060 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "435" }
+2026-07-29 14:52:45 [error]: [Import] Row 2061 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family435@naiketty.mahallu" }
+2026-07-29 14:52:46 [error]: [Import] Row 2066 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "436" }
+2026-07-29 14:52:46 [error]: [Import] Row 2067 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family436@naiketty.mahallu" }
+2026-07-29 14:52:48 [error]: [Import] Row 2075 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "438" }
+2026-07-29 14:52:49 [error]: [Import] Row 2076 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family438@naiketty.mahallu" }
+2026-07-29 14:52:49 [error]: [Import] Row 2080 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "440" }
+2026-07-29 14:52:50 [error]: [Import] Row 2081 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family440@naiketty.mahallu" }
+2026-07-29 14:52:51 [error]: [Import] Row 2085 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "441" }
+2026-07-29 14:52:51 [error]: [Import] Row 2086 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family441@naiketty.mahallu" }
+2026-07-29 14:52:53 [error]: [Import] Row 2089 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family442@naiketty.mahallu" }
+2026-07-29 14:52:54 [error]: [Import] Row 2095 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "443" }
+2026-07-29 14:52:54 [error]: [Import] Row 2096 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family443@naiketty.mahallu" }
+2026-07-29 14:52:55 [error]: [Import] Row 2097 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "9895530718" }
+2026-07-29 14:52:55 [error]: [Import] Row 2097 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "9895530718" }
+2026-07-29 14:52:56 [error]: [Import] Row 2098 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family444@naiketty.mahallu" }
+2026-07-29 14:52:56 [error]: [Import] Row 2102 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "445" }
+2026-07-29 14:52:57 [error]: [Import] Row 2103 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family445@naiketty.mahallu" }
+2026-07-29 14:52:58 [error]: [Import] Row 2109 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "446" }
+2026-07-29 14:52:59 [error]: [Import] Row 2110 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family446@naiketty.mahallu" }
+2026-07-29 14:52:59 [error]: [Import] Row 2113 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "447" }
+2026-07-29 14:53:00 [error]: [Import] Row 2114 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family447@naiketty.mahallu" }
+2026-07-29 14:53:00 [error]: [Import] Row 2116 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "448" }
+2026-07-29 14:53:01 [error]: [Import] Row 2117 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family448@naiketty.mahallu" }
+2026-07-29 14:53:02 [error]: [Import] Row 2122 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "449" }
+2026-07-29 14:53:03 [error]: [Import] Row 2123 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family449@naiketty.mahallu" }
+2026-07-29 14:53:03 [error]: [Import] Row 2126 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "450" }
+2026-07-29 14:53:04 [error]: [Import] Row 2127 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family450@naiketty.mahallu" }
+2026-07-29 14:53:05 [error]: [Import] Row 2132 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family451@naiketty.mahallu" }
+2026-07-29 14:53:07 [error]: [Import] Row 2139 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "452" }
+2026-07-29 14:53:07 [error]: [Import] Row 2140 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family452@naiketty.mahallu" }
+2026-07-29 14:53:08 [error]: [Import] Row 2145 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "500" }
+2026-07-29 14:53:09 [error]: [Import] Row 2145 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "9947401746" }
+2026-07-29 14:53:09 [error]: [Import] Row 2146 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "9947401746" }
+2026-07-29 14:53:09 [error]: [Import] Row 2146 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "9947401746" }
+2026-07-29 14:53:11 [error]: [Import] Row 2153 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family454@naiketty.mahallu" }
+2026-07-29 14:53:12 [error]: [Import] Row 2159 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "455" }
+2026-07-29 14:53:13 [error]: [Import] Row 2160 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family455@naiketty.mahallu" }
+2026-07-29 14:53:14 [error]: [Import] Row 2163 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "456" }
+2026-07-29 14:53:14 [error]: [Import] Row 2164 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family456@naiketty.mahallu" }
+2026-07-29 14:53:15 [error]: [Import] Row 2170 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "457" }
+2026-07-29 14:53:16 [error]: [Import] Row 2171 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family457@naiketty.mahallu" }
+2026-07-29 14:53:17 [error]: [Import] Row 2174 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family458@naiketty.mahallu" }
+2026-07-29 14:53:18 [error]: [Import] Row 2179 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "459" }
+2026-07-29 14:53:19 [error]: [Import] Row 2180 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family459@naiketty.mahallu" }
+2026-07-29 14:53:20 [error]: [Import] Row 2181 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family460@naiketty.mahallu" }
+2026-07-29 14:53:21 [error]: [Import] Row 2187 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "461" }
+2026-07-29 14:53:21 [error]: [Import] Row 2188 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family461@naiketty.mahallu" }
+2026-07-29 14:53:22 [error]: [Import] Row 2190 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family462@naiketty.mahallu" }
+2026-07-29 14:53:23 [error]: [Import] Row 2194 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "463" }
+2026-07-29 14:53:24 [error]: [Import] Row 2195 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family463@naiketty.mahallu" }
+2026-07-29 14:53:25 [error]: [Import] Row 2198 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family500@naiketty.mahallu" }
+2026-07-29 14:53:25 [error]: [Import] Row 2199 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "56" }
+2026-07-29 14:53:26 [error]: [Import] Row 2200 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family56@naiketty.mahallu" }
+2026-07-29 14:53:26 [error]: [Import] Row 2204 - Error: E11000 duplicate key error collection: mahallu-erp.families index: tenantId_1_familyCode_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), familyCode: "76" }
+2026-07-29 14:53:27 [error]: [Import] Row 2205 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_email_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), email: "family76@naiketty.mahallu" }
+2026-07-29 14:54:13 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 14:54:13 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 14:54:14 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 14:54:14 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 15:49:29 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 15:49:29 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 15:49:30 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 15:49:30 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 19:32:18 [error]: [Import] Row 13 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:18 [error]: [Import] Row 15 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:18 [error]: [Import] Row 17 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:19 [error]: [Import] Row 18 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:19 [error]: [Import] Row 20 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:19 [error]: [Import] Row 22 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:20 [error]: [Import] Row 23 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:20 [error]: [Import] Row 24 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:20 [error]: [Import] Row 26 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:21 [error]: [Import] Row 28 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:21 [error]: [Import] Row 29 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:21 [error]: [Import] Row 30 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:22 [error]: [Import] Row 31 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:22 [error]: [Import] Row 32 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:22 [error]: [Import] Row 33 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:23 [error]: [Import] Row 34 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:23 [error]: [Import] Row 35 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:24 [error]: [Import] Row 41 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:24 [error]: [Import] Row 42 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:24 [error]: [Import] Row 43 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:24 [error]: [Import] Row 44 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:25 [error]: [Import] Row 45 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:25 [error]: [Import] Row 46 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:25 [error]: [Import] Row 47 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:26 [error]: [Import] Row 49 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:26 [error]: [Import] Row 50 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:26 [error]: [Import] Row 51 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:27 [error]: [Import] Row 53 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:27 [error]: [Import] Row 54 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:28 [error]: [Import] Row 55 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:28 [error]: [Import] Row 56 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:32 [error]: [Import] Row 122 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "9446643774" }
+2026-07-29 19:32:53 [error]: [Import] Row 518 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:53 [error]: [Import] Row 519 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:54 [error]: [Import] Row 520 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:32:54 [error]: [Import] Row 521 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:33:10 [error]: [Import] Row 816 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "9744812567" }
+2026-07-29 19:33:10 [error]: [Import] Row 817 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "9744812567" }
+2026-07-29 19:33:11 [error]: [Import] Row 818 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "9744812567" }
+2026-07-29 19:33:12 [error]: [Import] Row 833 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "7306764717" }
+2026-07-29 19:33:12 [error]: [Import] Row 834 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "7306764717" }
+2026-07-29 19:33:12 [error]: [Import] Row 835 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "7306764717" }
+2026-07-29 19:33:13 [error]: [Import] Row 836 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "7306764717" }
+2026-07-29 19:33:41 [error]: [Import] Row 1395 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "8111908646" }
+2026-07-29 19:33:42 [error]: [Import] Row 1396 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "8111908646" }
+2026-07-29 19:33:42 [error]: [Import] Row 1397 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "8111908646" }
+2026-07-29 19:33:42 [error]: [Import] Row 1398 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "8111908646" }
+2026-07-29 19:33:43 [error]: [Import] Row 1399 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "8111908646" }
+2026-07-29 19:33:45 [error]: [Import] Row 1448 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "9947121185" }
+2026-07-29 19:34:12 [error]: [Import] Row 1953 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:34:12 [error]: [Import] Row 1954 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a68dd65d0abe60b3f1beb01'), phone: "1111111111" }
+2026-07-29 19:35:08 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 19:35:08 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 19:35:09 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 19:35:09 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 19:37:17 [error]: [Import] Row 13 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:18 [error]: [Import] Row 15 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:19 [error]: [Import] Row 17 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:20 [error]: [Import] Row 18 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:20 [error]: [Import] Row 20 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:21 [error]: [Import] Row 22 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:22 [error]: [Import] Row 23 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:22 [error]: [Import] Row 24 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:23 [error]: [Import] Row 26 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:24 [error]: [Import] Row 28 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:25 [error]: [Import] Row 29 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:25 [error]: [Import] Row 30 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:26 [error]: [Import] Row 31 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:26 [error]: [Import] Row 32 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:26 [error]: [Import] Row 33 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:27 [error]: [Import] Row 34 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:27 [error]: [Import] Row 35 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:29 [error]: [Import] Row 41 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:30 [error]: [Import] Row 42 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:30 [error]: [Import] Row 43 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:31 [error]: [Import] Row 44 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:31 [error]: [Import] Row 45 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:32 [error]: [Import] Row 46 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:32 [error]: [Import] Row 47 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:33 [error]: [Import] Row 49 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:34 [error]: [Import] Row 50 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:34 [error]: [Import] Row 51 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:35 [error]: [Import] Row 53 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:36 [error]: [Import] Row 54 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:36 [error]: [Import] Row 55 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:37 [error]: [Import] Row 56 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:37:51 [error]: [Import] Row 122 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "9446643774" }
+2026-07-29 19:39:02 [error]: [Import] Row 518 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:39:02 [error]: [Import] Row 519 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:39:02 [error]: [Import] Row 520 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:39:03 [error]: [Import] Row 521 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:39:58 [error]: [Import] Row 816 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "9744812567" }
+2026-07-29 19:39:58 [error]: [Import] Row 817 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "9744812567" }
+2026-07-29 19:39:58 [error]: [Import] Row 818 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "9744812567" }
+2026-07-29 19:40:02 [error]: [Import] Row 833 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "7306764717" }
+2026-07-29 19:40:02 [error]: [Import] Row 834 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "7306764717" }
+2026-07-29 19:40:02 [error]: [Import] Row 835 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "7306764717" }
+2026-07-29 19:40:03 [error]: [Import] Row 836 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "7306764717" }
+2026-07-29 19:41:51 [error]: [Import] Row 1395 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "8111908646" }
+2026-07-29 19:41:52 [error]: [Import] Row 1396 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "8111908646" }
+2026-07-29 19:41:52 [error]: [Import] Row 1397 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "8111908646" }
+2026-07-29 19:41:53 [error]: [Import] Row 1398 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "8111908646" }
+2026-07-29 19:41:53 [error]: [Import] Row 1399 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "8111908646" }
+2026-07-29 19:42:06 [error]: [Import] Row 1448 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "9947121185" }
+2026-07-29 19:43:44 [error]: [Import] Row 1953 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:43:45 [error]: [Import] Row 1954 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "1111111111" }
+2026-07-29 19:44:19 [error]: [Import] Row 2097 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "9895530718" }
+2026-07-29 19:44:32 [error]: [Import] Row 2145 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "9947401746" }
+2026-07-29 19:44:33 [error]: [Import] Row 2146 - Error: E11000 duplicate key error collection: mahallu-erp.users index: tenantId_1_phone_1 dup key: { tenantId: ObjectId('6a6a08ed4b57de530cfcfc65'), phone: "9947401746" }
+2026-07-29 19:48:55 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 19:48:56 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 19:48:56 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 19:48:57 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 19:49:05 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 19:49:06 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 19:49:06 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-29 19:49:07 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-30 20:45:47 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-30 20:45:47 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-30 20:45:48 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-07-30 20:45:48 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-03 19:08:07 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-03 19:08:08 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-03 19:08:08 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-03 19:08:09 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:14:55 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:14:55 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:14:56 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-05 00:14:56 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)

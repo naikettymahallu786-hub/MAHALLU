@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiClient } from '@/lib/api';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -37,6 +37,64 @@ export default function ImportExportPage() {
 
   const [selectedErrorLog, setSelectedErrorLog] = useState<ImportLog | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  
+  const [importProgress, setImportProgress] = useState<{ total: number; success: number; failed: number; status: string } | null>(null);
+
+  // Upload & Import Mutation
+  const importMutation = useMutation({
+    mutationFn: async (file: File) => {
+      const formData = new FormData();
+      formData.append('file', file);
+      const res = await apiClient.post('/members/import-export/import', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+        timeout: 600000, // 10 minutes for large batch processing
+      });
+      return res.data;
+    },
+    onSuccess: (data) => {
+      setImportResult(data.data);
+      setSelectedFile(null);
+      refetch();
+      queryClient.invalidateQueries({ queryKey: ['members'] });
+      queryClient.invalidateQueries({ queryKey: ['families'] });
+    },
+    onError: (err: any) => {
+      const errorMsg = err?.response?.data?.message || err?.message || 'Import failed. Please check file formatting.';
+      alert(`Import Failed:\n\n${errorMsg}`);
+    },
+  });
+
+  // Poll progress when import is running
+  useEffect(() => {
+    let intervalId: any;
+    if (importMutation.isPending) {
+      const fetchProgress = async () => {
+        try {
+          const res = await apiClient.get('/members/import-export/history');
+          const logs: ImportLog[] = res.data.data;
+          const activeLog = logs.find(log => log.status === 'PROCESSING' && log.type === 'IMPORT');
+          if (activeLog) {
+            setImportProgress({
+              total: activeLog.totalRecords || 0,
+              success: activeLog.successCount || 0,
+              failed: activeLog.failedCount || 0,
+              status: activeLog.status,
+            });
+          }
+        } catch (err) {
+          console.error('Failed to poll import progress:', err);
+        }
+      };
+
+      fetchProgress();
+      intervalId = setInterval(fetchProgress, 1500);
+    } else {
+      setImportProgress(null);
+    }
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+    };
+  }, [importMutation.isPending]);
 
   // Fetch History Logs
   const { data: historyLogs = [], isLoading, refetch } = useQuery<ImportLog[]>({
@@ -92,27 +150,7 @@ export default function ImportExportPage() {
     }
   };
 
-  // Upload & Import Mutation
-  const importMutation = useMutation({
-    mutationFn: async (file: File) => {
-      const formData = new FormData();
-      formData.append('file', file);
-      const res = await apiClient.post('/members/import-export/import', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-      return res.data;
-    },
-    onSuccess: (data) => {
-      setImportResult(data.data);
-      setSelectedFile(null);
-      refetch();
-      queryClient.invalidateQueries({ queryKey: ['members'] });
-      queryClient.invalidateQueries({ queryKey: ['families'] });
-    },
-    onError: (err: any) => {
-      alert(err?.response?.data?.message || 'Import failed. Please check file formatting.');
-    },
-  });
+
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -248,6 +286,72 @@ export default function ImportExportPage() {
           </button>
         </div>
       </div>
+
+      {/* Import Progression Status Panel */}
+      {importMutation.isPending && (
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-card border border-emerald-500/30 p-6 rounded-2xl space-y-4 shadow-xl relative overflow-hidden backdrop-blur-xl bg-gradient-to-br from-card to-emerald-950/10"
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                <RefreshCw className="w-6 h-6 animate-spin" />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-foreground">Importing Family & Member Data...</h3>
+                <p className="text-xs text-muted-foreground">
+                  {!importProgress || importProgress.total === 0 
+                    ? 'Uploading file and starting database cache initialization...'
+                    : `Database cache ready. Processing rows in batches...`}
+                </p>
+              </div>
+            </div>
+            <div className="text-right">
+              <span className="text-sm font-semibold text-emerald-400 animate-pulse">
+                {importProgress && importProgress.total > 0
+                  ? `${Math.round(((importProgress.success + importProgress.failed) / importProgress.total) * 100)}%`
+                  : 'Starting...'}
+              </span>
+            </div>
+          </div>
+
+          {/* Progress Bar */}
+          <div className="w-full bg-muted border border-border h-4 rounded-full overflow-hidden p-0.5">
+            <motion.div
+              className="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full"
+              initial={{ width: '2%' }}
+              animate={{ 
+                width: importProgress && importProgress.total > 0
+                  ? `${Math.max(2, Math.round(((importProgress.success + importProgress.failed) / importProgress.total) * 100))}%`
+                  : '4%'
+              }}
+              transition={{ duration: 0.5, ease: 'easeOut' }}
+            />
+          </div>
+
+          {/* Progress stats */}
+          {importProgress && importProgress.total > 0 && (
+            <div className="grid grid-cols-3 gap-4 text-center text-xs">
+              <div className="py-2.5 rounded-lg bg-muted/40 border border-border/60">
+                <p className="text-base font-bold text-foreground">
+                  {importProgress.success + importProgress.failed} / {importProgress.total}
+                </p>
+                <p className="text-[10px] text-muted-foreground mt-0.5">Processed Rows</p>
+              </div>
+              <div className="py-2.5 rounded-lg bg-emerald-500/5 border border-emerald-500/10">
+                <p className="text-base font-bold text-emerald-400">{importProgress.success}</p>
+                <p className="text-[10px] text-emerald-400/80 mt-0.5">Succeeded</p>
+              </div>
+              <div className="py-2.5 rounded-lg bg-rose-500/5 border border-rose-500/10">
+                <p className="text-base font-bold text-rose-400">{importProgress.failed}</p>
+                <p className="text-[10px] text-rose-400/80 mt-0.5">Failed / Skipped</p>
+              </div>
+            </div>
+          )}
+        </motion.div>
+      )}
 
       {/* Import Result Notification Dialog */}
       {importResult && (

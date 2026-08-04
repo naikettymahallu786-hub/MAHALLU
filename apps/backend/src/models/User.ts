@@ -49,7 +49,7 @@ const UserSchema = new Schema<UserDocument>(
 
 // Compound indexes for tenant isolation
 UserSchema.index({ tenantId: 1, email: 1 }, { unique: true, sparse: true });
-UserSchema.index({ tenantId: 1, phone: 1 }, { unique: true });
+UserSchema.index({ tenantId: 1, phone: 1 });
 UserSchema.index({ tenantId: 1, role: 1 });
 
 // Hash password before saving

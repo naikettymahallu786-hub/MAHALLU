@@ -6,6 +6,9 @@ import { Ionicons } from '@expo/vector-icons';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import api from '../../lib/api';
 
+const TEAL_DARK = '#0B4A42';
+const TEAL = '#0F6B5C';
+
 export default function RegisterFormScreen() {
   const router = useRouter();
   const { role } = useLocalSearchParams();

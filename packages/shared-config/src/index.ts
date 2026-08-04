@@ -258,7 +258,7 @@ export const CALCULATION_METHODS = {
 export const DEFAULT_PAGINATION = {
   page: 1,
   limit: 20,
-  maxLimit: 100,
+  maxLimit: 500,
 };
 
 export const SUPPORTED_LANGUAGES = ['en', 'ml', 'ar'] as const;
