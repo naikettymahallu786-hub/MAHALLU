@@ -35,6 +35,7 @@ export default function RecurringDonationsPage() {
   const [scheduleAmount, setScheduleAmount] = useState('');
   const [scheduleDay, setScheduleDay] = useState(1);
   const [scheduleMonth, setScheduleMonth] = useState(1);
+  const [markPending, setMarkPending] = useState(false);
 
   const { data: familiesData, isLoading } = useQuery({
     queryKey: ['families', search],
@@ -118,9 +119,9 @@ export default function RecurringDonationsPage() {
 
   const totalPending = families
     .filter((f: any) => f.recurringDonationType && f.recurringDonationType !== 'none')
-    .reduce((sum: number, f: any) => sum + (Math.max(0, f.outstandingBalance || 0)), 0);
+    .reduce((sum: number, f: any) => sum + (f.outstandingBalance || 0), 0);
 
-  const triggerAlert = (familyId: string, familyName: string, amount: number) => {
+  const triggerAlert = (familyId: string, headName: string, amount: number) => {
     remindMutation.mutate(familyId);
   };
 
@@ -130,6 +131,7 @@ export default function RecurringDonationsPage() {
     setScheduleAmount(String(family.recurringDonationAmount || 0));
     setScheduleDay(family.recurringPaymentDay || 1);
     setScheduleMonth(family.recurringPaymentMonth || 1);
+    setMarkPending((family.outstandingBalance || 0) > 0);
     setIsScheduleModalOpen(true);
   };
 
@@ -442,6 +444,25 @@ export default function RecurringDonationsPage() {
                         </select>
                       </div>
                     )}
+                    {/* Mark Pending Dues Option */}
+                    <div className="pt-2">
+                      <label className="flex items-start gap-3 cursor-pointer p-3.5 border rounded-xl bg-amber-50/50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-900">
+                        <input
+                          type="checkbox"
+                          checked={markPending}
+                          onChange={(e) => setMarkPending(e.target.checked)}
+                          className="mt-0.5 w-4 h-4 text-amber-600 rounded focus:ring-amber-500 accent-amber-600"
+                        />
+                        <div>
+                          <div className="text-sm font-bold text-foreground">
+                            Mark Dues as Pending (Current Cycle)
+                          </div>
+                          <div className="text-xs text-muted-foreground mt-0.5">
+                            Check this to make this family's recurring donation status Pending / Overdue immediately for this cycle.
+                          </div>
+                        </div>
+                      </label>
+                    </div>
                   </>
                 )}
               </div>
@@ -456,6 +477,7 @@ export default function RecurringDonationsPage() {
                     recurringDonationAmount: Number(scheduleAmount || 0),
                     recurringPaymentDay: scheduleDay,
                     recurringPaymentMonth: scheduleMonth,
+                    markPending,
                   })}
                   disabled={updateScheduleMutation.isPending}
                   className="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm flex justify-center items-center gap-2"

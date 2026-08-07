@@ -338,6 +338,14 @@ router.put('/:id', authorize(PERMISSIONS.FAMILY_UPDATE), async (req: AuthRequest
       );
     }
 
+    if (body.markPending === true || body.setPendingDues === true) {
+      const amount = Number(body.recurringDonationAmount) || 0;
+      body.outstandingBalance = amount > 0 ? amount : Math.max(body.outstandingBalance || 0, 100);
+      body.nextPaymentDueDate = new Date(); // Set to current date so it immediately marks as Pending / Overdue
+    } else if (body.markPending === false) {
+      body.outstandingBalance = 0;
+    }
+
     const family = await Family.findOneAndUpdate(
       { _id: req.params.id, tenantId: req.user!.tenantId },
       { $set: body },
