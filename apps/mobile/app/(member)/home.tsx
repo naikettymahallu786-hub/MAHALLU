@@ -180,6 +180,18 @@ export default function MemberHomeScreen() {
                 </View>
               </View>
             )}
+
+            {/* Edit Family & Recurring Donation Action */}
+            <TouchableOpacity
+              onPress={() => router.push('/(member)/family')}
+              className="mt-3 pt-2.5 border-t border-slate-100 flex-row items-center justify-between"
+            >
+              <View className="flex-row items-center">
+                <Ionicons name="create-outline" size={14} color={TEAL} style={{ marginRight: 4 }} />
+                <Text className="text-xs font-bold text-teal-800">Edit Family & Recurring Setup</Text>
+              </View>
+              <Ionicons name="chevron-forward" size={14} color={TEAL} />
+            </TouchableOpacity>
           </View>
         </Animated.View>
 
@@ -243,7 +255,15 @@ export default function MemberHomeScreen() {
             bg="#FAF5FF"
             iconColor="#A855F7"
             onPress={() => router.push('/(member)/events')}
-            index={(user?.role === 'ustadh' || user?.role === 'sadar_mualim') ? 3 : 3}
+            index={3}
+          />
+          <QuickActionItem
+            icon="business-outline"
+            label={t('rentalsTitle', language) || 'Properties'}
+            bg="#F0FDF4"
+            iconColor="#16A34A"
+            onPress={() => router.push('/(member)/properties')}
+            index={4}
           />
         </View>
 
@@ -314,7 +334,7 @@ function LatticeOverlay() {
       className="absolute inset-0 flex-row flex-wrap opacity-[0.06]"
       style={{ overflow: 'hidden' }}
     >
-      {dots.map((_, row) =>
+      {dots.flatMap((_, row) =>
         Array.from({ length: 8 }).map((__, col) => (
           <View
             key={`${row}-${col}`}

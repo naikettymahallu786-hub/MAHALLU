@@ -3,9 +3,10 @@ import { logger } from '../config/logger';
 
 export const globalRateLimiter = rateLimit({
   windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000'), // 15 min
-  max: parseInt(process.env.RATE_LIMIT_MAX || '5000'), // Increased to 5000 for local dev hot-reloads
+  max: process.env.NODE_ENV === 'development' ? 50000 : parseInt(process.env.RATE_LIMIT_MAX || '5000'),
   standardHeaders: true,
   legacyHeaders: false,
+  skip: () => process.env.NODE_ENV === 'development',
   handler: (_req, res) => {
     logger.warn('Rate limit exceeded');
     res.status(429).json({

@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import mongoose from 'mongoose';
 import { authenticate, AuthRequest } from '../middleware/auth';
+import { AppError } from '../middleware/errorHandler';
 import { User } from '../models/User';
 import { Member } from '../models/Member';
 import { Family } from '../models/Family';
@@ -102,7 +103,7 @@ router.put('/me/family', async (req: AuthRequest, res, next) => {
       Number(recurringPaymentDay) || 1,
       Number(recurringPaymentMonth) || 1
     );
-    if (nextPaymentDueDate) updateFields.nextPaymentDueDate = nextPaymentDueDate;
+    updateFields.nextPaymentDueDate = nextPaymentDueDate || null;
 
     const updatedFamily = await Family.findByIdAndUpdate(
       member.familyId,
@@ -114,6 +115,65 @@ router.put('/me/family', async (req: AuthRequest, res, next) => {
       .lean();
 
     res.json({ success: true, data: updatedFamily });
+  } catch (e) { next(e); }
+});
+
+// ──────────────────────────────────────────────────
+// PUT /mobile/me/members/:memberId
+// Update family member details by family head/member
+// ──────────────────────────────────────────────────
+router.put('/me/members/:memberId', async (req: AuthRequest, res, next) => {
+  try {
+    const user = await User.findById(req.user!.userId).select('memberId').lean();
+    if (!user?.memberId) throw new AppError('Member account not found', 404);
+
+    const callerMember = await Member.findById(user.memberId).select('familyId').lean();
+    if (!callerMember?.familyId) throw new AppError('Family not found', 404);
+
+    const targetMember = await Member.findOne({ _id: req.params.memberId, tenantId: req.user!.tenantId });
+    if (!targetMember) throw new AppError('Member not found', 404);
+
+    // Check if target member is in caller's family
+    if (targetMember.familyId?.toString() !== callerMember.familyId.toString()) {
+      throw new AppError('Unauthorized: Member does not belong to your family', 403);
+    }
+
+    const { name, phone, gender, relationship, occupation, qualification, bloodGroup, dateOfBirth, aadhaarNumber } = req.body;
+
+    if (name) targetMember.name = name;
+    if (phone) targetMember.phone = phone;
+    if (gender) targetMember.gender = gender;
+    if (relationship) targetMember.relationship = relationship;
+    if (occupation !== undefined) targetMember.occupation = occupation;
+    if (qualification !== undefined) targetMember.qualification = qualification;
+    if (bloodGroup !== undefined) targetMember.bloodGroup = bloodGroup;
+    if (aadhaarNumber !== undefined) targetMember.aadhaarNumber = aadhaarNumber;
+    if (dateOfBirth) {
+      const d = new Date(dateOfBirth);
+      if (!isNaN(d.getTime())) targetMember.dateOfBirth = d;
+    }
+
+    await targetMember.save();
+
+    // If relationship changed, update in Family members array
+    if (relationship) {
+      await Family.updateOne(
+        { _id: callerMember.familyId, 'members.memberId': targetMember._id },
+        { $set: { 'members.$.relationship': relationship } }
+      );
+    }
+
+    // Sync User name/phone if member has a linked User account
+    if (targetMember.userId) {
+      const userUpdates: Record<string, any> = {};
+      if (name) userUpdates.name = name;
+      if (phone) userUpdates.phone = phone;
+      if (Object.keys(userUpdates).length > 0) {
+        await User.findByIdAndUpdate(targetMember.userId, { $set: userUpdates });
+      }
+    }
+
+    res.json({ success: true, message: 'Member details updated successfully', data: targetMember });
   } catch (e) { next(e); }
 });
 

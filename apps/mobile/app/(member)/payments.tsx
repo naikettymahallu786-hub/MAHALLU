@@ -152,11 +152,15 @@ export default function PaymentsScreen() {
                       </Text>
                     </Text>
                   </View>
-                  <View className="px-2.5 py-0.5 rounded-full bg-teal-50 border border-teal-100">
+                  <TouchableOpacity
+                    onPress={() => router.push('/(member)/family')}
+                    className="px-2.5 py-0.5 rounded-full bg-teal-50 border border-teal-100 flex-row items-center gap-1"
+                  >
                     <Text className="text-[10px] font-bold text-teal-800 capitalize">
                       ₹{family.recurringDonationAmount || 0} / {family.recurringDonationType}
                     </Text>
-                  </View>
+                    <Ionicons name="create-outline" size={12} color="#0F6B5C" />
+                  </TouchableOpacity>
                 </View>
               )}
             </View>

@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Avatar } from './ui/Avatar';
 import { Badge } from './ui/Badge';
+import { Ionicons } from '@expo/vector-icons';
 
 interface MemberCardProps {
   name: string;
@@ -12,9 +13,10 @@ interface MemberCardProps {
   mahalluName?: string;
   qrCode?: string;
   compact?: boolean;
+  onEdit?: () => void;
 }
 
-export function MemberCard({ name, memberId, photo, phone, role, mahalluName, compact = false }: MemberCardProps) {
+export function MemberCard({ name, memberId, photo, phone, role, mahalluName, compact = false, onEdit }: MemberCardProps) {
   if (compact) {
     return (
       <View className="bg-white border border-slate-100 rounded-2xl p-4 flex-row items-center shadow-sm shadow-slate-200">
@@ -24,6 +26,11 @@ export function MemberCard({ name, memberId, photo, phone, role, mahalluName, co
           <Text className="text-slate-500 text-xs mt-0.5">{memberId}</Text>
         </View>
         {role && <Badge label={role} variant="info" />}
+        {onEdit && (
+          <TouchableOpacity onPress={onEdit} className="ml-2.5 p-2 bg-slate-50 border border-slate-200 rounded-full">
+            <Ionicons name="create-outline" size={16} color="#0F6B5C" />
+          </TouchableOpacity>
+        )}
       </View>
     );
   }

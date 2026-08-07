@@ -36,7 +36,19 @@ export async function connectDB(): Promise<void> {
     });
 
   } catch (error) {
-    logger.error('MongoDB connection failed:', error);
+    logger.error('Primary MongoDB connection failed. Trying local fallback...', error);
+    if (process.env.MONGODB_URI_LOCAL && uri !== process.env.MONGODB_URI_LOCAL) {
+      try {
+        const conn = await mongoose.connect(process.env.MONGODB_URI_LOCAL, {
+          maxPoolSize: 10,
+          serverSelectionTimeoutMS: 5000,
+        });
+        logger.info(`✅ Local MongoDB connected fallback: ${conn.connection.host}`);
+        return;
+      } catch (localErr) {
+        logger.error('Local MongoDB fallback also failed:', localErr);
+      }
+    }
     throw error;
   }
 }

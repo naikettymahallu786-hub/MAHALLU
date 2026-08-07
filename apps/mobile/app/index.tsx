@@ -1,5 +1,5 @@
 import { Redirect } from 'expo-router';
-import { useAuthStore } from '@/store/auth.store';
+import { useAuthStore } from '../store/auth.store';
 import { UserRole } from '@mahallu/shared-types';
 
 export default function Index() {

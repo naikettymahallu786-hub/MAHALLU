@@ -39,7 +39,7 @@ export default function RecurringDonationsPage() {
   const { data: familiesData, isLoading } = useQuery({
     queryKey: ['families', search],
     queryFn: () => apiClient.get('/families', {
-      params: { search },
+      params: { search, limit: 500 },
     }).then(r => r.data.data || []),
   });
 

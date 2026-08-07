@@ -20,7 +20,7 @@ export default function FamilyScreen() {
   const { language } = useLanguageStore();
   const { data: family, isLoading, isError, refetch } = useFamily();
 
-  // Edit Modal State
+  // Edit Family Modal State
   const [showEditModal, setShowEditModal] = useState(false);
   const [editLine1, setEditLine1] = useState('');
   const [editWardNo, setEditWardNo] = useState('');
@@ -28,6 +28,18 @@ export default function FamilyScreen() {
   const [editRecurringAmount, setEditRecurringAmount] = useState('');
   const [editRecurringDay, setEditRecurringDay] = useState('1');
   const [saving, setSaving] = useState(false);
+
+  // Edit Member Modal State
+  const [selectedMemberToEdit, setSelectedMemberToEdit] = useState<any>(null);
+  const [showMemberModal, setShowMemberModal] = useState(false);
+  const [editMemberName, setEditMemberName] = useState('');
+  const [editMemberPhone, setEditMemberPhone] = useState('');
+  const [editMemberGender, setEditMemberGender] = useState<'male' | 'female'>('male');
+  const [editMemberRelationship, setEditMemberRelationship] = useState('');
+  const [editMemberOccupation, setEditMemberOccupation] = useState('');
+  const [editMemberQualification, setEditMemberQualification] = useState('');
+  const [editMemberBloodGroup, setEditMemberBloodGroup] = useState('');
+  const [savingMember, setSavingMember] = useState(false);
 
   const openEditModal = () => {
     if (!family) return;
@@ -57,6 +69,43 @@ export default function FamilyScreen() {
       Alert.alert('Error', err.response?.data?.message || 'Failed to update family details');
     } finally {
       setSaving(false);
+    }
+  };
+
+  const openMemberEditModal = (memberData: any, relationshipStr: string) => {
+    if (!memberData) return;
+    setSelectedMemberToEdit(memberData);
+    setEditMemberName(memberData.name || '');
+    setEditMemberPhone(memberData.phone || '');
+    setEditMemberGender(memberData.gender || 'male');
+    setEditMemberRelationship(relationshipStr || 'Member');
+    setEditMemberOccupation(memberData.occupation || '');
+    setEditMemberQualification(memberData.qualification || '');
+    setEditMemberBloodGroup(memberData.bloodGroup || '');
+    setShowMemberModal(true);
+  };
+
+  const handleSaveMember = async () => {
+    if (!selectedMemberToEdit) return;
+    try {
+      setSavingMember(true);
+      await apiClient.put(`/mobile/me/members/${selectedMemberToEdit._id}`, {
+        name: editMemberName,
+        phone: editMemberPhone,
+        gender: editMemberGender,
+        relationship: editMemberRelationship,
+        occupation: editMemberOccupation,
+        qualification: editMemberQualification,
+        bloodGroup: editMemberBloodGroup,
+      });
+
+      setShowMemberModal(false);
+      Alert.alert('Success', 'Member details updated successfully.');
+      refetch();
+    } catch (err: any) {
+      Alert.alert('Error', err.response?.data?.message || 'Failed to update member details');
+    } finally {
+      setSavingMember(false);
     }
   };
 
@@ -183,6 +232,7 @@ export default function FamilyScreen() {
               phone={headMember.phone}
               role={language === 'en' ? 'Head' : 'കുടുംബനാഥൻ'}
               compact
+              onEdit={() => openMemberEditModal(headMember, 'Head')}
             />
           ) : (
             <Text className="text-slate-400 text-xs italic">No head member assigned</Text>
@@ -203,6 +253,7 @@ export default function FamilyScreen() {
                 photo={memberData.photo?.url}
                 role={m.relationship}
                 compact
+                onEdit={() => openMemberEditModal(memberData, m.relationship)}
               />
             );
           })}
@@ -323,6 +374,141 @@ export default function FamilyScreen() {
                   <ActivityIndicator color="white" size="small" />
                 ) : (
                   <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 15 }}>Save Changes</Text>
+                )}
+              </TouchableOpacity>
+            </ScrollView>
+          </View>
+        </View>
+      </Modal>
+
+      {/* Edit Member Modal */}
+      <Modal visible={showMemberModal} animationType="slide" transparent>
+        <View className="flex-1 bg-black/50 justify-end">
+          <View className="bg-white rounded-t-[32px] p-6 max-h-[85%]">
+            <View className="flex-row justify-between items-center mb-6">
+              <View>
+                <Text className="text-xl font-extrabold text-slate-900">Edit Member Details</Text>
+                <Text className="text-xs text-slate-500 mt-0.5">Update personal info & contact details</Text>
+              </View>
+              <TouchableOpacity onPress={() => setShowMemberModal(false)} className="p-2 bg-slate-100 rounded-full">
+                <Ionicons name="close" size={20} color="#475569" />
+              </TouchableOpacity>
+            </View>
+
+            <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
+              {/* Full Name */}
+              <View className="mb-4">
+                <Text className="text-slate-700 text-xs font-bold mb-1.5 uppercase tracking-wider">Full Name *</Text>
+                <TextInput
+                  value={editMemberName}
+                  onChangeText={setEditMemberName}
+                  placeholder="e.g. Ahmed K"
+                  placeholderTextColor="#94a3b8"
+                  className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-800 text-sm font-semibold"
+                />
+              </View>
+
+              {/* Phone */}
+              <View className="mb-4">
+                <Text className="text-slate-700 text-xs font-bold mb-1.5 uppercase tracking-wider">Phone Number</Text>
+                <TextInput
+                  value={editMemberPhone}
+                  onChangeText={setEditMemberPhone}
+                  placeholder="e.g. 9876543210"
+                  keyboardType="phone-pad"
+                  placeholderTextColor="#94a3b8"
+                  className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-800 text-sm"
+                />
+              </View>
+
+              {/* Gender */}
+              <View className="mb-4">
+                <Text className="text-slate-700 text-xs font-bold mb-2 uppercase tracking-wider">Gender</Text>
+                <View className="flex-row gap-3">
+                  {(['male', 'female'] as const).map((g) => {
+                    const isSelected = editMemberGender === g;
+                    return (
+                      <TouchableOpacity
+                        key={g}
+                        onPress={() => setEditMemberGender(g)}
+                        style={{
+                          flex: 1,
+                          paddingVertical: 10,
+                          borderRadius: 12,
+                          backgroundColor: isSelected ? TEAL : '#f8fafc',
+                          borderWidth: 1,
+                          borderColor: isSelected ? TEAL : '#e2e8f0',
+                          alignItems: 'center',
+                        }}
+                      >
+                        <Text style={{ fontWeight: '700', fontSize: 13, color: isSelected ? 'white' : '#475569', textTransform: 'capitalize' }}>
+                          {g}
+                        </Text>
+                      </TouchableOpacity>
+                    );
+                  })}
+                </View>
+              </View>
+
+              {/* Relationship */}
+              <View className="mb-4">
+                <Text className="text-slate-700 text-xs font-bold mb-1.5 uppercase tracking-wider">Relationship to Family Head</Text>
+                <TextInput
+                  value={editMemberRelationship}
+                  onChangeText={setEditMemberRelationship}
+                  placeholder="e.g. Head, Spouse, Child, Parent"
+                  placeholderTextColor="#94a3b8"
+                  className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-800 text-sm"
+                />
+              </View>
+
+              {/* Occupation */}
+              <View className="mb-4">
+                <Text className="text-slate-700 text-xs font-bold mb-1.5 uppercase tracking-wider">Occupation</Text>
+                <TextInput
+                  value={editMemberOccupation}
+                  onChangeText={setEditMemberOccupation}
+                  placeholder="e.g. Business, Student, Engineer"
+                  placeholderTextColor="#94a3b8"
+                  className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-800 text-sm"
+                />
+              </View>
+
+              {/* Qualification */}
+              <View className="mb-4">
+                <Text className="text-slate-700 text-xs font-bold mb-1.5 uppercase tracking-wider">Qualification</Text>
+                <TextInput
+                  value={editMemberQualification}
+                  onChangeText={setEditMemberQualification}
+                  placeholder="e.g. B.Tech, High School"
+                  placeholderTextColor="#94a3b8"
+                  className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-800 text-sm"
+                />
+              </View>
+
+              {/* Blood Group */}
+              <View className="mb-6">
+                <Text className="text-slate-700 text-xs font-bold mb-1.5 uppercase tracking-wider">Blood Group</Text>
+                <TextInput
+                  value={editMemberBloodGroup}
+                  onChangeText={setEditMemberBloodGroup}
+                  placeholder="e.g. O+, A+, B+"
+                  placeholderTextColor="#94a3b8"
+                  className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-800 text-sm"
+                />
+              </View>
+
+              {/* Save Button */}
+              <TouchableOpacity
+                onPress={handleSaveMember}
+                disabled={savingMember}
+                style={{ backgroundColor: TEAL, paddingVertical: 16, borderRadius: 16, alignItems: 'center', marginBottom: 24 }}
+                className="shadow-lg shadow-emerald-500/20"
+              >
+                {savingMember ? (
+                  <ActivityIndicator color="white" size="small" />
+                ) : (
+                  <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 15 }}>Save Member Details</Text>
                 )}
               </TouchableOpacity>
             </ScrollView>
