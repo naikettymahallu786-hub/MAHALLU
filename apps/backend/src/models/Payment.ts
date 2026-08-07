@@ -32,7 +32,7 @@ const PaymentSchema = new Schema<PaymentDocument>(
     gatewayPaymentId: String,
     gatewayOrderId: String,
     gatewaySignature: String,
-    status: { type: String, enum: ['pending', 'success', 'completed', 'failed', 'refunded', 'PAID', 'paid'], default: 'completed' },
+    status: { type: String, enum: Object.values(PaymentStatus), default: PaymentStatus.COMPLETED },
     description: String,
     receiptId: { type: Schema.Types.ObjectId, ref: 'Receipt' },
     metadata: { type: Schema.Types.Mixed },

@@ -15,7 +15,7 @@ export default function NewDonationPage() {
   const { t } = useTranslation();
   const router = useRouter();
   const [customCampaignActive, setCustomCampaignActive] = useState(false);
-  const { register, handleSubmit, setValue, control } = useForm<any>({ defaultValues: { isAnonymous: false, campaign: 'General Sadaqah' } });
+  const { register, handleSubmit, setValue, control, watch } = useForm<any>({ defaultValues: { isAnonymous: false, campaign: 'General Sadaqah' } });
 
   const { data: families } = useQuery({
     queryKey: ['families'],
@@ -97,19 +97,46 @@ export default function NewDonationPage() {
               )}
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1.5">{t('collect_donation_page.family')}</label>
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="block text-sm font-medium">{t('collect_donation_page.family')}</label>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const isAll = watch('familyId') === 'all_families';
+                    setValue('familyId', isAll ? '' : 'all_families');
+                  }}
+                  className={`text-xs font-bold px-2.5 py-1 rounded-lg border transition-all cursor-pointer ${
+                    watch('familyId') === 'all_families'
+                      ? 'bg-emerald-100 border-emerald-400 text-emerald-800'
+                      : 'bg-muted hover:bg-muted/80 text-foreground'
+                  }`}
+                >
+                  {watch('familyId') === 'all_families' ? '✓ ALL FAMILIES SELECTED' : '👥 Select All Families'}
+                </button>
+              </div>
               <Controller
                 control={control}
                 name="familyId"
                 render={({ field }) => (
                   <SearchableSelect
-                    options={families?.map((f: any) => ({ value: f._id, label: `${f.familyCode} - ${f.headMemberId?.name || 'Unknown'}` })) || []}
+                    options={[
+                      { value: 'all_families', label: '👥 ALL FAMILIES (Entire Mahallu Community)' },
+                      ...(families?.map((f: any) => ({
+                        value: f._id,
+                        label: `${f.familyCode} - ${f.headMemberId?.name || 'Unknown'}`
+                      })) || [])
+                    ]}
                     value={field.value}
                     onChange={field.onChange}
                     placeholder={t('collect_donation_page.selectFamily') || 'Select Family'}
                   />
                 )}
               />
+              {watch('familyId') === 'all_families' && (
+                <p className="text-xs text-emerald-600 font-bold mt-1.5">
+                  ✓ This donation demand will be created for ALL families in the Mahallu community.
+                </p>
+              )}
             </div>
             <div>
               <label className="block text-sm font-medium mb-1.5">{t('collect_donation_page.paymentMethod')}</label>

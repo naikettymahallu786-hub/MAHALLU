@@ -17,7 +17,7 @@ export default function ServicesScreen() {
       items: [
         { icon: 'card-outline', label: t('paymentsTitle', language), desc: t('paymentsDesc', language), route: '/(member)/payments', color: '#10b981', bg: 'bg-emerald-500/20' },
         { icon: 'heart-outline', label: t('donations', language), desc: t('donationsDesc', language), route: '/(member)/donations', color: '#f43f5e', bg: 'bg-rose-500/20' },
-        { icon: 'wallet-outline', label: t('zakat', language), desc: t('zakatDesc', language), route: '/(member)/coming-soon?title=Zakat', color: '#3b82f6', bg: 'bg-blue-500/20' },
+        { icon: 'wallet-outline', label: t('zakat', language), desc: t('zakatDesc', language), route: '/(member)/sadaqah', color: '#3b82f6', bg: 'bg-blue-500/20' },
       ]
     },
     {

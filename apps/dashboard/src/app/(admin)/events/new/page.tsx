@@ -31,10 +31,11 @@ export default function NewEventPage() {
     name: "committeeMembers"
   });
 
-  const { data: members } = useQuery({ 
-    queryKey: ['members'], 
-    queryFn: () => apiClient.get('/members').then(r => r.data.data || []) 
+  const { data: membersData } = useQuery({ 
+    queryKey: ['all-members-list'], 
+    queryFn: () => apiClient.get('/members', { params: { limit: 5000 } }).then(r => r.data.data || []) 
   });
+  const members = Array.isArray(membersData) ? membersData : (membersData as any)?.items || [];
 
   const [bannerFile, setBannerFile] = useState<File | null>(null);
   const [bgFile, setBgFile] = useState<File | null>(null);
@@ -51,90 +52,124 @@ export default function NewEventPage() {
   const onSubmit = async (data: any) => {
     try {
       const payload = { ...data };
-      
-      // Clean up committee members (remove empty ones)
-      payload.committeeMembers = payload.committeeMembers.filter(
-        (m: any) => m.memberId && m.role
-      );
-
       if (bannerFile) {
-        const base64 = await toBase64(bannerFile);
-        payload.banner = { url: base64 };
+        payload.banner = { url: await toBase64(bannerFile) };
       }
-      
       if (bgFile) {
-        const base64 = await toBase64(bgFile);
-        payload.idCardBgImage = { url: base64 };
+        payload.idCardBgImage = { url: await toBase64(bgFile) };
       }
+
+      // Filter out empty committee members
+      payload.committeeMembers = payload.committeeMembers.filter(
+        (cm: any) => cm.memberId && cm.role
+      );
 
       createMutation.mutate(payload);
     } catch (e) {
-      toast.error('Failed to process images');
+      toast.error('Failed to process image uploads');
     }
   };
 
   return (
-    <div className="space-y-6 max-w-3xl mx-auto pb-12">
-      <div className="flex items-center gap-3">
-        <Link href="/events"><button className="p-2 rounded-xl border"><ArrowLeft size={16} /></button></Link>
+    <div className="space-y-6 max-w-4xl mx-auto pb-12">
+      <div className="flex items-center gap-4">
+        <Link href="/events" className="p-2 rounded-xl border border-border hover:bg-muted transition-colors">
+          <ArrowLeft size={18} />
+        </Link>
         <div>
-          <h1 className="page-title text-xl">Create Event</h1>
-          <p className="page-subtitle font-medium">Publish a new program announcement</p>
+          <h1 className="page-title">Create Community Event</h1>
+          <p className="page-subtitle">Schedule a new program, gathering, or religious event</p>
         </div>
       </div>
-      
+
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        {/* Basic Details */}
+        {/* Basic Info */}
         <div className="section-card space-y-4">
-          <h2 className="font-bold text-lg border-b pb-2 mb-4">Event Details</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="md:col-span-2">
+          <h2 className="font-bold text-lg border-b pb-2">Event Details</h2>
+          
+          <div className="space-y-4">
+            <div>
               <label className="block text-sm font-medium mb-1.5">Event Title *</label>
-              <input type="text" {...register('title', { required: true })} placeholder="e.g. Monthly Majlis" className="w-full px-4 py-2.5 rounded-xl border bg-background text-sm" />
+              <input type="text" {...register('title', { required: true })} placeholder="e.g. Annual Meelad Conference 2026" className="w-full px-3.5 py-2.5 rounded-xl border bg-background text-sm font-medium" />
             </div>
-            <div className="md:col-span-2">
+
+            <div>
               <label className="block text-sm font-medium mb-1.5">Description</label>
-              <textarea {...register('description')} rows={3} placeholder="Provide program details..." className="w-full px-4 py-2.5 rounded-xl border bg-background text-sm" />
+              <textarea {...register('description')} rows={3} placeholder="Provide event details, schedule, or guidelines..." className="w-full px-3.5 py-2.5 rounded-xl border bg-background text-sm font-medium" />
             </div>
-            <div>
-              <label className="block text-sm font-medium mb-1.5">Start Date *</label>
-              <input type="datetime-local" {...register('date', { required: true })} className="w-full px-4 py-2.5 rounded-xl border bg-background text-sm" />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium mb-1.5">Start Date & Time *</label>
+                <input type="datetime-local" {...register('date', { required: true })} className="w-full px-3.5 py-2.5 rounded-xl border bg-background text-sm font-medium" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1.5">End Date & Time</label>
+                <input type="datetime-local" {...register('endDate')} className="w-full px-3.5 py-2.5 rounded-xl border bg-background text-sm font-medium" />
+              </div>
             </div>
-            <div>
-              <label className="block text-sm font-medium mb-1.5">End Date (Optional)</label>
-              <input type="datetime-local" {...register('endDate')} className="w-full px-4 py-2.5 rounded-xl border bg-background text-sm" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1.5">Venue *</label>
-              <input type="text" {...register('venue', { required: true })} placeholder="e.g. Mosque Hall" className="w-full px-4 py-2.5 rounded-xl border bg-background text-sm" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1.5">Total capacity</label>
-              <input type="number" {...register('capacity', { valueAsNumber: true })} placeholder="150" className="w-full px-4 py-2.5 rounded-xl border bg-background text-sm" />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium mb-1.5">Venue Location</label>
+                <input type="text" {...register('venue')} placeholder="e.g. Mahallu Auditorium / Main Hall" className="w-full px-3.5 py-2.5 rounded-xl border bg-background text-sm font-medium" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1.5">Capacity (Max Attendees)</label>
+                <input type="number" {...register('capacity')} placeholder="e.g. 500 (leave blank for unlimited)" className="w-full px-3.5 py-2.5 rounded-xl border bg-background text-sm font-medium" />
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Media Uploads */}
+        {/* Pricing & Visibility */}
         <div className="section-card space-y-4">
-          <h2 className="font-bold text-lg border-b pb-2 mb-4">Media & ID Cards</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="border-2 border-dashed border-border rounded-xl p-4 flex flex-col items-center justify-center text-center space-y-2">
-              <ImageIcon size={32} className="text-muted-foreground" />
-              <label className="text-sm font-semibold cursor-pointer text-brand hover:underline">
-                Upload Event Banner
-                <input type="file" className="hidden" accept="image/*" onChange={(e) => setBannerFile(e.target.files?.[0] || null)} />
-              </label>
-              <p className="text-xs text-muted-foreground">{bannerFile ? bannerFile.name : 'Optional display banner'}</p>
+          <h2 className="font-bold text-lg border-b pb-2">Ticket & Visibility</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex items-center gap-3 p-3.5 rounded-xl border bg-muted/20">
+              <input type="checkbox" id="isPaid" {...register('isPaid')} className="w-4 h-4 text-emerald-600 rounded" />
+              <label htmlFor="isPaid" className="text-sm font-medium cursor-pointer">Paid Event (Requires Registration Fee)</label>
             </div>
-            
-            <div className="border-2 border-dashed border-border rounded-xl p-4 flex flex-col items-center justify-center text-center space-y-2">
-              <ImageIcon size={32} className="text-muted-foreground" />
-              <label className="text-sm font-semibold cursor-pointer text-indigo-600 hover:underline">
-                Upload ID Card Background
-                <input type="file" className="hidden" accept="image/*" onChange={(e) => setBgFile(e.target.files?.[0] || null)} />
-              </label>
-              <p className="text-xs text-muted-foreground">{bgFile ? bgFile.name : 'Used for generating volunteer ID cards'}</p>
+            <div>
+              <label className="block text-sm font-medium mb-1.5">Ticket Fee (INR)</label>
+              <input type="number" {...register('fee')} placeholder="0" className="w-full px-3.5 py-2.5 rounded-xl border bg-background text-sm font-medium" />
+            </div>
+          </div>
+        </div>
+
+        {/* Branding & ID Card Images */}
+        <div className="section-card space-y-4">
+          <h2 className="font-bold text-lg border-b pb-2">Branding & Committee ID Card Design</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Banner Image */}
+            <div className="space-y-2">
+              <label className="block text-xs font-semibold text-muted-foreground uppercase">Event Banner Image</label>
+              <div className="border-2 border-dashed border-border hover:border-emerald-500/50 rounded-2xl p-4 text-center transition-colors">
+                <ImageIcon className="mx-auto h-8 w-8 text-muted-foreground mb-2" />
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setBannerFile(e.target.files?.[0] || null)}
+                  className="text-xs text-muted-foreground file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-emerald-700 dark:file:bg-emerald-950 dark:file:text-emerald-300 hover:file:bg-emerald-100"
+                />
+                {bannerFile && <p className="text-xs text-emerald-600 font-bold mt-2">Selected: {bannerFile.name}</p>}
+              </div>
+            </div>
+
+            {/* Committee ID Card Background Image */}
+            <div className="space-y-2">
+              <label className="block text-xs font-semibold text-muted-foreground uppercase">Committee ID Card Background Image</label>
+              <div className="border-2 border-dashed border-border hover:border-emerald-500/50 rounded-2xl p-4 text-center transition-colors">
+                <ImageIcon className="mx-auto h-8 w-8 text-muted-foreground mb-2" />
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setBgFile(e.target.files?.[0] || null)}
+                  className="text-xs text-muted-foreground file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-emerald-700 dark:file:bg-emerald-950 dark:file:text-emerald-300 hover:file:bg-emerald-100"
+                />
+                {bgFile && <p className="text-xs text-emerald-600 font-bold mt-2">Selected: {bgFile.name}</p>}
+              </div>
             </div>
           </div>
         </div>
@@ -143,7 +178,7 @@ export default function NewEventPage() {
         <div className="section-card space-y-4">
           <div className="flex items-center justify-between border-b pb-2 mb-4">
             <h2 className="font-bold text-lg">Event Committee</h2>
-            <button type="button" onClick={() => append({ memberId: '', role: '' })} className="text-xs font-semibold text-brand flex items-center gap-1 hover:underline">
+            <button type="button" onClick={() => append({ memberId: '', role: '' })} className="text-xs font-semibold text-emerald-600 flex items-center gap-1 hover:underline">
               <Plus size={14} /> Add Member
             </button>
           </div>
@@ -159,10 +194,13 @@ export default function NewEventPage() {
                       name={`committeeMembers.${index}.memberId`}
                       render={({ field }) => (
                         <SearchableSelect
-                          options={members?.map((m: any) => ({ value: m._id, label: `${m.name} (${m.phone || 'No phone'})` })) || []}
+                          options={members?.map((m: any) => ({
+                            value: m._id,
+                            label: `${m.name} ${m.memberId ? `(${m.memberId})` : ''} ${m.phone ? `- 📞 ${m.phone}` : ''}`
+                          })) || []}
                           value={field.value}
                           onChange={field.onChange}
-                          placeholder="-- Choose Member --"
+                          placeholder="-- Search & Choose Member --"
                         />
                       )}
                     />

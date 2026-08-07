@@ -61,10 +61,11 @@ export default function EditEventPage() {
     name: "committeeMembers"
   });
 
-  const { data: members } = useQuery({ 
-    queryKey: ['members'], 
-    queryFn: () => apiClient.get('/members').then(r => r.data.data || []) 
+  const { data: membersData } = useQuery({ 
+    queryKey: ['all-members-list'], 
+    queryFn: () => apiClient.get('/members', { params: { limit: 5000 } }).then(r => r.data.data || []) 
   });
+  const members = Array.isArray(membersData) ? membersData : (membersData as any)?.items || [];
 
   const [bannerFile, setBannerFile] = useState<File | null>(null);
   const [bgFile, setBgFile] = useState<File | null>(null);
@@ -193,10 +194,13 @@ export default function EditEventPage() {
                       name={`committeeMembers.${index}.memberId`}
                       render={({ field }) => (
                         <SearchableSelect
-                          options={members?.map((m: any) => ({ value: m._id, label: `${m.name} (${m.phone || 'No phone'})` })) || []}
+                          options={members?.map((m: any) => ({
+                            value: m._id,
+                            label: `${m.name} ${m.memberId ? `(${m.memberId})` : ''} ${m.phone ? `- 📞 ${m.phone}` : ''}`
+                          })) || []}
                           value={field.value}
                           onChange={field.onChange}
-                          placeholder="-- Choose Member --"
+                          placeholder="-- Search & Choose Member --"
                         />
                       )}
                     />

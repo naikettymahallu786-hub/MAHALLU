@@ -1,214 +1,471 @@
 'use client';
 
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
-import { BarChart3, Download, FileText, Users, GraduationCap, DollarSign, ArrowRight, Heart, Award, Calendar, Skull, Zap } from 'lucide-react';
+import {
+  BarChart3,
+  Download,
+  FileText,
+  Users,
+  GraduationCap,
+  DollarSign,
+  Heart,
+  Award,
+  Calendar,
+  Skull,
+  Zap,
+  Search,
+  Filter,
+  RefreshCw,
+  ArrowRight,
+} from 'lucide-react';
 import { apiClient } from '@/lib/api';
+import { formatDate, formatCurrency } from '@/lib/utils';
 import { toast } from 'sonner';
 import Link from 'next/link';
 
+const CURRENT_YEAR = new Date().getFullYear();
+const YEAR_OPTIONS = [CURRENT_YEAR - 1, CURRENT_YEAR, CURRENT_YEAR + 1];
+
+const MONTH_NAMES = [
+  { value: 'all', label: 'All Months' },
+  { value: '1', label: 'January' },
+  { value: '2', label: 'February' },
+  { value: '3', label: 'March' },
+  { value: '4', label: 'April' },
+  { value: '5', label: 'May' },
+  { value: '6', label: 'June' },
+  { value: '7', label: 'July' },
+  { value: '8', label: 'August' },
+  { value: '9', label: 'September' },
+  { value: '10', label: 'October' },
+  { value: '11', label: 'November' },
+  { value: '12', label: 'December' },
+];
+
+const CATEGORIES = [
+  { id: 'nikah', label: 'Nikah Marriages', icon: Heart, color: '#e11d48', endpoint: '/reports/export/nikah' },
+  { id: 'certificates', label: 'Certificates', icon: Award, color: '#0284c7', endpoint: '/reports/export/certificates' },
+  { id: 'events', label: 'Events & Programs', icon: Calendar, color: '#7c3aed', endpoint: '/reports/export/events' },
+  { id: 'death', label: 'Death & Burial', icon: Skull, color: '#64748b', endpoint: '/reports/export/death' },
+  { id: 'zakat', label: 'Sadaqah Distribution', icon: Zap, color: '#d97706', endpoint: '/reports/export/zakat' },
+  { id: 'members', label: 'Member Census', icon: Users, color: '#3b82f6', endpoint: '/reports/export/members' },
+  { id: 'academic', label: 'Madrasa Academic', icon: GraduationCap, color: '#8b5cf6', endpoint: '/reports/export/academic' },
+  { id: 'payments', label: 'Payments Ledger', icon: FileText, color: '#ec4899', endpoint: '/reports/export/payments' },
+];
+
 export default function ReportsPage() {
-  const { data: financeReport } = useQuery({
-    queryKey: ['financial-report'],
-    queryFn: () => apiClient.get('/reports/financial').then(r => r.data.data),
+  const [activeTab, setActiveTab] = useState('nikah');
+  const [search, setSearch] = useState('');
+  const [status, setStatus] = useState('all');
+  const [selectedMonth, setSelectedMonth] = useState('all');
+  const [selectedYear, setSelectedYear] = useState(String(CURRENT_YEAR));
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [isDownloading, setIsDownloading] = useState(false);
+
+  const activeCategory = CATEGORIES.find((c) => c.id === activeTab) || CATEGORIES[0];
+
+  const queryParams: Record<string, any> = {
+    search: search || undefined,
+    status: status !== 'all' ? status : undefined,
+    format: 'json',
+  };
+
+  if (startDate) queryParams.startDate = startDate;
+  if (endDate) queryParams.endDate = endDate;
+  if (!startDate && !endDate) {
+    if (selectedYear) queryParams.year = selectedYear;
+    if (selectedMonth && selectedMonth !== 'all') queryParams.month = selectedMonth;
+  }
+
+  const { data: reportRecords, isLoading, refetch } = useQuery({
+    queryKey: ['filtered-report', activeTab, queryParams],
+    queryFn: () =>
+      apiClient.get(activeCategory.endpoint, { params: queryParams }).then((r) => r.data.data || []),
   });
 
-  const exportReport = async (type: string) => {
-    const loadingToast = toast.loading(`Exporting ${type} report...`);
-    try {
-      let endpoint = '';
-      if (type === 'Financial') endpoint = '/payments/reports/finance?format=csv';
-      else if (type === 'Member') endpoint = '/reports/export/members';
-      else if (type === 'Academic') endpoint = '/reports/export/academic';
-      else if (type === 'IncomeExpense') endpoint = '/reports/export/income-expense';
-      else if (type === 'Payments') endpoint = '/reports/export/payments';
-      else if (type === 'Nikah') endpoint = '/reports/export/nikah';
-      else if (type === 'Certificates') endpoint = '/reports/export/certificates';
-      else if (type === 'Events') endpoint = '/reports/export/events';
-      else if (type === 'Death') endpoint = '/reports/export/death';
-      else if (type === 'Zakat') endpoint = '/reports/export/zakat';
-      else {
-        toast.dismiss(loadingToast);
-        toast.error('Unknown report type');
-        return;
-      }
+  const records = Array.isArray(reportRecords) ? reportRecords : [];
 
-      const response = await apiClient.get(endpoint, { responseType: 'blob' });
-      
-      const blob = new Blob([response.data], { type: 'text/csv;charset=utf-8;' });
-      const url = window.URL.createObjectURL(blob);
+  const handleResetFilters = () => {
+    setSearch('');
+    setStatus('all');
+    setSelectedMonth('all');
+    setSelectedYear(String(CURRENT_YEAR));
+    setStartDate('');
+    setEndDate('');
+  };
+
+  const handleDownloadCSV = async () => {
+    try {
+      setIsDownloading(true);
+      const downloadParams = { ...queryParams, format: 'csv' };
+
+      const response = await apiClient.get(activeCategory.endpoint, {
+        params: downloadParams,
+        responseType: 'blob',
+      });
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', `${type.toLowerCase()}_report_${new Date().toISOString().split('T')[0]}.csv`);
+      link.setAttribute('download', `${activeTab}_report_${Date.now()}.csv`);
       document.body.appendChild(link);
       link.click();
       link.remove();
       window.URL.revokeObjectURL(url);
 
-      toast.dismiss(loadingToast);
-      toast.success(`${type} report exported successfully.`);
-    } catch (err: any) {
-      toast.dismiss(loadingToast);
-      toast.error(err.response?.data?.message || `Failed to export ${type} report.`);
+      toast.success(`${activeCategory.label} report exported successfully.`);
+    } catch (err) {
+      toast.error('Failed to export report CSV');
+    } finally {
+      setIsDownloading(false);
     }
   };
-
-  const reportCards = [
-    {
-      title: 'Full Finance & Revenue Report',
-      desc: 'Complete report of all receipts, donations, recurring contributions, rents, zakat, and dues with date distance & status filters.',
-      icon: DollarSign,
-      color: '#059669',
-      type: 'Financial',
-      href: '/finance/reports',
-      badge: 'Interactive Hub',
-    },
-    {
-      title: 'Nikah Marriage Registrations',
-      desc: 'Complete registry of all registered Nikah marriages, bride & groom details, mahar, and Khazi officiator logs.',
-      icon: Heart,
-      color: '#e11d48',
-      type: 'Nikah',
-      badge: 'CSV Export',
-    },
-    {
-      title: 'Certificates Issued Ledger',
-      desc: 'Log of all residence, membership, nikah, and death certificates issued with dates and status.',
-      icon: Award,
-      color: '#0284c7',
-      type: 'Certificates',
-      badge: 'CSV Export',
-    },
-    {
-      title: 'Mahallu Events & Programs',
-      desc: 'Detailed log of upcoming and past events, attendee counts, fees, and venues.',
-      icon: Calendar,
-      color: '#7c3aed',
-      type: 'Events',
-      badge: 'CSV Export',
-    },
-    {
-      title: 'Death & Burial Register',
-      desc: 'Record of deaths, janazah dates, burial locations, and cemetery grave plot assignments.',
-      icon: Skull,
-      color: '#64748b',
-      type: 'Death',
-      badge: 'CSV Export',
-    },
-    {
-      title: 'Zakat Distribution Report',
-      desc: 'Overview of annual Zakat collections, applicant requests, approved amounts, and distribution status.',
-      icon: Zap,
-      color: '#d97706',
-      type: 'Zakat',
-      badge: 'CSV Export',
-    },
-    {
-      title: 'Member & Family Census',
-      desc: 'Census of all Mahallu families, members, wards, phone numbers, and status records.',
-      icon: Users,
-      color: '#3b82f6',
-      type: 'Member',
-      badge: 'CSV Export',
-    },
-    {
-      title: 'Madrasa Academic Progress',
-      desc: 'Student enrollments, admission records, class logs, and guardian contacts.',
-      icon: GraduationCap,
-      color: '#8b5cf6',
-      type: 'Academic',
-      badge: 'CSV Export',
-    },
-    {
-      title: 'Income & Expense Statement',
-      desc: 'Categorized overview of all incoming revenues and outgoing expenses.',
-      icon: BarChart3,
-      color: '#f59e0b',
-      type: 'IncomeExpense',
-      badge: 'CSV Export',
-    },
-    {
-      title: 'Payment History Ledger',
-      desc: 'Detailed history of completed, pending, and failed payment transactions.',
-      icon: FileText,
-      color: '#ec4899',
-      type: 'Payments',
-      badge: 'CSV Export',
-    },
-  ];
 
   return (
     <div className="space-y-6 pb-12">
       {/* Header Banner */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-gradient-to-r from-emerald-900 via-teal-950 to-slate-900 p-6 rounded-3xl text-white shadow-xl">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-gradient-to-r from-slate-900 via-teal-950 to-emerald-900 p-6 rounded-3xl text-white shadow-xl">
         <div>
           <div className="flex items-center gap-2 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-1">
             <BarChart3 className="h-4 w-4" />
-            Central Reporting Center
+            Interactive Report Center
           </div>
-          <h1 className="text-2xl md:text-3xl font-extrabold">Reports & Analytics Hub</h1>
+          <h1 className="text-2xl md:text-3xl font-extrabold">Filter & Export Master Reports</h1>
           <p className="text-emerald-100/80 text-sm mt-1">
-            Generate, filter, view, and download analytical reports for Finance, Census, Madrasa, and Operations.
+            Filter records by keywords, date distance, status, and download spreadsheet exports for any Mahallu department.
           </p>
         </div>
 
-        <Link
-          href="/finance/reports"
-          className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-white font-bold text-sm px-5 py-3 rounded-2xl shadow-md transition-all shrink-0"
-        >
-          Open Full Finance Reports
-          <ArrowRight className="h-4 w-4" />
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link
+            href="/finance/reports"
+            className="flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-white font-bold text-sm px-5 py-3 rounded-2xl shadow-md transition-all shrink-0"
+          >
+            <DollarSign className="h-4 w-4" />
+            Full Finance Ledger
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
       </div>
 
-      {/* Reports Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {reportCards.map((rep, i) => (
-          <motion.div
-            key={rep.title}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.05 }}
-            className="bg-card border border-border rounded-3xl p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-all duration-300 group"
-          >
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0" style={{ background: `${rep.color}15` }}>
-                  <rep.icon size={24} style={{ color: rep.color }} />
-                </div>
-                <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-muted text-muted-foreground">
-                  {rep.badge}
-                </span>
+      {/* Category Pills Navigation */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+        {CATEGORIES.map((cat) => {
+          const Icon = cat.icon;
+          const isActive = activeTab === cat.id;
+          return (
+            <button
+              key={cat.id}
+              onClick={() => {
+                setActiveTab(cat.id);
+                handleResetFilters();
+              }}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
+                isActive
+                  ? 'bg-foreground text-background shadow-md'
+                  : 'bg-card border border-border text-muted-foreground hover:text-foreground hover:bg-muted/50'
+              }`}
+            >
+              <Icon className="h-4 w-4" style={{ color: isActive ? 'inherit' : cat.color }} />
+              {cat.label}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Filter Control Section */}
+      <div className="bg-card border border-border p-6 rounded-3xl shadow-sm space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2 font-bold text-sm text-foreground">
+            <Filter className="h-4 w-4 text-emerald-600" />
+            Filter {activeCategory.label} Data
+          </div>
+
+          <div className="flex items-center gap-3">
+            <button
+              onClick={handleResetFilters}
+              className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground font-semibold cursor-pointer"
+            >
+              <RefreshCw className="h-3.5 w-3.5" /> Reset Filters
+            </button>
+
+            <button
+              onClick={handleDownloadCSV}
+              disabled={isDownloading || records.length === 0}
+              className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-4 py-2 rounded-xl transition-all disabled:opacity-50 cursor-pointer"
+            >
+              <Download className="h-4 w-4" />
+              {isDownloading ? 'Exporting...' : 'Export Filtered CSV'}
+            </button>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 pt-2">
+          {/* Search */}
+          <div className="relative">
+            <label className="block text-xs font-semibold text-muted-foreground mb-1">Search Keywords</label>
+            <div className="relative">
+              <Search className="absolute left-3.5 top-3 h-4 w-4 text-muted-foreground" />
+              <input
+                type="text"
+                placeholder="Name, Phone, Reg #, Title..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full pl-10 pr-4 py-2.5 bg-background border border-border rounded-xl text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              />
+            </div>
+          </div>
+
+          {/* Status Filter */}
+          <div>
+            <label className="block text-xs font-semibold text-muted-foreground mb-1">Status Filter</label>
+            <select
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              className="w-full px-3.5 py-2.5 bg-background border border-border rounded-xl text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            >
+              <option value="all">All Statuses</option>
+              <option value="pending">Pending</option>
+              <option value="approved">Approved / Issued</option>
+              <option value="distributed">Distributed</option>
+              <option value="rejected">Rejected / Revoked</option>
+            </select>
+          </div>
+
+          {/* Year Distance */}
+          <div>
+            <label className="block text-xs font-semibold text-muted-foreground mb-1">Year</label>
+            <select
+              value={selectedYear}
+              onChange={(e) => {
+                setSelectedYear(e.target.value);
+                setStartDate('');
+                setEndDate('');
+              }}
+              className="w-full px-3.5 py-2.5 bg-background border border-border rounded-xl text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            >
+              {YEAR_OPTIONS.map((yr) => (
+                <option key={yr} value={yr}>
+                  Year {yr}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Month Distance */}
+          <div>
+            <label className="block text-xs font-semibold text-muted-foreground mb-1">Month</label>
+            <select
+              value={selectedMonth}
+              onChange={(e) => {
+                setSelectedMonth(e.target.value);
+                setStartDate('');
+                setEndDate('');
+              }}
+              className="w-full px-3.5 py-2.5 bg-background border border-border rounded-xl text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            >
+              {MONTH_NAMES.map((m) => (
+                <option key={m.value} value={m.value}>
+                  {m.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/* Date Range Row */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-border/50">
+          <div>
+            <label className="block text-xs font-semibold text-muted-foreground mb-1">Custom Start Date</label>
+            <input
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              className="w-full px-3.5 py-2.5 bg-background border border-border rounded-xl text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-semibold text-muted-foreground mb-1">Custom End Date</label>
+            <input
+              type="date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              className="w-full px-3.5 py-2.5 bg-background border border-border rounded-xl text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Filtered Data Preview Table */}
+      <div className="bg-card border border-border rounded-3xl overflow-hidden shadow-sm">
+        <div className="p-5 border-b border-border flex items-center justify-between">
+          <div>
+            <h2 className="font-bold text-lg text-foreground">{activeCategory.label} Report Data</h2>
+            <p className="text-xs text-muted-foreground">Showing {records.length} records matching your filter settings</p>
+          </div>
+          <button onClick={() => refetch()} className="p-2 text-muted-foreground hover:text-foreground rounded-xl border border-border">
+            <RefreshCw className="h-4 w-4" />
+          </button>
+        </div>
+
+        {isLoading ? (
+          <div className="p-12 text-center text-muted-foreground">
+            <RefreshCw className="h-8 w-8 animate-spin mx-auto mb-3 text-emerald-600" />
+            Loading filtered report data...
+          </div>
+        ) : records.length === 0 ? (
+          <div className="p-12 text-center">
+            <FileText className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
+            <h3 className="font-bold text-foreground text-base">No matching report records found</h3>
+            <p className="text-xs text-muted-foreground mt-1">Try resetting or adjusting your search/date filters.</p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            {/* Dynamic Table Render per Active Tab */}
+            {activeTab === 'nikah' && (
+              <table className="w-full text-left text-sm">
+                <thead className="bg-muted/50 border-b text-xs uppercase tracking-wider text-muted-foreground font-bold">
+                  <tr>
+                    <th className="px-6 py-4">Reg #</th>
+                    <th className="px-6 py-4">Nikah Date</th>
+                    <th className="px-6 py-4">Groom</th>
+                    <th className="px-6 py-4">Bride</th>
+                    <th className="px-6 py-4">Mehr</th>
+                    <th className="px-6 py-4">Officiator</th>
+                    <th className="px-6 py-4">Venue</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border">
+                  {records.map((n: any) => (
+                    <tr key={n._id} className="hover:bg-muted/30">
+                      <td className="px-6 py-4 font-bold text-emerald-600">{n.nikahNo}</td>
+                      <td className="px-6 py-4 font-semibold">{formatDate(n.date)}</td>
+                      <td className="px-6 py-4"><div className="font-bold">{n.groomName || n.groomId?.name}</div><div className="text-xs text-muted-foreground">{n.groomId?.phone}</div></td>
+                      <td className="px-6 py-4"><div className="font-bold">{n.brideName || n.brideId?.name}</div><div className="text-xs text-muted-foreground">{n.brideId?.phone}</div></td>
+                      <td className="px-6 py-4 font-bold">{formatCurrency(n.mehr)}</td>
+                      <td className="px-6 py-4 text-xs font-semibold">{n.imamId?.name || 'N/A'}</td>
+                      <td className="px-6 py-4 text-xs text-muted-foreground">{n.venue || 'Mahallu Mosque'}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+
+            {activeTab === 'certificates' && (
+              <table className="w-full text-left text-sm">
+                <thead className="bg-muted/50 border-b text-xs uppercase tracking-wider text-muted-foreground font-bold">
+                  <tr>
+                    <th className="px-6 py-4">Certificate #</th>
+                    <th className="px-6 py-4">Type</th>
+                    <th className="px-6 py-4">Recipient</th>
+                    <th className="px-6 py-4">Issued Date</th>
+                    <th className="px-6 py-4">Status</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border">
+                  {records.map((c: any) => (
+                    <tr key={c._id} className="hover:bg-muted/30">
+                      <td className="px-6 py-4 font-bold text-emerald-600">{c.certificateNo}</td>
+                      <td className="px-6 py-4 capitalize font-semibold">{c.type?.replace(/_/g, ' ')}</td>
+                      <td className="px-6 py-4"><div className="font-bold">{c.recipientId?.name || 'N/A'}</div><div className="text-xs text-muted-foreground">{c.recipientId?.phone}</div></td>
+                      <td className="px-6 py-4 text-xs">{formatDate(c.issuedAt)}</td>
+                      <td className="px-6 py-4">
+                        <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${c.isRevoked ? 'bg-red-100 text-red-700' : 'bg-emerald-100 text-emerald-700'}`}>
+                          {c.isRevoked ? 'Revoked' : 'Active / Issued'}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+
+            {activeTab === 'events' && (
+              <table className="w-full text-left text-sm">
+                <thead className="bg-muted/50 border-b text-xs uppercase tracking-wider text-muted-foreground font-bold">
+                  <tr>
+                    <th className="px-6 py-4">Event Title</th>
+                    <th className="px-6 py-4">Date</th>
+                    <th className="px-6 py-4">Venue</th>
+                    <th className="px-6 py-4">Fee</th>
+                    <th className="px-6 py-4">Registrations</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border">
+                  {records.map((ev: any) => (
+                    <tr key={ev._id} className="hover:bg-muted/30">
+                      <td className="px-6 py-4 font-bold">{ev.title}</td>
+                      <td className="px-6 py-4 font-semibold">{formatDate(ev.date)}</td>
+                      <td className="px-6 py-4 text-xs">{ev.venue || 'Main Hall'}</td>
+                      <td className="px-6 py-4 font-bold">{ev.isPaid ? formatCurrency(ev.fee) : 'Free'}</td>
+                      <td className="px-6 py-4 font-semibold">{ev.registrations?.length || 0} registered</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+
+            {activeTab === 'death' && (
+              <table className="w-full text-left text-sm">
+                <thead className="bg-muted/50 border-b text-xs uppercase tracking-wider text-muted-foreground font-bold">
+                  <tr>
+                    <th className="px-6 py-4">Deceased Name</th>
+                    <th className="px-6 py-4">Date of Death</th>
+                    <th className="px-6 py-4">Cause</th>
+                    <th className="px-6 py-4">Burial Place / Cemetery</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border">
+                  {records.map((d: any) => (
+                    <tr key={d._id} className="hover:bg-muted/30">
+                      <td className="px-6 py-4"><div className="font-bold">{d.memberId?.name || 'N/A'}</div><div className="text-xs text-muted-foreground">{d.memberId?.phone}</div></td>
+                      <td className="px-6 py-4 font-semibold">{formatDate(d.dateOfDeath)}</td>
+                      <td className="px-6 py-4 text-xs">{d.causeOfDeath || 'N/A'}</td>
+                      <td className="px-6 py-4 text-xs font-semibold">{d.cemeteryId?.name || d.burialPlace || 'Mahallu Cemetery'} {d.plotId ? `(Plot: ${d.plotId})` : ''}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+
+            {activeTab === 'zakat' && (
+              <table className="w-full text-left text-sm">
+                <thead className="bg-muted/50 border-b text-xs uppercase tracking-wider text-muted-foreground font-bold">
+                  <tr>
+                    <th className="px-6 py-4">Year</th>
+                    <th className="px-6 py-4">Applicant Name</th>
+                    <th className="px-6 py-4">Requested</th>
+                    <th className="px-6 py-4">Approved</th>
+                    <th className="px-6 py-4">Status</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border">
+                  {records.map((z: any, idx: number) => (
+                    <tr key={idx} className="hover:bg-muted/30">
+                      <td className="px-6 py-4 font-bold">{z.year}</td>
+                      <td className="px-6 py-4"><div className="font-bold">{z.memberName}</div><div className="text-xs text-muted-foreground">{z.phone}</div></td>
+                      <td className="px-6 py-4 font-bold">{formatCurrency(z.amountRequested)}</td>
+                      <td className="px-6 py-4 font-extrabold text-emerald-600">{formatCurrency(z.amountApproved)}</td>
+                      <td className="px-6 py-4"><span className="capitalize px-2.5 py-1 rounded-full text-xs font-bold bg-muted">{z.status}</span></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+
+            {(activeTab === 'members' || activeTab === 'academic' || activeTab === 'payments') && (
+              <div className="p-8 text-center">
+                <FileText className="h-8 w-8 mx-auto text-muted-foreground mb-2" />
+                <p className="text-sm font-bold">Data ready for filtered download</p>
+                <p className="text-xs text-muted-foreground mt-1">Click "Export Filtered CSV" above to download the spreadsheet.</p>
               </div>
-
-              <h3 className="font-bold text-lg text-foreground group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors leading-tight">
-                {rep.title}
-              </h3>
-              <p className="text-xs text-muted-foreground leading-relaxed mt-2">
-                {rep.desc}
-              </p>
-            </div>
-
-            <div className="mt-6 pt-4 border-t border-border/60 flex items-center gap-2">
-              {rep.href && (
-                <Link
-                  href={rep.href}
-                  className="flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all shadow-sm"
-                >
-                  View Interactive Report
-                  <ArrowRight size={14} />
-                </Link>
-              )}
-              <button
-                onClick={() => exportReport(rep.type)}
-                className={`flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl border border-border hover:bg-muted text-foreground text-xs font-bold transition-all ${rep.href ? '' : 'w-full'}`}
-              >
-                <Download size={14} />
-                Export CSV
-              </button>
-            </div>
-          </motion.div>
-        ))}
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

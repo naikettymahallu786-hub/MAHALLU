@@ -46,7 +46,7 @@ const CATEGORY_OPTIONS = [
   { value: 'property_rent', label: 'Property Rent' },
   { value: 'certificate_fee', label: 'Certificate Fee' },
   { value: 'nikah_fee', label: 'Nikah Fee' },
-  { value: 'zakat', label: 'Zakat' },
+  { value: 'zakat', label: 'Sadaqah / Zakat' },
   { value: 'other', label: 'Other Receipt' },
 ];
 

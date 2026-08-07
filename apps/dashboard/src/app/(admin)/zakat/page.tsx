@@ -43,7 +43,7 @@ export default function ZakatPage() {
       {!isLoading && zakatList.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {[
-            { label: 'Total Zakat Collected', value: formatCurrency(totalCollectedAllTime), icon: DollarSign, color: '#059669' },
+            { label: 'Total Sadaqah Collected', value: formatCurrency(totalCollectedAllTime), icon: DollarSign, color: '#059669' },
             { label: 'Total Distributed', value: formatCurrency(totalDistributedAllTime), icon: Zap, color: '#ec4899' },
             { label: 'Available Balance', value: formatCurrency(totalBalance), icon: Calendar, color: '#3b82f6' },
             { label: 'Total Applicants', value: `${totalApplicants} supported`, icon: UserCheck, color: '#f59e0b' },

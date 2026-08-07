@@ -17,7 +17,7 @@
     "donations": "Donations",
     "recurring_donations": "Recurring Donations",
     "properties": "Properties",
-    "zakat": "Zakat",
+    "zakat": "Sadaqah",
     "nikah": "Nikah",
     "death": "Death & Burial",
     "cemetery": "Cemetery",
@@ -202,16 +202,16 @@
     "guardian": "Guardian"
   },
   "zakat": {
-    "title": "Zakat",
-    "subtitle": "Manage Zakat distribution and collection",
+    "title": "Sadaqah",
+    "subtitle": "Manage Sadaqah distribution and collection",
     "initializeYear": "Initialize Year",
-    "year": "Zakat Year",
+    "year": "Sadaqah Year",
     "collected": "Total Collected",
     "distributed": "Total Distributed",
     "balance": "Balance remaining",
     "applicants": "Applicants Count",
     "status": "Status",
-    "noRecords": "No Zakat records initialized yet",
+    "noRecords": "No Sadaqah records initialized yet",
     "manageApplicants": "Manage Applicants"
   },
   "events": {

@@ -24,9 +24,47 @@ r.get('/', authorize(PERMISSIONS.DONATION_VIEW), async (req: AuthRequest, res, n
 });
 r.post('/', authorize(PERMISSIONS.DONATION_CREATE), async (req: AuthRequest, res, next) => {
   try {
-    const { amount, campaign, familyId, donorName, isAnonymous, gateway } = req.body;
-    const tenantId = req.user!.tenantId;
-    const isFamilyDue = !!familyId && !gateway; // If familyId is provided but no gateway, it's a pending due.
+    if (familyId === 'all_families' || req.body.selectAllFamilies) {
+      const allFamilies = await Family.find({ tenantId }).lean();
+      const isFamilyDue = !gateway;
+
+      const donationsToCreate = allFamilies.map((f: any) => ({
+        tenantId,
+        amount,
+        campaign: campaign || 'General Donation',
+        familyId: f._id,
+        donorName: donorName || f.familyCode,
+        isAnonymous: !!isAnonymous,
+        status: isFamilyDue ? 'pending' : 'paid',
+      }));
+
+      const createdDonations = await Donation.insertMany(donationsToCreate);
+
+      if (isFamilyDue) {
+        await Family.updateMany({ tenantId }, { $inc: { outstandingBalance: amount } });
+
+        const headIds = allFamilies.map((f: any) => f.headMemberId).filter(Boolean);
+        const headUsers = await User.find({ tenantId, memberId: { $in: headIds } }).select('_id').lean();
+
+        if (headUsers.length > 0) {
+          const notifications = headUsers.map((u: any) => ({
+            tenantId,
+            channel: NotificationChannel.IN_APP,
+            recipientId: u._id,
+            title: 'New Donation Due Added',
+            body: `A new due of ${amount} for ${campaign || 'General Donation'} has been assigned to your family account.`,
+            status: 'pending',
+          }));
+          await Notification.insertMany(notifications);
+        }
+      }
+
+      return res.status(201).json({
+        success: true,
+        message: `Successfully assigned donation to all ${allFamilies.length} families.`,
+        data: createdDonations,
+      });
+    }
 
     const d = await Donation.create({ 
       tenantId,

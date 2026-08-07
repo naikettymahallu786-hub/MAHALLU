@@ -303,15 +303,51 @@ export const reportRoutes = (() => {
     } catch (e) { next(e); }
   });
 
+  const buildDateQuery = (startDate?: any, endDate?: any, month?: any, year?: any, dateField = 'createdAt') => {
+    let createdAtFilter: any = null;
+    if (startDate || endDate) {
+      createdAtFilter = {};
+      if (startDate) createdAtFilter.$gte = new Date(startDate as string);
+      if (endDate) {
+        const end = new Date(endDate as string);
+        end.setHours(23, 59, 59, 999);
+        createdAtFilter.$lte = end;
+      }
+    } else if (year) {
+      const yr = parseInt(year as string);
+      if (month && month !== 'all') {
+        const m = parseInt(month as string) - 1;
+        const start = new Date(yr, m, 1);
+        const end = new Date(yr, m + 1, 0, 23, 59, 59, 999);
+        createdAtFilter = { $gte: start, $lte: end };
+      } else {
+        const start = new Date(yr, 0, 1);
+        const end = new Date(yr, 11, 31, 23, 59, 59, 999);
+        createdAtFilter = { $gte: start, $lte: end };
+      }
+    }
+    return createdAtFilter ? { [dateField]: createdAtFilter } : {};
+  };
+
   r.get('/export/nikah', async (req: AuthRequest, res, next) => {
     try {
+      const { search, startDate, endDate, month, year, format = 'csv' } = req.query;
       const { Nikah } = await import('../models/Nikah');
-      const nikahs = await Nikah.find({ tenantId: req.user!.tenantId })
+      const filter: Record<string, any> = { tenantId: req.user!.tenantId, ...buildDateQuery(startDate, endDate, month, year, 'date') };
+
+      if (search) {
+        const searchRegex = new RegExp(String(search).trim(), 'i');
+        filter.$or = [{ nikahNo: searchRegex }, { brideName: searchRegex }, { groomName: searchRegex }, { venue: searchRegex }];
+      }
+
+      const nikahs = await Nikah.find(filter)
         .populate({ path: 'groomId', select: 'name phone', options: { strictPopulate: false } })
         .populate({ path: 'brideId', select: 'name phone', options: { strictPopulate: false } })
         .populate({ path: 'imamId', select: 'name phone', options: { strictPopulate: false } })
         .sort({ date: -1 })
         .lean();
+
+      if (format === 'json') return res.json({ success: true, data: nikahs });
 
       const headers = ['Nikah No', 'Date', 'Groom Name', 'Groom Phone', 'Bride Name', 'Bride Phone', 'Mehr Amount (INR)', 'Khazi / Officiator', 'Venue'];
       const rows = nikahs.map((n: any) => [
@@ -335,12 +371,25 @@ export const reportRoutes = (() => {
 
   r.get('/export/certificates', async (req: AuthRequest, res, next) => {
     try {
+      const { search, status, type, startDate, endDate, month, year, format = 'csv' } = req.query;
       const { Certificate } = await import('../models/Certificate');
-      const certs = await Certificate.find({ tenantId: req.user!.tenantId })
+      const filter: Record<string, any> = { tenantId: req.user!.tenantId, ...buildDateQuery(startDate, endDate, month, year, 'issuedAt') };
+
+      if (type && type !== 'all') filter.type = type;
+      if (status && status !== 'all') filter.isRevoked = status === 'revoked';
+
+      if (search) {
+        const searchRegex = new RegExp(String(search).trim(), 'i');
+        filter.$or = [{ certificateNo: searchRegex }, { type: searchRegex }];
+      }
+
+      const certs = await Certificate.find(filter)
         .populate({ path: 'recipientId', select: 'name phone', options: { strictPopulate: false } })
         .populate({ path: 'issuedBy', select: 'name', options: { strictPopulate: false } })
         .sort({ issuedAt: -1 })
         .lean();
+
+      if (format === 'json') return res.json({ success: true, data: certs });
 
       const headers = ['Certificate No', 'Type', 'Recipient Name', 'Recipient Phone', 'Issued Date', 'Expiry Date', 'Issued By', 'Status'];
       const rows = certs.map((c: any) => [
@@ -363,10 +412,20 @@ export const reportRoutes = (() => {
 
   r.get('/export/events', async (req: AuthRequest, res, next) => {
     try {
+      const { search, startDate, endDate, month, year, format = 'csv' } = req.query;
       const { Event } = await import('../models/Event');
-      const events = await Event.find({ tenantId: req.user!.tenantId })
+      const filter: Record<string, any> = { tenantId: req.user!.tenantId, ...buildDateQuery(startDate, endDate, month, year, 'date') };
+
+      if (search) {
+        const searchRegex = new RegExp(String(search).trim(), 'i');
+        filter.$or = [{ title: searchRegex }, { venue: searchRegex }, { description: searchRegex }];
+      }
+
+      const events = await Event.find(filter)
         .sort({ date: -1 })
         .lean();
+
+      if (format === 'json') return res.json({ success: true, data: events });
 
       const headers = ['Event Title', 'Date', 'Venue', 'Paid Event', 'Fee (INR)', 'Capacity', 'Registrations Count', 'Description'];
       const rows = events.map((ev: any) => [
@@ -389,12 +448,22 @@ export const reportRoutes = (() => {
 
   r.get('/export/death', async (req: AuthRequest, res, next) => {
     try {
+      const { search, startDate, endDate, month, year, format = 'csv' } = req.query;
       const { DeathRecord } = await import('../models/DeathRecord');
-      const records = await DeathRecord.find({ tenantId: req.user!.tenantId })
+      const filter: Record<string, any> = { tenantId: req.user!.tenantId, ...buildDateQuery(startDate, endDate, month, year, 'dateOfDeath') };
+
+      if (search) {
+        const searchRegex = new RegExp(String(search).trim(), 'i');
+        filter.$or = [{ causeOfDeath: searchRegex }, { janazahVenue: searchRegex }, { burialPlace: searchRegex }, { plotId: searchRegex }];
+      }
+
+      const records = await DeathRecord.find(filter)
         .populate({ path: 'memberId', select: 'name phone', options: { strictPopulate: false } })
         .populate({ path: 'cemeteryId', select: 'name', options: { strictPopulate: false } })
         .sort({ dateOfDeath: -1 })
         .lean();
+
+      if (format === 'json') return res.json({ success: true, data: records });
 
       const headers = ['Deceased Name', 'Phone', 'Date of Death', 'Cause of Death', 'Janazah Date & Venue', 'Burial Date', 'Cemetery / Grave No'];
       const rows = records.map((d: any) => [
@@ -416,28 +485,51 @@ export const reportRoutes = (() => {
 
   r.get('/export/zakat', async (req: AuthRequest, res, next) => {
     try {
+      const { search, status, year, format = 'csv' } = req.query;
       const { Zakat } = await import('../models/Zakat');
-      const zakatRecords = await Zakat.find({ tenantId: req.user!.tenantId })
+      const filter: Record<string, any> = { tenantId: req.user!.tenantId };
+
+      if (year && year !== 'all') filter.year = parseInt(year as string);
+
+      const zakatRecords = await Zakat.find(filter)
         .populate({ path: 'applicants.memberId', select: 'name phone', options: { strictPopulate: false } })
         .sort({ year: -1 })
         .lean();
 
-      const headers = ['Year', 'Applicant Name', 'Phone', 'Amount Requested (INR)', 'Amount Approved (INR)', 'Application Status', 'Notes'];
-      const rows: any[] = [];
-
+      let flatItems: any[] = [];
       zakatRecords.forEach((z: any) => {
         (z.applicants || []).forEach((app: any) => {
-          rows.push([
-            z.year || '',
-            app.memberId?.name || '',
-            app.memberId?.phone || '',
-            app.amountRequested || 0,
-            app.amountApproved || 0,
-            app.status || 'pending',
-            app.notes || ''
-          ]);
+          if (status && status !== 'all' && app.status !== status) return;
+          if (search) {
+            const cleanSearch = String(search).toLowerCase();
+            const name = (app.memberId?.name || '').toLowerCase();
+            const phone = (app.memberId?.phone || '').toLowerCase();
+            if (!name.includes(cleanSearch) && !phone.includes(cleanSearch)) return;
+          }
+          flatItems.push({
+            year: z.year,
+            memberName: app.memberId?.name || 'N/A',
+            phone: app.memberId?.phone || 'N/A',
+            amountRequested: app.amountRequested || 0,
+            amountApproved: app.amountApproved || 0,
+            status: app.status || 'pending',
+            notes: app.notes || '',
+          });
         });
       });
+
+      if (format === 'json') return res.json({ success: true, data: flatItems });
+
+      const headers = ['Year', 'Applicant Name', 'Phone', 'Amount Requested (INR)', 'Amount Approved (INR)', 'Application Status', 'Notes'];
+      const rows = flatItems.map((item) => [
+        item.year || '',
+        item.memberName,
+        item.phone,
+        item.amountRequested,
+        item.amountApproved,
+        item.status,
+        item.notes
+      ]);
 
       const csvContent = [headers.join(','), ...rows.map(r => r.map(escapeCSV).join(','))].join('\n');
       res.setHeader('Content-Type', 'text/csv');

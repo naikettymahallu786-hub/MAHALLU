@@ -13,15 +13,17 @@ export class MemberController {
       const { page = DEFAULT_PAGINATION.page, limit = DEFAULT_PAGINATION.limit, search, status, familyId, gender } = req.query;
       const tenantId = req.user!.tenantId;
 
-      const pageNum = Math.max(1, parseInt(page as string));
-      const limitNum = Math.min(parseInt(limit as string), DEFAULT_PAGINATION.maxLimit);
+      const pageNum = Math.max(1, parseInt(page as string) || 1);
+      const limitNum = Math.min(parseInt(limit as string) || 50, 5000);
 
-      const filter: Record<string, unknown> = { tenantId };
+      const filter: Record<string, any> = { tenantId };
       if (status) filter.status = status;
       if (familyId) filter.familyId = familyId;
       if (gender) filter.gender = gender;
       if (search) {
-        filter.$text = { $search: search as string };
+        const cleanSearch = String(search).trim();
+        const searchRegex = new RegExp(cleanSearch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+        filter.$or = [{ name: searchRegex }, { phone: searchRegex }, { memberId: searchRegex }];
       }
 
       const [members, total] = await Promise.all([
