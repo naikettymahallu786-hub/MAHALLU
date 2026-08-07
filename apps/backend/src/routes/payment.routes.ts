@@ -18,20 +18,36 @@ const razorpay = new Razorpay({
 
 // Helper to decrement family balance and mark pending donations as paid
 export async function processPaymentDues(payment: any) {
-  if (!payment.paidForId) return;
-
   const { Member } = await import('../models/Member');
   const { Family } = await import('../models/Family');
   const { Donation } = await import('../models/Donation');
 
-  const member = await Member.findById(payment.paidForId).lean();
-  if (!member?.familyId) return;
+  let familyId = payment.familyId;
+
+  if (!familyId && payment.paidForId) {
+    const member = await Member.findById(payment.paidForId).lean();
+    if (member?.familyId) {
+      familyId = member.familyId;
+    }
+  }
+
+  if (!familyId && payment.paidById) {
+    const member = await Member.findById(payment.paidById).lean();
+    if (member?.familyId) {
+      familyId = member.familyId;
+    }
+  }
+
+  if (!familyId) return;
+
+  const family = await Family.findById(familyId);
+  if (!family) return;
 
   let remainingAmount = payment.amount;
 
   // Find pending donations in chronological order
   const pendingDonations = await Donation.find({
-    familyId: member.familyId,
+    familyId: family._id,
     status: 'pending'
   }).sort({ createdAt: 1 });
 
@@ -44,10 +60,24 @@ export async function processPaymentDues(payment: any) {
     }
   }
 
-  // Decrement the family's outstanding balance
-  await Family.findByIdAndUpdate(member.familyId, {
-    $inc: { outstandingBalance: -payment.amount }
-  });
+  // Update family outstanding balance & last payment date
+  const currentBalance = family.outstandingBalance || 0;
+  const newBalance = Math.max(0, currentBalance - payment.amount);
+  family.outstandingBalance = newBalance;
+  family.lastPaymentDate = new Date();
+
+  // If balance is cleared (or paid in full), advance next payment due date to next cycle
+  if (newBalance === 0 && family.recurringDonationType && family.recurringDonationType !== 'none') {
+    const { calculateNextDueDate } = await import('./family.routes');
+    family.nextPaymentDueDate = calculateNextDueDate(
+      family.recurringDonationType,
+      family.recurringPaymentDay || 1,
+      family.recurringPaymentMonth || 1,
+      new Date()
+    );
+  }
+
+  await family.save();
 }
 
 // Public Checkout UI Page for Mobile Browser

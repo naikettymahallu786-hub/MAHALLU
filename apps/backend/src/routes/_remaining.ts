@@ -87,9 +87,13 @@ export const receiptRoutes = (() => {
         tenantId, paymentNo, type, amount,
         paidById,
         paidForId: paidForId || paidById,
+        metadata: req.body.familyId ? { familyId: req.body.familyId } : undefined,
         gateway: gateway.toLowerCase(),
-        status: 'success', description,
+        status: 'completed', description,
       });
+
+      const paymentObj = payment.toObject();
+      if (req.body.familyId) (paymentObj as any).familyId = req.body.familyId;
 
       const receiptCount = await Receipt.countDocuments({ tenantId });
       const receiptNo = `RCP-${new Date().getFullYear()}-${String(receiptCount + 1).padStart(6, '0')}`;
@@ -97,7 +101,7 @@ export const receiptRoutes = (() => {
       await Payment.findByIdAndUpdate(payment._id, { receiptId: receipt._id });
 
       // Process family balance and recurring dues
-      await processPaymentDues(payment);
+      await processPaymentDues(paymentObj);
 
       res.status(201).json({ success: true, data: { payment, receipt } });
     } catch (e) { next(e); }

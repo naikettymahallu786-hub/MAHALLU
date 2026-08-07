@@ -553,11 +553,12 @@ export default function RecurringDonationsPage() {
                 <button 
                   onClick={() => collectMutation.mutate({
                     amount: Number(paymentAmount),
-                    type: selectedFamily.recurringDonationType === 'monthly' ? 'subscription' : 'donation',
+                    type: 'recurring_donation',
+                    familyId: selectedFamily._id,
                     paidById: selectedFamily.headMemberId?._id,
                     paidForId: selectedFamily.headMemberId?._id,
                     gateway: paymentGateway,
-                    description: paymentDescription || `Recurring ${selectedFamily.recurringDonationType} contribution`
+                    description: paymentDescription || `Recurring ${selectedFamily.recurringDonationType} contribution collected by hand`
                   })}
                   disabled={collectMutation.isPending || !paymentAmount} 
                   className="flex-1 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-sm flex justify-center items-center"
