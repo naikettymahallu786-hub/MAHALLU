@@ -303,6 +303,149 @@ export const reportRoutes = (() => {
     } catch (e) { next(e); }
   });
 
+  r.get('/export/nikah', async (req: AuthRequest, res, next) => {
+    try {
+      const { Nikah } = await import('../models/Nikah');
+      const nikahs = await Nikah.find({ tenantId: req.user!.tenantId })
+        .populate({ path: 'groomId', select: 'name phone', options: { strictPopulate: false } })
+        .populate({ path: 'brideId', select: 'name phone', options: { strictPopulate: false } })
+        .populate({ path: 'imamId', select: 'name phone', options: { strictPopulate: false } })
+        .sort({ date: -1 })
+        .lean();
+
+      const headers = ['Nikah No', 'Date', 'Groom Name', 'Groom Phone', 'Bride Name', 'Bride Phone', 'Mehr Amount (INR)', 'Khazi / Officiator', 'Venue'];
+      const rows = nikahs.map((n: any) => [
+        n.nikahNo || '',
+        n.date ? new Date(n.date).toLocaleDateString() : '',
+        n.groomName || n.groomId?.name || '',
+        n.groomId?.phone || '',
+        n.brideName || n.brideId?.name || '',
+        n.brideId?.phone || '',
+        `${n.mehr || 0} ${n.mehrCurrency || 'INR'}`,
+        n.imamId?.name || '',
+        n.venue || ''
+      ]);
+
+      const csvContent = [headers.join(','), ...rows.map(r => r.map(escapeCSV).join(','))].join('\n');
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', 'attachment; filename=nikah_registrations_report.csv');
+      res.status(200).send(csvContent);
+    } catch (e) { next(e); }
+  });
+
+  r.get('/export/certificates', async (req: AuthRequest, res, next) => {
+    try {
+      const { Certificate } = await import('../models/Certificate');
+      const certs = await Certificate.find({ tenantId: req.user!.tenantId })
+        .populate({ path: 'recipientId', select: 'name phone', options: { strictPopulate: false } })
+        .populate({ path: 'issuedBy', select: 'name', options: { strictPopulate: false } })
+        .sort({ issuedAt: -1 })
+        .lean();
+
+      const headers = ['Certificate No', 'Type', 'Recipient Name', 'Recipient Phone', 'Issued Date', 'Expiry Date', 'Issued By', 'Status'];
+      const rows = certs.map((c: any) => [
+        c.certificateNo || '',
+        c.type || '',
+        c.recipientId?.name || '',
+        c.recipientId?.phone || '',
+        c.issuedAt ? new Date(c.issuedAt).toLocaleDateString() : '',
+        c.expiresAt ? new Date(c.expiresAt).toLocaleDateString() : 'N/A',
+        c.issuedBy?.name || '',
+        c.isRevoked ? 'Revoked' : 'Active / Issued'
+      ]);
+
+      const csvContent = [headers.join(','), ...rows.map(r => r.map(escapeCSV).join(','))].join('\n');
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', 'attachment; filename=certificates_issued_report.csv');
+      res.status(200).send(csvContent);
+    } catch (e) { next(e); }
+  });
+
+  r.get('/export/events', async (req: AuthRequest, res, next) => {
+    try {
+      const { Event } = await import('../models/Event');
+      const events = await Event.find({ tenantId: req.user!.tenantId })
+        .sort({ date: -1 })
+        .lean();
+
+      const headers = ['Event Title', 'Date', 'Venue', 'Paid Event', 'Fee (INR)', 'Capacity', 'Registrations Count', 'Description'];
+      const rows = events.map((ev: any) => [
+        ev.title || '',
+        ev.date ? new Date(ev.date).toLocaleDateString() : '',
+        ev.venue || '',
+        ev.isPaid ? 'Yes' : 'Free',
+        ev.fee || 0,
+        ev.capacity || 'Unlimited',
+        ev.registrations?.length || 0,
+        ev.description || ''
+      ]);
+
+      const csvContent = [headers.join(','), ...rows.map(r => r.map(escapeCSV).join(','))].join('\n');
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', 'attachment; filename=events_report.csv');
+      res.status(200).send(csvContent);
+    } catch (e) { next(e); }
+  });
+
+  r.get('/export/death', async (req: AuthRequest, res, next) => {
+    try {
+      const { DeathRecord } = await import('../models/DeathRecord');
+      const records = await DeathRecord.find({ tenantId: req.user!.tenantId })
+        .populate({ path: 'memberId', select: 'name phone', options: { strictPopulate: false } })
+        .populate({ path: 'cemeteryId', select: 'name', options: { strictPopulate: false } })
+        .sort({ dateOfDeath: -1 })
+        .lean();
+
+      const headers = ['Deceased Name', 'Phone', 'Date of Death', 'Cause of Death', 'Janazah Date & Venue', 'Burial Date', 'Cemetery / Grave No'];
+      const rows = records.map((d: any) => [
+        d.memberId?.name || '',
+        d.memberId?.phone || '',
+        d.dateOfDeath ? new Date(d.dateOfDeath).toLocaleDateString() : '',
+        d.causeOfDeath || '',
+        `${d.janazahDate ? new Date(d.janazahDate).toLocaleDateString() : ''} ${d.janazahVenue || ''}`.trim(),
+        d.burialDate ? new Date(d.burialDate).toLocaleDateString() : '',
+        `${d.cemeteryId?.name || d.burialPlace || ''} ${d.plotId ? `Plot: ${d.plotId}` : ''}`.trim()
+      ]);
+
+      const csvContent = [headers.join(','), ...rows.map(r => r.map(escapeCSV).join(','))].join('\n');
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', 'attachment; filename=death_and_burial_report.csv');
+      res.status(200).send(csvContent);
+    } catch (e) { next(e); }
+  });
+
+  r.get('/export/zakat', async (req: AuthRequest, res, next) => {
+    try {
+      const { Zakat } = await import('../models/Zakat');
+      const zakatRecords = await Zakat.find({ tenantId: req.user!.tenantId })
+        .populate({ path: 'applicants.memberId', select: 'name phone', options: { strictPopulate: false } })
+        .sort({ year: -1 })
+        .lean();
+
+      const headers = ['Year', 'Applicant Name', 'Phone', 'Amount Requested (INR)', 'Amount Approved (INR)', 'Application Status', 'Notes'];
+      const rows: any[] = [];
+
+      zakatRecords.forEach((z: any) => {
+        (z.applicants || []).forEach((app: any) => {
+          rows.push([
+            z.year || '',
+            app.memberId?.name || '',
+            app.memberId?.phone || '',
+            app.amountRequested || 0,
+            app.amountApproved || 0,
+            app.status || 'pending',
+            app.notes || ''
+          ]);
+        });
+      });
+
+      const csvContent = [headers.join(','), ...rows.map(r => r.map(escapeCSV).join(','))].join('\n');
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', 'attachment; filename=zakat_distribution_report.csv');
+      res.status(200).send(csvContent);
+    } catch (e) { next(e); }
+  });
+
   return r;
 })();
 

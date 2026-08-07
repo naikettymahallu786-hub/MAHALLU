@@ -57,7 +57,7 @@ const NAV_ITEMS: NavItem[] = [
   { id: 'events', label: 'Events', href: '/events', icon: Calendar },
   { id: 'notices', label: 'Notices', href: '/notices', icon: Bell },
   { id: 'whatsapp', label: 'WhatsApp', href: '/whatsapp', icon: MessageCircle },
-  { id: 'reports', label: 'Finance Reports', href: '/finance/reports', icon: BarChart3 },
+  { id: 'reports', label: 'Reports Hub', href: '/reports', icon: BarChart3 },
   { id: 'settings', label: 'Settings', href: '/settings', icon: Settings },
 ];
 
