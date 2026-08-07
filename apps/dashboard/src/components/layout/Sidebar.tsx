@@ -45,7 +45,6 @@ const NAV_ITEMS: NavItem[] = [
       { id: 'receipts', label: 'Receipts', href: '/receipts', icon: FileText },
       { id: 'donations', label: 'Donations', href: '/donations', icon: Heart },
       { id: 'recurring_donations', label: 'Recurring Donations', href: '/recurring-donations', icon: Calendar },
-      { id: 'recurring_reports', label: 'Recurring Reports', href: '/recurring-donations/reports', icon: BarChart3 },
       { id: 'finance_reports', label: 'Full Finance Reports', href: '/finance/reports', icon: BarChart3 },
     ],
   },

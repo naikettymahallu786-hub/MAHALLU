@@ -271,9 +271,10 @@ export default function FullFinanceReportsPage() {
             >
               <option value="all">All Statuses</option>
               <option value="completed">Completed / Paid</option>
+              <option value="unpaid">Unpaid Dues</option>
+              <option value="overdue">Overdue Dues</option>
               <option value="pending">Pending</option>
               <option value="failed">Failed</option>
-              <option value="refunded">Refunded</option>
             </select>
           </div>
 
@@ -426,18 +427,23 @@ export default function FullFinanceReportsPage() {
                       {formatCurrency(item.amount)}
                     </td>
                     <td className="px-6 py-4 text-center">
-                      {item.status === 'completed' && (
+                      {(item.status === 'completed' || item.status === 'PAID') && (
                         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300">
                           <CheckCircle2 className="h-3.5 w-3.5" /> Completed
                         </span>
                       )}
-                      {item.status === 'pending' && (
+                      {(item.status === 'unpaid' || item.status === 'pending') && (
                         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 dark:bg-amber-950/50 dark:text-amber-300">
-                          <Clock className="h-3.5 w-3.5" /> Pending
+                          <Clock className="h-3.5 w-3.5" /> Unpaid / Pending
+                        </span>
+                      )}
+                      {item.status === 'overdue' && (
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-red-100 text-red-800 dark:bg-red-950/50 dark:text-red-300">
+                          <AlertTriangle className="h-3.5 w-3.5" /> Overdue Dues
                         </span>
                       )}
                       {item.status === 'failed' && (
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-red-100 text-red-800 dark:bg-red-950/50 dark:text-red-300">
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-800 dark:bg-slate-900 dark:text-slate-300">
                           <AlertTriangle className="h-3.5 w-3.5" /> Failed
                         </span>
                       )}

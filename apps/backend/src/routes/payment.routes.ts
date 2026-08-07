@@ -360,7 +360,7 @@ router.get('/reports/finance', authorize(PERMISSIONS.PAYMENT_VIEW || PERMISSIONS
       .sort({ createdAt: -1 })
       .lean();
 
-    const items = payments.map((p: any) => {
+    const paymentItems = payments.map((p: any) => {
       const payer = p.paidById;
       const receipt = p.receiptId;
       return {
@@ -378,17 +378,88 @@ router.get('/reports/finance', authorize(PERMISSIONS.PAYMENT_VIEW || PERMISSIONS
       };
     });
 
+    // Include Unpaid / Overdue Family Recurring Dues
+    const shouldIncludeDues =
+      (paymentStatus === 'all' || paymentStatus === 'unpaid' || paymentStatus === 'overdue' || paymentStatus === 'pending') &&
+      (category === 'all' || category === 'recurring_donation');
+
+    let duesItems: any[] = [];
+    if (shouldIncludeDues) {
+      const { Family } = await import('../models/Family');
+      const { Member } = await import('../models/Member');
+
+      const familyFilter: Record<string, any> = {
+        tenantId,
+        isDeleted: { $ne: true },
+        recurringDonationType: { $in: ['monthly', 'yearly'] },
+        outstandingBalance: { $gt: 0 },
+      };
+
+      if (search) {
+        const cleanSearch = String(search).trim();
+        const searchRegex = new RegExp(cleanSearch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+
+        const matchingMembers = await Member.find({
+          tenantId,
+          $or: [{ name: searchRegex }, { phone: searchRegex }],
+        }).select('_id').lean();
+        const memberIds = matchingMembers.map(m => m._id);
+
+        familyFilter.$or = [
+          { familyCode: searchRegex },
+          { 'address.line1': searchRegex },
+          { wardNo: searchRegex },
+          { headMemberId: { $in: memberIds } },
+        ];
+      }
+
+      const dueFamilies = await Family.find(familyFilter)
+        .populate('headMemberId', 'name phone')
+        .lean();
+
+      const today = new Date();
+
+      duesItems = dueFamilies.map((f: any) => {
+        const head = f.headMemberId;
+        const nextDue = f.nextPaymentDueDate ? new Date(f.nextPaymentDueDate) : null;
+        const isOverdue = nextDue && nextDue < today;
+
+        return {
+          _id: `due_${f._id}`,
+          paymentNo: `DUE-${f.familyCode}`,
+          receiptNo: 'UNPAID',
+          payerName: `${head?.name || 'N/A'} (${f.familyCode})`,
+          payerPhone: head?.phone || 'N/A',
+          category: 'recurring_donation',
+          amount: f.outstandingBalance || 0,
+          gateway: 'unpaid_due',
+          status: isOverdue ? 'overdue' : 'unpaid',
+          description: `Recurring ${f.recurringDonationType} dues for Ward ${f.wardNo || 'N/A'}`,
+          createdAt: f.nextPaymentDueDate || f.updatedAt || new Date(),
+        };
+      });
+
+      if (paymentStatus === 'overdue') {
+        duesItems = duesItems.filter(i => i.status === 'overdue');
+      }
+    }
+
+    const items = [...paymentItems, ...duesItems].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
     // Summary calculations
     const completedPayments = items.filter(i => i.status === 'completed');
     const totalIncome = completedPayments.reduce((sum, i) => sum + i.amount, 0);
-    const pendingAmount = items.filter(i => i.status === 'pending').reduce((sum, i) => sum + i.amount, 0);
+    const pendingDuesAmount = items
+      .filter(i => i.status === 'pending' || i.status === 'unpaid' || i.status === 'overdue')
+      .reduce((sum, i) => sum + i.amount, 0);
 
     const summary = {
       totalTransactions: items.length,
       totalIncome,
-      pendingAmount,
+      pendingAmount: pendingDuesAmount,
       completedCount: completedPayments.length,
-      pendingCount: items.filter(i => i.status === 'pending').length,
+      unpaidCount: items.filter(i => i.status === 'unpaid' || i.status === 'overdue' || i.status === 'pending').length,
+      overdueCount: items.filter(i => i.status === 'overdue').length,
       failedCount: items.filter(i => i.status === 'failed').length,
       avgTransaction: completedPayments.length > 0 ? Math.round(totalIncome / completedPayments.length) : 0,
     };
