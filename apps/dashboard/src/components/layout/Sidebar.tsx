@@ -45,6 +45,8 @@ const NAV_ITEMS: NavItem[] = [
       { id: 'receipts', label: 'Receipts', href: '/receipts', icon: FileText },
       { id: 'donations', label: 'Donations', href: '/donations', icon: Heart },
       { id: 'recurring_donations', label: 'Recurring Donations', href: '/recurring-donations', icon: Calendar },
+      { id: 'recurring_reports', label: 'Recurring Reports', href: '/recurring-donations/reports', icon: BarChart3 },
+      { id: 'finance_reports', label: 'Full Finance Reports', href: '/finance/reports', icon: BarChart3 },
     ],
   },
   { id: 'properties', label: 'Properties', href: '/properties', icon: Building2 },
@@ -56,7 +58,7 @@ const NAV_ITEMS: NavItem[] = [
   { id: 'events', label: 'Events', href: '/events', icon: Calendar },
   { id: 'notices', label: 'Notices', href: '/notices', icon: Bell },
   { id: 'whatsapp', label: 'WhatsApp', href: '/whatsapp', icon: MessageCircle },
-  { id: 'reports', label: 'Reports', href: '/reports', icon: BarChart3 },
+  { id: 'reports', label: 'Finance Reports', href: '/finance/reports', icon: BarChart3 },
   { id: 'settings', label: 'Settings', href: '/settings', icon: Settings },
 ];
 

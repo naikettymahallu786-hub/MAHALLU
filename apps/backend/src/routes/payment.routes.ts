@@ -262,6 +262,172 @@ router.post('/verify', async (req, res, next) => {
 // Authenticated Routes
 router.use(authenticate);
 
+// ──────────────────────────────────────────────────
+// GET /payments/reports/finance
+// Full financial report covering all transactions, categories, methods & date ranges
+// ──────────────────────────────────────────────────
+router.get('/reports/finance', authorize(PERMISSIONS.PAYMENT_VIEW || PERMISSIONS.FINANCE_VIEW), async (req: AuthRequest, res, next) => {
+  try {
+    const tenantId = req.user!.tenantId;
+    const {
+      search,
+      paymentStatus = 'all',
+      category = 'all',
+      gateway = 'all',
+      startDate,
+      endDate,
+      month,
+      year,
+      format = 'json',
+    } = req.query;
+
+    const filter: Record<string, any> = {
+      tenantId,
+      isDeleted: { $ne: true },
+    };
+
+    if (category && category !== 'all') {
+      filter.type = category;
+    }
+
+    if (paymentStatus && paymentStatus !== 'all') {
+      filter.status = paymentStatus;
+    }
+
+    if (gateway && gateway !== 'all') {
+      filter.gateway = gateway;
+    }
+
+    // Handle Date Range / Month / Year
+    let createdAtFilter: any = null;
+    if (startDate || endDate) {
+      createdAtFilter = {};
+      if (startDate) createdAtFilter.$gte = new Date(startDate as string);
+      if (endDate) {
+        const end = new Date(endDate as string);
+        end.setHours(23, 59, 59, 999);
+        createdAtFilter.$lte = end;
+      }
+    } else if (year) {
+      const yr = parseInt(year as string);
+      if (month && month !== 'all') {
+        const m = parseInt(month as string) - 1;
+        const start = new Date(yr, m, 1);
+        const end = new Date(yr, m + 1, 0, 23, 59, 59, 999);
+        createdAtFilter = { $gte: start, $lte: end };
+      } else {
+        const start = new Date(yr, 0, 1);
+        const end = new Date(yr, 11, 31, 23, 59, 59, 999);
+        createdAtFilter = { $gte: start, $lte: end };
+      }
+    }
+
+    if (createdAtFilter) {
+      filter.createdAt = createdAtFilter;
+    }
+
+    if (search) {
+      const cleanSearch = String(search).trim();
+      const searchRegex = new RegExp(cleanSearch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+
+      const { Member } = await import('../models/Member');
+      const matchingMembers = await Member.find({
+        tenantId,
+        $or: [{ name: searchRegex }, { phone: searchRegex }],
+      }).select('_id').lean();
+      const memberIds = matchingMembers.map(m => m._id);
+
+      const { Receipt } = await import('../models/Receipt');
+      const matchingReceipts = await Receipt.find({
+        tenantId,
+        receiptNo: searchRegex,
+      }).select('_id').lean();
+      const receiptIds = matchingReceipts.map(r => r._id);
+
+      filter.$or = [
+        { paymentNo: searchRegex },
+        { description: searchRegex },
+        { paidById: { $in: memberIds } },
+        { paidForId: { $in: memberIds } },
+        { receiptId: { $in: receiptIds } },
+      ];
+    }
+
+    const payments = await Payment.find(filter)
+      .populate('paidById', 'name phone email memberId')
+      .populate('paidForId', 'name phone email memberId')
+      .populate('receiptId', 'receiptNo')
+      .sort({ createdAt: -1 })
+      .lean();
+
+    const items = payments.map((p: any) => {
+      const payer = p.paidById;
+      const receipt = p.receiptId;
+      return {
+        _id: p._id,
+        paymentNo: p.paymentNo,
+        receiptNo: receipt?.receiptNo || 'N/A',
+        payerName: payer?.name || 'N/A',
+        payerPhone: payer?.phone || 'N/A',
+        category: p.type,
+        amount: p.amount || 0,
+        gateway: p.gateway,
+        status: p.status,
+        description: p.description || '',
+        createdAt: p.createdAt,
+      };
+    });
+
+    // Summary calculations
+    const completedPayments = items.filter(i => i.status === 'completed');
+    const totalIncome = completedPayments.reduce((sum, i) => sum + i.amount, 0);
+    const pendingAmount = items.filter(i => i.status === 'pending').reduce((sum, i) => sum + i.amount, 0);
+
+    const summary = {
+      totalTransactions: items.length,
+      totalIncome,
+      pendingAmount,
+      completedCount: completedPayments.length,
+      pendingCount: items.filter(i => i.status === 'pending').length,
+      failedCount: items.filter(i => i.status === 'failed').length,
+      avgTransaction: completedPayments.length > 0 ? Math.round(totalIncome / completedPayments.length) : 0,
+    };
+
+    if (format === 'csv') {
+      const headers = ['Receipt No', 'Payment No', 'Date', 'Payer Name', 'Phone', 'Category', 'Amount (INR)', 'Method', 'Status', 'Description'];
+      const csvRows = [headers.join(',')];
+
+      items.forEach(item => {
+        const row = [
+          `"${item.receiptNo}"`,
+          `"${item.paymentNo}"`,
+          `"${new Date(item.createdAt).toISOString().split('T')[0]}"`,
+          `"${item.payerName.replace(/"/g, '""')}"`,
+          `"${item.payerPhone}"`,
+          `"${item.category}"`,
+          item.amount,
+          `"${item.gateway}"`,
+          `"${item.status}"`,
+          `"${item.description.replace(/"/g, '""')}"`,
+        ];
+        csvRows.push(row.join(','));
+      });
+
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', `attachment; filename="full_finance_report_${Date.now()}.csv"`);
+      return res.send(csvRows.join('\n'));
+    }
+
+    res.json({
+      success: true,
+      data: {
+        summary,
+        items,
+      },
+    });
+  } catch (e) { next(e); }
+});
+
 router.post('/create-order', async (req: AuthRequest, res, next) => {
   try {
     const userPermissions = ROLE_PERMISSIONS[req.user!.role] || [];

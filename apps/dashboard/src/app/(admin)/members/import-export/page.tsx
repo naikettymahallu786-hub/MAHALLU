@@ -179,7 +179,7 @@ export default function ImportExportPage() {
           </p>
         </div>
         <button
-          onClick={refetch}
+          onClick={() => refetch()}
           className="flex items-center gap-2 px-4 py-2 rounded-xl bg-muted/60 hover:bg-muted text-foreground text-sm font-medium transition-colors border border-border"
         >
           <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
