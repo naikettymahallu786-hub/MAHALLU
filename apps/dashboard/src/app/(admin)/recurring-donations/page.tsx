@@ -38,10 +38,12 @@ export default function RecurringDonationsPage() {
   const [markPending, setMarkPending] = useState(false);
 
   const { data: familiesData, isLoading } = useQuery({
-    queryKey: ['families', search],
+    queryKey: ['recurring-families', search],
     queryFn: () => apiClient.get('/families', {
-      params: { search, limit: 500 },
+      params: { search, limit: 1000 },
     }).then(r => r.data.data || []),
+    refetchOnMount: 'always',
+    staleTime: 0,
   });
 
   const remindMutation = useMutation({
@@ -56,6 +58,7 @@ export default function RecurringDonationsPage() {
       toast.success('Recurring donation schedule updated successfully');
       setIsScheduleModalOpen(false);
       setEditScheduleFamily(null);
+      queryClient.invalidateQueries({ queryKey: ['recurring-families'] });
       queryClient.invalidateQueries({ queryKey: ['families'] });
     },
     onError: (err: any) => toast.error(err?.response?.data?.message || 'Failed to update schedule'),
@@ -69,6 +72,7 @@ export default function RecurringDonationsPage() {
       setSelectedFamily(null);
       setPaymentAmount('');
       setPaymentDescription('');
+      queryClient.invalidateQueries({ queryKey: ['recurring-families'] });
       queryClient.invalidateQueries({ queryKey: ['families'] });
       queryClient.invalidateQueries({ queryKey: ['receipts'] });
       queryClient.invalidateQueries({ queryKey: ['finance-kpis'] });
@@ -551,15 +555,18 @@ export default function RecurringDonationsPage() {
               <div className="p-4 border-t bg-card flex gap-3">
                 <button onClick={() => { setIsPaymentModalOpen(false); setSelectedFamily(null); }} className="flex-1 py-2.5 rounded-xl border font-bold text-sm">Cancel</button>
                 <button 
-                  onClick={() => collectMutation.mutate({
-                    amount: Number(paymentAmount),
-                    type: 'recurring_donation',
-                    familyId: selectedFamily._id,
-                    paidById: selectedFamily.headMemberId?._id,
-                    paidForId: selectedFamily.headMemberId?._id,
-                    gateway: paymentGateway,
-                    description: paymentDescription || `Recurring ${selectedFamily.recurringDonationType} contribution collected by hand`
-                  })}
+                  onClick={() => {
+                    const headId = typeof selectedFamily.headMemberId === 'object' ? selectedFamily.headMemberId?._id : selectedFamily.headMemberId;
+                    collectMutation.mutate({
+                      amount: Number(paymentAmount),
+                      type: 'recurring_donation',
+                      familyId: selectedFamily._id,
+                      paidById: headId || undefined,
+                      paidForId: headId || undefined,
+                      gateway: paymentGateway,
+                      description: paymentDescription || `Recurring ${selectedFamily.recurringDonationType} contribution collected by hand`
+                    });
+                  }}
                   disabled={collectMutation.isPending || !paymentAmount} 
                   className="flex-1 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-sm flex justify-center items-center"
                 >

@@ -83,13 +83,28 @@ export const receiptRoutes = (() => {
       const count = await Payment.countDocuments({ tenantId });
       const paymentNo = `PAY-${new Date().getFullYear()}-${String(count + 1).padStart(6, '0')}`;
       
+      const mongoose = (await import('mongoose')).default;
+      const extractId = (val: any) => {
+        if (!val) return null;
+        const idStr = typeof val === 'object' ? val._id || val.id : val;
+        return mongoose.Types.ObjectId.isValid(String(idStr)) ? idStr : null;
+      };
+
+      const payerId = extractId(paidById) || extractId(paidForId) || req.user!.userId;
+      const targetId = extractId(paidForId) || payerId;
+      const numAmount = Number(amount || 0);
+
       const payment = await Payment.create({
-        tenantId, paymentNo, type, amount,
-        paidById,
-        paidForId: paidForId || paidById,
+        tenantId,
+        paymentNo,
+        type: type || 'recurring_donation',
+        amount: numAmount,
+        paidById: payerId,
+        paidForId: targetId,
         metadata: req.body.familyId ? { familyId: req.body.familyId } : undefined,
-        gateway: gateway.toLowerCase(),
-        status: 'completed', description,
+        gateway: String(gateway || 'cash').toLowerCase(),
+        status: 'completed',
+        description,
       });
 
       const paymentObj = payment.toObject();
