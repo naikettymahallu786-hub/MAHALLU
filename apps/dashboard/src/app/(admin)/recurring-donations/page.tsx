@@ -3,22 +3,48 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, Search, DollarSign, Bell, Loader2, X, Edit3, CheckCircle2, AlertTriangle, Clock } from 'lucide-react';
+import {
+  Calendar,
+  Search,
+  DollarSign,
+  Bell,
+  Loader2,
+  X,
+  Edit3,
+  CheckCircle2,
+  AlertTriangle,
+  Clock,
+  Plus,
+  Users,
+  Sparkles,
+  CheckSquare,
+  Square,
+} from 'lucide-react';
 import { apiClient } from '@/lib/api';
 import { cn, formatCurrency, formatDate } from '@/lib/utils';
 import { toast } from 'sonner';
 import { useTranslation } from '@/lib/i18n/useTranslation';
 
 const MONTH_NAMES = [
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December'
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
 ];
 
 export default function RecurringDonationsPage() {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const [filterType, setFilterType] = useState('');
-  const [paymentStatus, setPaymentStatus] = useState('all'); // 'all', 'paid', 'unpaid', 'overdue'
+  const [paymentStatus, setPaymentStatus] = useState('all');
   const [search, setSearch] = useState('');
 
   // Collect Payment Modal States
@@ -28,7 +54,7 @@ export default function RecurringDonationsPage() {
   const [paymentGateway, setPaymentGateway] = useState('cash');
   const [paymentDescription, setPaymentDescription] = useState('');
 
-  // Configure Schedule Modal States
+  // Configure Single Family Schedule Modal States
   const [editScheduleFamily, setEditScheduleFamily] = useState<any>(null);
   const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
   const [scheduleType, setScheduleType] = useState<'monthly' | 'yearly' | 'none'>('monthly');
@@ -37,13 +63,40 @@ export default function RecurringDonationsPage() {
   const [scheduleMonth, setScheduleMonth] = useState(1);
   const [markPending, setMarkPending] = useState(false);
 
+  // Bulk Assign Recurring Donation Modal States
+  const [isAssignModalOpen, setIsAssignModalOpen] = useState(false);
+  const [assignType, setAssignType] = useState<'monthly' | 'yearly'>('monthly');
+  const [assignAmount, setAssignAmount] = useState('100');
+  const [assignDay, setAssignDay] = useState(1);
+  const [assignMonth, setAssignMonth] = useState(1);
+  const [assignMarkPending, setAssignMarkPending] = useState(true);
+  const [selectedFamilyIds, setSelectedFamilyIds] = useState<string[]>([]);
+  const [isAllFamiliesSelected, setIsAllFamiliesSelected] = useState(false);
+  const [familySearchFilter, setFamilySearchFilter] = useState('');
+
   const { data: familiesData, isLoading } = useQuery({
     queryKey: ['recurring-families', search],
-    queryFn: () => apiClient.get('/families', {
-      params: { search, limit: 1000 },
-    }).then(r => r.data.data || []),
+    queryFn: () =>
+      apiClient
+        .get('/families', {
+          params: { search, limit: 1000 },
+        })
+        .then((r) => r.data.data || []),
     refetchOnMount: 'always',
     staleTime: 0,
+  });
+
+  const families = familiesData || [];
+
+  // Filtered family list for modal selection
+  const modalFamilies = families.filter((f: any) => {
+    if (!familySearchFilter) return true;
+    const q = familySearchFilter.toLowerCase();
+    return (
+      f.familyCode?.toLowerCase().includes(q) ||
+      f.headMemberId?.name?.toLowerCase().includes(q) ||
+      f.headMemberId?.phone?.includes(q)
+    );
   });
 
   const remindMutation = useMutation({
@@ -64,6 +117,19 @@ export default function RecurringDonationsPage() {
     onError: (err: any) => toast.error(err?.response?.data?.message || 'Failed to update schedule'),
   });
 
+  const bulkAssignMutation = useMutation({
+    mutationFn: (data: any) => apiClient.post('/families/bulk-assign-recurring', data),
+    onSuccess: (data) => {
+      toast.success(data?.data?.message || 'Recurring donation assigned successfully!');
+      setIsAssignModalOpen(false);
+      setSelectedFamilyIds([]);
+      setIsAllFamiliesSelected(false);
+      queryClient.invalidateQueries({ queryKey: ['recurring-families'] });
+      queryClient.invalidateQueries({ queryKey: ['families'] });
+    },
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'Failed to assign recurring donation'),
+  });
+
   const collectMutation = useMutation({
     mutationFn: (data: any) => apiClient.post('/receipts/manual', data),
     onSuccess: () => {
@@ -77,28 +143,42 @@ export default function RecurringDonationsPage() {
       queryClient.invalidateQueries({ queryKey: ['receipts'] });
       queryClient.invalidateQueries({ queryKey: ['finance-kpis'] });
     },
-    onError: (err: any) => toast.error(err?.response?.data?.message || 'Failed to log payment')
+    onError: (err: any) => toast.error(err?.response?.data?.message || 'Failed to log payment'),
   });
-
-  const families = familiesData || [];
 
   // Helper to calculate due status
   const getDueStatus = (nextDueDateStr?: string) => {
-    if (!nextDueDateStr) return { status: 'NORMAL', label: 'Upcoming', badge: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400' };
+    if (!nextDueDateStr)
+      return {
+        status: 'NORMAL',
+        label: 'Upcoming',
+        badge: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400',
+      };
     const dueDate = new Date(nextDueDateStr);
     const today = new Date();
     const diffDays = Math.ceil((dueDate.getTime() - today.getTime()) / (1000 * 3600 * 24));
 
     if (diffDays < 0) {
-      return { status: 'OVERDUE', label: `Overdue (${Math.abs(diffDays)}d)`, badge: 'bg-red-50 text-red-700 dark:bg-red-950/30 dark:text-red-400' };
+      return {
+        status: 'OVERDUE',
+        label: `Overdue (${Math.abs(diffDays)}d)`,
+        badge: 'bg-red-50 text-red-700 dark:bg-red-950/30 dark:text-red-400',
+      };
     }
     if (diffDays <= 7) {
-      return { status: 'DUE_SOON', label: `Due in ${diffDays}d`, badge: 'bg-amber-50 text-amber-700 dark:bg-amber-950/30 dark:text-amber-400' };
+      return {
+        status: 'DUE_SOON',
+        label: `Due in ${diffDays}d`,
+        badge: 'bg-amber-50 text-amber-700 dark:bg-amber-950/30 dark:text-amber-400',
+      };
     }
-    return { status: 'NORMAL', label: 'Upcoming', badge: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400' };
+    return {
+      status: 'NORMAL',
+      label: 'Upcoming',
+      badge: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400',
+    };
   };
 
-  // Filter based on recurringDonationType and paymentStatus
   const filteredFamilies = families.filter((f: any) => {
     if (!f.recurringDonationType || f.recurringDonationType === 'none') return false;
     if (filterType && f.recurringDonationType !== filterType) return false;
@@ -108,7 +188,7 @@ export default function RecurringDonationsPage() {
     if (paymentStatus === 'paid') return (f.outstandingBalance || 0) <= 0;
     if (paymentStatus === 'unpaid') return (f.outstandingBalance || 0) > 0;
     if (paymentStatus === 'overdue') return dueInfo.status === 'OVERDUE';
-    
+
     return true;
   });
 
@@ -125,10 +205,6 @@ export default function RecurringDonationsPage() {
     .filter((f: any) => f.recurringDonationType && f.recurringDonationType !== 'none')
     .reduce((sum: number, f: any) => sum + (f.outstandingBalance || 0), 0);
 
-  const triggerAlert = (familyId: string, headName: string, amount: number) => {
-    remindMutation.mutate(familyId);
-  };
-
   const openScheduleModal = (family: any) => {
     setEditScheduleFamily(family);
     setScheduleType(family.recurringDonationType || 'monthly');
@@ -139,14 +215,61 @@ export default function RecurringDonationsPage() {
     setIsScheduleModalOpen(true);
   };
 
+  const toggleSelectFamily = (id: string) => {
+    if (selectedFamilyIds.includes(id)) {
+      setSelectedFamilyIds(selectedFamilyIds.filter((item) => item !== id));
+      setIsAllFamiliesSelected(false);
+    } else {
+      setSelectedFamilyIds([...selectedFamilyIds, id]);
+    }
+  };
+
+  const toggleSelectAllFamilies = () => {
+    if (isAllFamiliesSelected) {
+      setIsAllFamiliesSelected(false);
+      setSelectedFamilyIds([]);
+    } else {
+      setIsAllFamiliesSelected(true);
+      setSelectedFamilyIds(families.map((f: any) => f._id));
+    }
+  };
+
+  const handleExecuteAssign = () => {
+    if (!isAllFamiliesSelected && selectedFamilyIds.length === 0) {
+      return toast.error('Please select at least one family or choose ALL Families');
+    }
+
+    bulkAssignMutation.mutate({
+      familyIds: isAllFamiliesSelected ? [] : selectedFamilyIds,
+      isAllFamilies: isAllFamiliesSelected,
+      recurringDonationType: assignType,
+      recurringDonationAmount: Number(assignAmount || 0),
+      recurringPaymentDay: assignDay,
+      recurringPaymentMonth: assignMonth,
+      markPending: assignMarkPending,
+    });
+  };
+
   return (
-    <div className="space-y-6 max-w-7xl mx-auto">
+    <div className="space-y-6 max-w-7xl mx-auto pb-16">
       {/* Header */}
-      <div className="page-header">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="page-title">{t('recurring_donations_page.title')}</h1>
           <p className="page-subtitle">{t('recurring_donations_page.subtitle')}</p>
         </div>
+
+        <button
+          onClick={() => {
+            setSelectedFamilyIds([]);
+            setIsAllFamiliesSelected(false);
+            setIsAssignModalOpen(true);
+          }}
+          className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-sm px-5 py-3 rounded-2xl shadow-lg transition-all cursor-pointer"
+        >
+          <Plus size={18} />
+          Assign Recurring Donation (ആവർത്തന സംഭാവന)
+        </button>
       </div>
 
       {/* Analytics Row */}
@@ -205,13 +328,13 @@ export default function RecurringDonationsPage() {
               type="text"
               placeholder={t('recurring_donations_page.search')}
               value={search}
-              onChange={e => setSearch(e.target.value)}
+              onChange={(e) => setSearch(e.target.value)}
               className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
           </div>
           <select
             value={filterType}
-            onChange={e => setFilterType(e.target.value)}
+            onChange={(e) => setFilterType(e.target.value)}
             className="px-4 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             <option value="">{t('recurring_donations_page.allFrequencies')}</option>
@@ -220,7 +343,7 @@ export default function RecurringDonationsPage() {
           </select>
           <select
             value={paymentStatus}
-            onChange={e => setPaymentStatus(e.target.value)}
+            onChange={(e) => setPaymentStatus(e.target.value)}
             className="px-4 py-2.5 rounded-xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 font-semibold"
           >
             <option value="all">All Payment Statuses</option>
@@ -235,7 +358,9 @@ export default function RecurringDonationsPage() {
       <div className="section-card overflow-hidden p-0">
         {isLoading ? (
           <div className="space-y-3 p-6">
-            {[...Array(5)].map((_, i) => <div key={i} className="h-14 rounded-xl shimmer" />)}
+            {[...Array(5)].map((_, i) => (
+              <div key={i} className="h-14 rounded-xl shimmer" />
+            ))}
           </div>
         ) : (
           <div className="overflow-x-auto">
@@ -263,7 +388,7 @@ export default function RecurringDonationsPage() {
                   filteredFamilies.map((family: any, i: number) => {
                     const dueInfo = getDueStatus(family.nextPaymentDueDate);
                     const isMonthly = family.recurringDonationType === 'monthly';
-                    const scheduleText = isMonthly 
+                    const scheduleText = isMonthly
                       ? `${family.recurringPaymentDay || 1}${getOrdinal(family.recurringPaymentDay || 1)} of every month`
                       : `${family.recurringPaymentDay || 1} ${MONTH_NAMES[(family.recurringPaymentMonth || 1) - 1]} (Yearly)`;
 
@@ -283,18 +408,19 @@ export default function RecurringDonationsPage() {
                             <span className="font-semibold text-foreground block">
                               {family.headMemberId?.name || 'Unknown Head'}
                             </span>
-                            <span className="text-xs text-muted-foreground">
-                              {family.headMemberId?.phone || '—'}
-                            </span>
+                            <span className="text-xs text-muted-foreground">{family.headMemberId?.phone || '—'}</span>
                           </div>
                         </td>
                         <td>
                           <div className="space-y-0.5">
-                            <span className={cn('text-xs px-2 py-0.5 rounded-full font-semibold capitalize inline-block',
-                              isMonthly
-                                ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400'
-                                : 'bg-blue-50 text-blue-700 dark:bg-blue-950/30 dark:text-blue-400'
-                            )}>
+                            <span
+                              className={cn(
+                                'text-xs px-2 py-0.5 rounded-full font-semibold capitalize inline-block',
+                                isMonthly
+                                  ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400'
+                                  : 'bg-blue-50 text-blue-700 dark:bg-blue-950/30 dark:text-blue-400'
+                              )}
+                            >
                               {family.recurringDonationType}
                             </span>
                             <p className="text-xs font-medium text-muted-foreground">{scheduleText}</p>
@@ -314,9 +440,12 @@ export default function RecurringDonationsPage() {
                           {formatCurrency(family.recurringDonationAmount || 0)}
                         </td>
                         <td>
-                          <span className={cn('text-sm font-bold',
-                            (family.outstandingBalance || 0) > 0 ? 'text-red-500' : 'text-emerald-600'
-                          )}>
+                          <span
+                            className={cn(
+                              'text-sm font-bold',
+                              (family.outstandingBalance || 0) > 0 ? 'text-red-500' : 'text-emerald-600'
+                            )}
+                          >
                             {formatCurrency(family.outstandingBalance || 0)}
                           </span>
                         </td>
@@ -334,7 +463,9 @@ export default function RecurringDonationsPage() {
                                 <button
                                   onClick={() => {
                                     setSelectedFamily(family);
-                                    setPaymentAmount(String(family.outstandingBalance || family.recurringDonationAmount || 0));
+                                    setPaymentAmount(
+                                      String(family.outstandingBalance || family.recurringDonationAmount || 0)
+                                    );
                                     setIsPaymentModalOpen(true);
                                   }}
                                   className="flex items-center gap-1 text-xs text-emerald-600 hover:underline font-bold"
@@ -343,11 +474,15 @@ export default function RecurringDonationsPage() {
                                   Collect
                                 </button>
                                 <button
-                                  onClick={() => triggerAlert(family._id, family.headMemberId?.name || family.familyCode, family.outstandingBalance || 0)}
+                                  onClick={() => remindMutation.mutate(family._id)}
                                   disabled={remindMutation.isPending && remindMutation.variables === family._id}
                                   className="flex items-center gap-1 text-xs text-amber-600 hover:underline font-bold disabled:opacity-50"
                                 >
-                                  {remindMutation.isPending && remindMutation.variables === family._id ? <Loader2 size={13} className="animate-spin" /> : <Bell size={13} />}
+                                  {remindMutation.isPending && remindMutation.variables === family._id ? (
+                                    <Loader2 size={13} className="animate-spin" />
+                                  ) : (
+                                    <Bell size={13} />
+                                  )}
                                   Remind
                                 </button>
                               </>
@@ -364,7 +499,290 @@ export default function RecurringDonationsPage() {
         )}
       </div>
 
-      {/* Configure Due Schedule Modal */}
+      {/* Assign Recurring Donation Modal (Bulk / Multiple Selection) */}
+      <AnimatePresence>
+        {isAssignModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md overflow-y-auto">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="bg-card w-full max-w-2xl rounded-3xl shadow-2xl border overflow-hidden flex flex-col my-8"
+            >
+              {/* Modal Header */}
+              <div className="p-5 border-b bg-gradient-to-r from-emerald-900 to-teal-900 text-white flex items-center justify-between">
+                <div>
+                  <div className="flex items-center gap-2 text-emerald-300 text-xs font-bold uppercase tracking-wider">
+                    <Sparkles className="h-4 w-4" />
+                    Assign Recurring Donation Schedule
+                  </div>
+                  <h2 className="font-extrabold text-xl text-white mt-0.5">
+                    Assign Recurring Donation (ആവർത്തന സംഭാവന)
+                  </h2>
+                </div>
+                <button
+                  onClick={() => setIsAssignModalOpen(false)}
+                  className="p-2 hover:bg-white/20 rounded-full text-white cursor-pointer"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              <div className="p-6 space-y-6 max-h-[75vh] overflow-y-auto">
+                {/* 1. Frequency Picker */}
+                <div>
+                  <label className="block text-xs font-extrabold uppercase tracking-wider text-muted-foreground mb-2">
+                    1. Select Donation Frequency (ആവൃത്തി / കാലയളവ്) *
+                  </label>
+                  <div className="grid grid-cols-2 gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setAssignType('monthly')}
+                      className={cn(
+                        'p-4 rounded-2xl border-2 flex flex-col items-center justify-center transition-all cursor-pointer',
+                        assignType === 'monthly'
+                          ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 font-extrabold shadow-md'
+                          : 'border-border bg-background hover:bg-muted text-muted-foreground'
+                      )}
+                    >
+                      <Calendar className="h-6 w-6 mb-1 text-emerald-600" />
+                      <span>Monthly (മാസാന്തം)</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setAssignType('yearly')}
+                      className={cn(
+                        'p-4 rounded-2xl border-2 flex flex-col items-center justify-center transition-all cursor-pointer',
+                        assignType === 'yearly'
+                          ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/40 text-blue-800 dark:text-blue-300 font-extrabold shadow-md'
+                          : 'border-border bg-background hover:bg-muted text-muted-foreground'
+                      )}
+                    >
+                      <Clock className="h-6 w-6 mb-1 text-blue-600" />
+                      <span>Yearly (വാർഷികം)</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* 2. Donation Amount / Price */}
+                <div>
+                  <label className="block text-xs font-extrabold uppercase tracking-wider text-muted-foreground mb-2">
+                    2. Donation Price / Amount (സംഭാവന തുക - ₹) *
+                  </label>
+
+                  {/* Preset quick buttons */}
+                  <div className="flex flex-wrap gap-2 mb-3">
+                    {['50', '100', '250', '500', '1000', '2500'].map((preset) => (
+                      <button
+                        key={preset}
+                        type="button"
+                        onClick={() => setAssignAmount(preset)}
+                        className={cn(
+                          'px-4 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer',
+                          assignAmount === preset
+                            ? 'bg-emerald-600 text-white border-emerald-600 shadow-md'
+                            : 'bg-muted border-border text-foreground hover:bg-muted/80'
+                        )}
+                      >
+                        ₹{preset}
+                      </button>
+                    ))}
+                  </div>
+
+                  <input
+                    type="number"
+                    value={assignAmount}
+                    onChange={(e) => setAssignAmount(e.target.value)}
+                    placeholder="Enter donation amount (e.g. 500)"
+                    className="w-full px-4 py-3 rounded-2xl border border-border bg-background text-base font-extrabold"
+                  />
+                </div>
+
+                {/* 3. Payment Billing Schedule Day / Month */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-extrabold uppercase tracking-wider text-muted-foreground mb-2">
+                      3. Day of the Month *
+                    </label>
+                    <select
+                      value={assignDay}
+                      onChange={(e) => setAssignDay(Number(e.target.value))}
+                      className="w-full px-3.5 py-3 rounded-2xl border border-border bg-background text-sm font-bold"
+                    >
+                      {Array.from({ length: 31 }, (_, idx) => idx + 1).map((day) => (
+                        <option key={day} value={day}>
+                          {day}
+                          {getOrdinal(day)} of the month
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {assignType === 'yearly' && (
+                    <div>
+                      <label className="block text-xs font-extrabold uppercase tracking-wider text-muted-foreground mb-2">
+                        Payment Month of Year *
+                      </label>
+                      <select
+                        value={assignMonth}
+                        onChange={(e) => setAssignMonth(Number(e.target.value))}
+                        className="w-full px-3.5 py-3 rounded-2xl border border-border bg-background text-sm font-bold"
+                      >
+                        {MONTH_NAMES.map((mName, idx) => (
+                          <option key={idx + 1} value={idx + 1}>
+                            {mName}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+                </div>
+
+                {/* 4. Multiple Selection of Families */}
+                <div className="space-y-3 border-t pt-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <label className="block text-xs font-extrabold uppercase tracking-wider text-muted-foreground">
+                      4. Select Families (കുടുംബങ്ങൾ തിരഞ്ഞെടുക്കുക) *
+                    </label>
+
+                    {/* ALL FAMILIES Toggle Button */}
+                    <button
+                      type="button"
+                      onClick={toggleSelectAllFamilies}
+                      className={cn(
+                        'flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-black border transition-all cursor-pointer',
+                        isAllFamiliesSelected
+                          ? 'bg-emerald-600 text-white border-emerald-600 shadow-md'
+                          : 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border-emerald-300'
+                      )}
+                    >
+                      <Users size={14} />
+                      {isAllFamiliesSelected
+                        ? '👥 ALL FAMILIES Selected'
+                        : '👥 Select ALL Families (Entire Mahallu)'}
+                    </button>
+                  </div>
+
+                  {/* Family Filter Input */}
+                  <div className="relative">
+                    <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                    <input
+                      type="text"
+                      placeholder="Search family by code, head name, or phone..."
+                      value={familySearchFilter}
+                      onChange={(e) => setFamilySearchFilter(e.target.value)}
+                      className="w-full pl-9 pr-4 py-2 rounded-xl border border-border bg-background text-xs font-medium"
+                    />
+                  </div>
+
+                  {/* Family Selection Counter Badge */}
+                  <div className="text-xs font-bold text-emerald-800 dark:text-emerald-300 flex items-center justify-between bg-emerald-50/70 dark:bg-emerald-950/20 p-2.5 rounded-xl border border-emerald-200 dark:border-emerald-900">
+                    <span>
+                      {isAllFamiliesSelected
+                        ? `Selected ALL ${families.length} Families in Mahallu`
+                        : `Selected ${selectedFamilyIds.length} of ${families.length} Families`}
+                    </span>
+                    {selectedFamilyIds.length > 0 && !isAllFamiliesSelected && (
+                      <button
+                        type="button"
+                        onClick={() => setSelectedFamilyIds([])}
+                        className="text-[10px] text-rose-600 hover:underline"
+                      >
+                        Clear Selection
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Families List Checkbox Box */}
+                  <div className="border border-border rounded-2xl max-h-48 overflow-y-auto divide-y divide-border bg-background">
+                    {modalFamilies.map((f: any) => {
+                      const isChecked = isAllFamiliesSelected || selectedFamilyIds.includes(f._id);
+                      return (
+                        <div
+                          key={f._id}
+                          onClick={() => {
+                            if (isAllFamiliesSelected) setIsAllFamiliesSelected(false);
+                            toggleSelectFamily(f._id);
+                          }}
+                          className={cn(
+                            'flex items-center justify-between p-3 cursor-pointer transition-colors hover:bg-muted/50',
+                            isChecked && 'bg-emerald-50/60 dark:bg-emerald-950/30'
+                          )}
+                        >
+                          <div className="flex items-center gap-3">
+                            {isChecked ? (
+                              <CheckSquare size={18} className="text-emerald-600" />
+                            ) : (
+                              <Square size={18} className="text-muted-foreground" />
+                            )}
+                            <div>
+                              <p className="text-xs font-bold text-foreground">
+                                {f.familyCode} — {f.headMemberId?.name || 'Head Member'}
+                              </p>
+                              <p className="text-[10px] text-muted-foreground">{f.headMemberId?.phone || 'No Phone'}</p>
+                            </div>
+                          </div>
+                          {f.recurringDonationAmount > 0 && (
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
+                              Curr: ₹{f.recurringDonationAmount}/{f.recurringDonationType || 'm'}
+                            </span>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Mark Dues as Pending Option */}
+                <div className="pt-2">
+                  <label className="flex items-start gap-3 cursor-pointer p-3.5 border rounded-2xl bg-amber-50/50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-900">
+                    <input
+                      type="checkbox"
+                      checked={assignMarkPending}
+                      onChange={(e) => setAssignMarkPending(e.target.checked)}
+                      className="mt-0.5 w-4 h-4 text-amber-600 rounded focus:ring-amber-500 accent-amber-600"
+                    />
+                    <div>
+                      <div className="text-xs font-bold text-foreground">
+                        Mark Current Cycle Dues as Pending Immediately (ബാക്കി കുടിശ്ശിക ആക്കുക)
+                      </div>
+                      <div className="text-[11px] text-muted-foreground mt-0.5">
+                        Will generate an active pending due balance for selected families so they can pay online or via receipt.
+                      </div>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              {/* Modal Actions */}
+              <div className="p-4 border-t bg-card flex items-center justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={() => setIsAssignModalOpen(false)}
+                  className="px-5 py-2.5 rounded-xl border text-xs font-bold"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={handleExecuteAssign}
+                  disabled={bulkAssignMutation.isPending}
+                  className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs rounded-xl shadow-lg transition-all flex items-center gap-2 cursor-pointer"
+                >
+                  {bulkAssignMutation.isPending ? (
+                    <Loader2 size={16} className="animate-spin" />
+                  ) : (
+                    <Sparkles size={16} />
+                  )}
+                  Assign Recurring Donation
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* Configure Single Family Schedule Modal */}
       <AnimatePresence>
         {isScheduleModalOpen && editScheduleFamily && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm">
@@ -376,7 +794,13 @@ export default function RecurringDonationsPage() {
             >
               <div className="p-4 border-b flex items-center justify-between bg-card">
                 <h2 className="font-bold text-lg">Configure Recurring Schedule</h2>
-                <button onClick={() => { setIsScheduleModalOpen(false); setEditScheduleFamily(null); }} className="p-2 hover:bg-muted rounded-full">
+                <button
+                  onClick={() => {
+                    setIsScheduleModalOpen(false);
+                    setEditScheduleFamily(null);
+                  }}
+                  className="p-2 hover:bg-muted rounded-full"
+                >
                   <X size={18} />
                 </button>
               </div>
@@ -409,7 +833,7 @@ export default function RecurringDonationsPage() {
                       <input
                         type="number"
                         value={scheduleAmount}
-                        onChange={e => setScheduleAmount(e.target.value)}
+                        onChange={(e) => setScheduleAmount(e.target.value)}
                         className="w-full p-2.5 rounded-xl border bg-background text-sm font-semibold"
                         placeholder="e.g. 500"
                       />
@@ -421,12 +845,13 @@ export default function RecurringDonationsPage() {
                       </label>
                       <select
                         value={scheduleDay}
-                        onChange={e => setScheduleDay(Number(e.target.value))}
+                        onChange={(e) => setScheduleDay(Number(e.target.value))}
                         className="w-full p-2.5 rounded-xl border bg-background text-sm font-medium"
                       >
-                        {Array.from({ length: 31 }, (_, idx) => idx + 1).map(day => (
+                        {Array.from({ length: 31 }, (_, idx) => idx + 1).map((day) => (
                           <option key={day} value={day}>
-                            {day}{getOrdinal(day)} of the month
+                            {day}
+                            {getOrdinal(day)} of the month
                           </option>
                         ))}
                       </select>
@@ -437,7 +862,7 @@ export default function RecurringDonationsPage() {
                         <label className="block text-sm font-medium mb-1.5">Payment Month of Year *</label>
                         <select
                           value={scheduleMonth}
-                          onChange={e => setScheduleMonth(Number(e.target.value))}
+                          onChange={(e) => setScheduleMonth(Number(e.target.value))}
                           className="w-full p-2.5 rounded-xl border bg-background text-sm font-medium"
                         >
                           {MONTH_NAMES.map((mName, idx) => (
@@ -448,7 +873,7 @@ export default function RecurringDonationsPage() {
                         </select>
                       </div>
                     )}
-                    {/* Mark Pending Dues Option */}
+
                     <div className="pt-2">
                       <label className="flex items-start gap-3 cursor-pointer p-3.5 border rounded-xl bg-amber-50/50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-900">
                         <input
@@ -458,11 +883,10 @@ export default function RecurringDonationsPage() {
                           className="mt-0.5 w-4 h-4 text-amber-600 rounded focus:ring-amber-500 accent-amber-600"
                         />
                         <div>
-                          <div className="text-sm font-bold text-foreground">
-                            Mark Dues as Pending (Current Cycle)
-                          </div>
+                          <div className="text-sm font-bold text-foreground">Mark Dues as Pending (Current Cycle)</div>
                           <div className="text-xs text-muted-foreground mt-0.5">
-                            Check this to make this family's recurring donation status Pending / Overdue immediately for this cycle.
+                            Check this to make this family's recurring donation status Pending / Overdue immediately for
+                            this cycle.
                           </div>
                         </div>
                       </label>
@@ -472,21 +896,33 @@ export default function RecurringDonationsPage() {
               </div>
 
               <div className="p-4 border-t bg-card flex gap-3">
-                <button onClick={() => { setIsScheduleModalOpen(false); setEditScheduleFamily(null); }} className="flex-1 py-2.5 rounded-xl border font-bold text-sm">
+                <button
+                  onClick={() => {
+                    setIsScheduleModalOpen(false);
+                    setEditScheduleFamily(null);
+                  }}
+                  className="flex-1 py-2.5 rounded-xl border font-bold text-sm"
+                >
                   Cancel
                 </button>
                 <button
-                  onClick={() => updateScheduleMutation.mutate({
-                    recurringDonationType: scheduleType,
-                    recurringDonationAmount: Number(scheduleAmount || 0),
-                    recurringPaymentDay: scheduleDay,
-                    recurringPaymentMonth: scheduleMonth,
-                    markPending,
-                  })}
+                  onClick={() =>
+                    updateScheduleMutation.mutate({
+                      recurringDonationType: scheduleType,
+                      recurringDonationAmount: Number(scheduleAmount || 0),
+                      recurringPaymentDay: scheduleDay,
+                      recurringPaymentMonth: scheduleMonth,
+                      markPending,
+                    })
+                  }
                   disabled={updateScheduleMutation.isPending}
                   className="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm flex justify-center items-center gap-2"
                 >
-                  {updateScheduleMutation.isPending ? <Loader2 size={18} className="animate-spin" /> : 'Save Schedule'}
+                  {updateScheduleMutation.isPending ? (
+                    <Loader2 size={18} className="animate-spin" />
+                  ) : (
+                    'Save Schedule'
+                  )}
                 </button>
               </div>
             </motion.div>
@@ -506,7 +942,13 @@ export default function RecurringDonationsPage() {
             >
               <div className="p-4 border-b flex items-center justify-between bg-card">
                 <h2 className="font-bold text-lg">Collect Recurring Payment</h2>
-                <button onClick={() => { setIsPaymentModalOpen(false); setSelectedFamily(null); }} className="p-2 hover:bg-muted rounded-full">
+                <button
+                  onClick={() => {
+                    setIsPaymentModalOpen(false);
+                    setSelectedFamily(null);
+                  }}
+                  className="p-2 hover:bg-muted rounded-full"
+                >
                   <X size={18} />
                 </button>
               </div>
@@ -517,23 +959,25 @@ export default function RecurringDonationsPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-1">Paid By (Family Head)</label>
-                  <p className="text-sm font-bold bg-muted p-2.5 rounded-xl">{selectedFamily.headMemberId?.name || 'Unknown'}</p>
+                  <p className="text-sm font-bold bg-muted p-2.5 rounded-xl">
+                    {selectedFamily.headMemberId?.name || 'Unknown'}
+                  </p>
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-1.5">Amount (INR) *</label>
-                  <input 
-                    type="number" 
-                    value={paymentAmount} 
-                    onChange={e => setPaymentAmount(e.target.value)}
-                    className="w-full p-2.5 rounded-xl border text-sm" 
-                    placeholder="Enter amount..." 
+                  <input
+                    type="number"
+                    value={paymentAmount}
+                    onChange={(e) => setPaymentAmount(e.target.value)}
+                    className="w-full p-2.5 rounded-xl border text-sm"
+                    placeholder="Enter amount..."
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-1.5">Payment Method *</label>
-                  <select 
-                    value={paymentGateway} 
-                    onChange={e => setPaymentGateway(e.target.value)}
+                  <select
+                    value={paymentGateway}
+                    onChange={(e) => setPaymentGateway(e.target.value)}
                     className="w-full p-2.5 rounded-xl border text-sm bg-background"
                   >
                     <option value="cash">Collected By Hand (Cash)</option>
@@ -543,20 +987,31 @@ export default function RecurringDonationsPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-1.5">Description / Note</label>
-                  <input 
-                    type="text" 
-                    value={paymentDescription} 
-                    onChange={e => setPaymentDescription(e.target.value)}
-                    className="w-full p-2.5 rounded-xl border text-sm" 
-                    placeholder="e.g. Paid cash for subscription dues" 
+                  <input
+                    type="text"
+                    value={paymentDescription}
+                    onChange={(e) => setPaymentDescription(e.target.value)}
+                    className="w-full p-2.5 rounded-xl border text-sm"
+                    placeholder="e.g. Paid cash for subscription dues"
                   />
                 </div>
               </div>
               <div className="p-4 border-t bg-card flex gap-3">
-                <button onClick={() => { setIsPaymentModalOpen(false); setSelectedFamily(null); }} className="flex-1 py-2.5 rounded-xl border font-bold text-sm">Cancel</button>
-                <button 
+                <button
                   onClick={() => {
-                    const headId = typeof selectedFamily.headMemberId === 'object' ? selectedFamily.headMemberId?._id : selectedFamily.headMemberId;
+                    setIsPaymentModalOpen(false);
+                    setSelectedFamily(null);
+                  }}
+                  className="flex-1 py-2.5 rounded-xl border font-bold text-sm"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => {
+                    const headId =
+                      typeof selectedFamily.headMemberId === 'object'
+                        ? selectedFamily.headMemberId?._id
+                        : selectedFamily.headMemberId;
                     collectMutation.mutate({
                       amount: Number(paymentAmount),
                       type: 'recurring_donation',
@@ -564,10 +1019,12 @@ export default function RecurringDonationsPage() {
                       paidById: headId || undefined,
                       paidForId: headId || undefined,
                       gateway: paymentGateway,
-                      description: paymentDescription || `Recurring ${selectedFamily.recurringDonationType} contribution collected by hand`
+                      description:
+                        paymentDescription ||
+                        `Recurring ${selectedFamily.recurringDonationType} contribution collected by hand`,
                     });
                   }}
-                  disabled={collectMutation.isPending || !paymentAmount} 
+                  disabled={collectMutation.isPending || !paymentAmount}
                   className="flex-1 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-sm flex justify-center items-center"
                 >
                   {collectMutation.isPending ? <Loader2 size={18} className="animate-spin" /> : 'Log Payment'}

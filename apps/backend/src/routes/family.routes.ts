@@ -363,6 +363,56 @@ router.delete('/:id', authorize(PERMISSIONS.FAMILY_DELETE), async (req: AuthRequ
   } catch (e) { next(e); }
 });
 
+router.post('/bulk-assign-recurring', authorize(PERMISSIONS.FAMILY_UPDATE), async (req: AuthRequest, res, next) => {
+  try {
+    const tenantId = req.user!.tenantId;
+    const {
+      familyIds = [],
+      isAllFamilies = false,
+      recurringDonationType = 'monthly',
+      recurringDonationAmount = 0,
+      recurringPaymentDay = 1,
+      recurringPaymentMonth = 1,
+      markPending = false,
+    } = req.body;
+
+    const filter: any = { tenantId, isDeleted: { $ne: true } };
+    if (!isAllFamilies && Array.isArray(familyIds) && familyIds.length > 0) {
+      filter._id = { $in: familyIds };
+    }
+
+    const nextPaymentDueDate = calculateNextDueDate(
+      recurringDonationType,
+      recurringPaymentDay,
+      recurringPaymentMonth
+    );
+
+    const updatePayload: any = {
+      recurringDonationType,
+      recurringDonationAmount: Number(recurringDonationAmount) || 0,
+      recurringPaymentDay: Number(recurringPaymentDay) || 1,
+      recurringPaymentMonth: Number(recurringPaymentMonth) || 1,
+      nextPaymentDueDate,
+    };
+
+    if (markPending) {
+      const amt = Number(recurringDonationAmount) || 0;
+      updatePayload.outstandingBalance = amt > 0 ? amt : 100;
+      updatePayload.nextPaymentDueDate = new Date();
+    }
+
+    const result = await Family.updateMany(filter, { $set: updatePayload });
+
+    res.json({
+      success: true,
+      modifiedCount: result.modifiedCount,
+      message: `Successfully assigned recurring donation to ${result.modifiedCount} families!`,
+    });
+  } catch (e) {
+    next(e);
+  }
+});
+
 router.post('/:id/remind-recurring', authorize(PERMISSIONS.FAMILY_VIEW), async (req: AuthRequest, res, next) => {
   try {
     const family = await Family.findOne({ _id: req.params.id, tenantId: req.user!.tenantId });

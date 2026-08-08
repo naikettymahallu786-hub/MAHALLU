@@ -90,7 +90,26 @@ export const receiptRoutes = (() => {
         return mongoose.Types.ObjectId.isValid(String(idStr)) ? idStr : null;
       };
 
-      const payerId = extractId(paidById) || extractId(paidForId) || req.user!.userId;
+      const { User } = await import('../models/User');
+      const { Member } = await import('../models/Member');
+      const { Family } = await import('../models/Family');
+
+      let payerId = extractId(paidById) || extractId(paidForId);
+      if (!payerId && req.body.familyId) {
+        const fam = await Family.findOne({ _id: req.body.familyId, tenantId }).select('headMemberId').lean();
+        if (fam?.headMemberId) payerId = extractId(fam.headMemberId);
+      }
+
+      if (!payerId) {
+        const u = await User.findById(req.user!.userId).select('memberId').lean();
+        if (u?.memberId) payerId = u.memberId;
+      }
+
+      if (!payerId) {
+        const fallbackMember = await Member.findOne({ tenantId }).select('_id').lean();
+        if (fallbackMember) payerId = fallbackMember._id;
+      }
+
       const targetId = extractId(paidForId) || payerId;
       const numAmount = Number(amount || 0);
 

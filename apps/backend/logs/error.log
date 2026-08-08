@@ -4677,3 +4677,122 @@ Use mongoose.model(name, schema)
     at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/document.js:3148:17
     at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/schemaType.js:1443:9
     at process.processTicksAndRejections (node:internal/process/task_queues:84:11)
+2026-08-08 19:27:41 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 19:27:41 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 19:27:42 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 19:27:42 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 19:30:49 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 19:30:49 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 19:30:50 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 19:30:50 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 19:32:32 [error]: ValidationError: Payment validation failed: status: `completed` is not a valid enum value for path `status`.
+    at Document.invalidate (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/document.js:3387:32)
+    at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/document.js:3148:17
+    at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/schemaType.js:1443:9
+    at process.processTicksAndRejections (node:internal/process/task_queues:84:11)
+2026-08-08 19:32:42 [error]: ValidationError: Payment validation failed: status: `completed` is not a valid enum value for path `status`.
+    at Document.invalidate (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/document.js:3387:32)
+    at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/document.js:3148:17
+    at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/schemaType.js:1443:9
+    at process.processTicksAndRejections (node:internal/process/task_queues:84:11)
+2026-08-08 19:33:34 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 19:33:35 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 19:33:35 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 19:33:36 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 19:33:41 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 19:33:42 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 19:33:42 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 19:33:43 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 19:33:58 [error]: ValidationError: Payment validation failed: status: `completed` is not a valid enum value for path `status`.
+    at Document.invalidate (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/document.js:3387:32)
+    at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/document.js:3148:17
+    at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/schemaType.js:1443:9
+    at process.processTicksAndRejections (node:internal/process/task_queues:84:11)
+2026-08-08 19:34:08 [error]: ValidationError: Payment validation failed: status: `completed` is not a valid enum value for path `status`.
+    at Document.invalidate (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/document.js:3387:32)
+    at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/document.js:3148:17
+    at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/schemaType.js:1443:9
+    at process.processTicksAndRejections (node:internal/process/task_queues:84:11)
+2026-08-08 19:34:56 [error]: ValidationError: Payment validation failed: status: `completed` is not a valid enum value for path `status`.
+    at Document.invalidate (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/document.js:3387:32)
+    at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/document.js:3148:17
+    at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/schemaType.js:1443:9
+    at process.processTicksAndRejections (node:internal/process/task_queues:84:11)
+2026-08-08 19:35:07 [error]: ValidationError: Payment validation failed: status: `completed` is not a valid enum value for path `status`.
+    at Document.invalidate (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/document.js:3387:32)
+    at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/document.js:3148:17
+    at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/schemaType.js:1443:9
+    at process.processTicksAndRejections (node:internal/process/task_queues:84:11)
+2026-08-08 19:35:24 [error]: ValidationError: Payment validation failed: status: `completed` is not a valid enum value for path `status`.
+    at Document.invalidate (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/document.js:3387:32)
+    at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/document.js:3148:17
+    at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/schemaType.js:1443:9
+    at process.processTicksAndRejections (node:internal/process/task_queues:84:11)
+2026-08-08 19:35:31 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 19:35:31 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 19:35:32 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 19:35:32 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 19:36:16 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 19:36:16 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 19:36:17 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 19:36:17 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 19:36:36 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 19:36:36 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 19:36:37 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 19:36:37 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
