@@ -50,7 +50,9 @@
     },
     "plugins": [
       "expo-router",
+      "expo-font",
       "expo-splash-screen",
+      "expo-system-ui",
       "expo-secure-store",
       [
         "expo-local-authentication",
@@ -76,7 +78,9 @@
           "icon": "./assets/notification-icon.png",
           "color": "#059669"
         }
-      ]
+      ],
+      "expo-font",
+      "@react-native-community/datetimepicker"
     ],
     "scheme": "mahallu",
     "experiments": {
