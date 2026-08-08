@@ -38,7 +38,13 @@ export default function RootLayout() {
   usePushNotifications();
 
   useEffect(() => {
-    // Notifications setup removed for Expo Go compatibility
+    try {
+      const SplashScreen = require('expo-splash-screen');
+      SplashScreen?.preventAutoHideAsync().catch(() => {});
+      SplashScreen?.hideAsync().catch(() => {});
+    } catch (e) {
+      // Ignore if splash screen not available
+    }
   }, []);
 
   return (

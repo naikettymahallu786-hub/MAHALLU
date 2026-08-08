@@ -36,16 +36,12 @@
         "READ_EXTERNAL_STORAGE",
         "WRITE_EXTERNAL_STORAGE",
         "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
         "RECEIVE_BOOT_COMPLETED",
         "VIBRATE",
         "USE_BIOMETRIC",
         "USE_FINGERPRINT",
-        "android.permission.USE_BIOMETRIC",
-        "android.permission.USE_FINGERPRINT",
-        "android.permission.CAMERA",
-        "android.permission.RECORD_AUDIO",
-        "android.permission.ACCESS_COARSE_LOCATION",
-        "android.permission.ACCESS_FINE_LOCATION"
+        "RECORD_AUDIO"
       ]
     },
     "web": {
@@ -54,6 +50,7 @@
     },
     "plugins": [
       "expo-router",
+      "expo-splash-screen",
       "expo-secure-store",
       [
         "expo-local-authentication",
