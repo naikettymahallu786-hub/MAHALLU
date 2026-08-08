@@ -14,6 +14,7 @@ export default function DonationsPage() {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(20);
   const [campaign, setCampaign] = useState('');
 
   // Payment states
@@ -24,9 +25,9 @@ export default function DonationsPage() {
   const [collectDescription, setCollectDescription] = useState('');
 
   const { data, isLoading } = useQuery({
-    queryKey: ['donations', page, campaign],
+    queryKey: ['donations', page, limit, campaign],
     queryFn: () => apiClient.get('/donations', {
-      params: { page, limit: 20, campaign },
+      params: { page, limit, campaign },
     }).then(r => r.data),
   });
 
@@ -226,6 +227,53 @@ export default function DonationsPage() {
                 )}
               </tbody>
             </table>
+          </div>
+        )}
+
+        {/* Pagination */}
+        {pagination && pagination.total > 0 && (
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4 border-t border-border">
+            <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+              <span>
+                Showing {(page - 1) * limit + 1}–{Math.min(page * limit, pagination.total)} of {pagination.total} donations
+              </span>
+              <div className="flex items-center gap-1.5 ml-2">
+                <span className="text-xs font-medium">Show:</span>
+                <select
+                  value={limit}
+                  onChange={(e) => {
+                    setLimit(Number(e.target.value));
+                    setPage(1);
+                  }}
+                  className="px-2.5 py-1 rounded-lg border border-border bg-background text-xs font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer shadow-sm"
+                >
+                  {[10, 20, 50, 80, 100, 200].map((count) => (
+                    <option key={count} value={count}>
+                      {count} per page
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                disabled={!(pagination.hasPrev ?? page > 1)}
+                className="px-3 py-1.5 rounded-lg border border-border text-sm font-medium disabled:opacity-40 hover:bg-muted transition-colors cursor-pointer"
+              >
+                Previous
+              </button>
+              <span className="text-xs font-medium px-2.5 py-1.5 bg-muted rounded-lg text-foreground">
+                Page {page} of {pagination.totalPages || 1}
+              </span>
+              <button
+                onClick={() => setPage((p) => p + 1)}
+                disabled={!(pagination.hasNext ?? page * limit < pagination.total)}
+                className="px-3 py-1.5 rounded-lg border border-border text-sm font-medium disabled:opacity-40 hover:bg-muted transition-colors cursor-pointer"
+              >
+                Next
+              </button>
+            </div>
           </div>
         )}
       </div>

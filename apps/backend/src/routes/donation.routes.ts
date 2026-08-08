@@ -24,9 +24,13 @@ r.get('/', authorize(PERMISSIONS.DONATION_VIEW), async (req: AuthRequest, res, n
 });
 r.post('/', authorize(PERMISSIONS.DONATION_CREATE), async (req: AuthRequest, res, next) => {
   try {
-    if (familyId === 'all_families' || req.body.selectAllFamilies) {
+    const { amount, campaign, familyId, donorName, isAnonymous, gateway, selectAllFamilies } = req.body;
+    const tenantId = req.user!.tenantId;
+    const isFamilyDue = !!familyId && familyId !== 'all_families' && !gateway;
+
+    if (familyId === 'all_families' || selectAllFamilies) {
       const allFamilies = await Family.find({ tenantId }).lean();
-      const isFamilyDue = !gateway;
+      const isBulkFamilyDue = !gateway;
 
       const donationsToCreate = allFamilies.map((f: any) => ({
         tenantId,
@@ -35,12 +39,12 @@ r.post('/', authorize(PERMISSIONS.DONATION_CREATE), async (req: AuthRequest, res
         familyId: f._id,
         donorName: donorName || f.familyCode,
         isAnonymous: !!isAnonymous,
-        status: isFamilyDue ? 'pending' : 'paid',
+        status: isBulkFamilyDue ? 'pending' : 'paid',
       }));
 
       const createdDonations = await Donation.insertMany(donationsToCreate);
 
-      if (isFamilyDue) {
+      if (isBulkFamilyDue) {
         await Family.updateMany({ tenantId }, { $inc: { outstandingBalance: amount } });
 
         const headIds = allFamilies.map((f: any) => f.headMemberId).filter(Boolean);
