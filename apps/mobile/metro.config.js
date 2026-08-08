@@ -18,10 +18,13 @@ const config = getDefaultConfig(projectRoot);
 
 if (workspaceRoot !== projectRoot && fs.existsSync(workspaceRoot)) {
   config.watchFolders = [workspaceRoot];
-  config.resolver.nodeModulesPaths = [
-    path.resolve(projectRoot, 'node_modules'),
-    path.resolve(workspaceRoot, 'node_modules'),
-  ];
 }
+
+// Map shared packages directly to apps/mobile/packages for EAS Cloud builds
+config.resolver.extraNodeModules = {
+  ...config.resolver.extraNodeModules,
+  '@mahallu/shared-types': path.resolve(projectRoot, 'packages/shared-types/src/index.ts'),
+  '@mahallu/shared-config': path.resolve(projectRoot, 'packages/shared-config/src/index.ts'),
+};
 
 module.exports = withNativeWind(config, { input: './global.css' });

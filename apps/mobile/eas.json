@@ -10,6 +10,9 @@
     },
     "preview": {
       "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://api.mahallu.app/api/v1"
+      },
       "android": {
         "buildType": "apk"
       }
@@ -20,7 +23,10 @@
       }
     },
     "production": {
-      "autoIncrement": true
+      "autoIncrement": true,
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://api.mahallu.app/api/v1"
+      }
     }
   },
   "submit": {
