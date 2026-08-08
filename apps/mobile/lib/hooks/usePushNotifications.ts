@@ -6,82 +6,86 @@ import { baseOrigin } from '../api';
 
 const isExpoGo = Constants.executionEnvironment === ExecutionEnvironment.StoreClient;
 
-let Notifications: typeof import('expo-notifications') | null = null;
-if (!isExpoGo) {
-  try {
-    Notifications = require('expo-notifications');
-    Notifications?.setNotificationHandler({
-      handleNotification: async () => ({
-        shouldShowAlert: true,
-        shouldPlaySound: true,
-        shouldSetBadge: true,
-        shouldShowBanner: true,
-        shouldShowList: true,
-      }),
-    });
-  } catch (e) {
-    // expo-notifications not available or failed to load
-  }
-}
-
 export function usePushNotifications() {
   const { user, isAuthenticated } = useAuthStore();
 
   useEffect(() => {
-    if (!isAuthenticated || !user) return;
+    if (isExpoGo || !isAuthenticated || !user) return;
 
-    // 1. Request notifications permissions if available (not in Expo Go)
-    if (!isExpoGo && Notifications) {
+    let Notifications: typeof import('expo-notifications') | null = null;
+    try {
+      Notifications = require('expo-notifications');
+      if (Notifications && Notifications.setNotificationHandler) {
+        Notifications.setNotificationHandler({
+          handleNotification: async () => ({
+            shouldShowAlert: true,
+            shouldPlaySound: true,
+            shouldSetBadge: true,
+            shouldShowBanner: true,
+            shouldShowList: true,
+          }),
+        });
+      }
+    } catch (e) {
+      // Ignore if notifications module cannot be initialized natively
+    }
+
+    if (Notifications) {
       try {
-        Notifications.getPermissionsAsync().then(({ status: existingStatus }) => {
-          if (existingStatus !== 'granted') {
-            Notifications?.requestPermissionsAsync();
-          }
-        }).catch(() => {});
+        Notifications.getPermissionsAsync()
+          .then(({ status: existingStatus }) => {
+            if (existingStatus !== 'granted') {
+              Notifications?.requestPermissionsAsync();
+            }
+          })
+          .catch(() => {});
       } catch (e) {
-        // Ignore permission errors in restricted environments
+        // Ignore permission errors
       }
     }
 
     // 2. Connect to real-time Socket.io server
-    const socket = io(baseOrigin);
+    const socket = io(baseOrigin, {
+      transports: ['websocket'],
+      autoConnect: true,
+    });
 
     socket.on('connect', () => {
       socket.emit('join-tenant', user.tenantId);
     });
 
     socket.on('new-notice', async (data: any) => {
-      if (!isExpoGo && Notifications) {
+      if (Notifications && Notifications.scheduleNotificationAsync) {
         try {
           await Notifications.scheduleNotificationAsync({
             content: {
               title: data.title || 'New Announcement',
               body: data.body || 'You have a new notice.',
               sound: true,
-              priority: Notifications.AndroidNotificationPriority.HIGH,
+              priority: Notifications.AndroidNotificationPriority?.HIGH || 'high',
             },
             trigger: null,
           });
         } catch (e) {
-          // Ignore scheduling errors
+          // Ignore
         }
       }
     });
 
     socket.on('new-event', async (data: any) => {
-      if (!isExpoGo && Notifications) {
+      if (Notifications && Notifications.scheduleNotificationAsync) {
         try {
           await Notifications.scheduleNotificationAsync({
             content: {
               title: data.title || 'New Event Created',
               body: data.body || 'A new event has been scheduled.',
               sound: true,
-              priority: Notifications.AndroidNotificationPriority.HIGH,
+              priority: Notifications.AndroidNotificationPriority?.HIGH || 'high',
             },
             trigger: null,
           });
         } catch (e) {
-          // Ignore scheduling errors
+          // Ignore
         }
       }
     });
