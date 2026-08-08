@@ -2,7 +2,6 @@ import { Router } from 'express';
 import { authenticate } from '../middleware/auth';
 import { AuthRequest } from '../middleware/auth';
 import { RegistrationRequest, RegistrationStatus } from '../models/RegistrationRequest';
-import { PlotRequest } from '../models/PlotRequest';
 import { CertificateRequest } from '../models/CertificateRequest';
 import { RentalRequest } from '../models/RentalRequest';
 
