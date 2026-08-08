@@ -60,6 +60,8 @@ const METHOD_OPTIONS = [
 ];
 
 export default function FullFinanceReportsPage() {
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState<number | string>(20);
   const [search, setSearch] = useState('');
   const [paymentStatus, setPaymentStatus] = useState('all');
   const [category, setCategory] = useState('all');
@@ -71,6 +73,8 @@ export default function FullFinanceReportsPage() {
   const [isDownloading, setIsDownloading] = useState(false);
 
   const queryParams: Record<string, any> = {
+    page,
+    limit,
     search: search || undefined,
     paymentStatus,
     category,
@@ -101,8 +105,10 @@ export default function FullFinanceReportsPage() {
   };
 
   const items = reportData?.items || [];
+  const pagination = reportData?.pagination;
 
   const handleResetFilters = () => {
+    setPage(1);
     setSearch('');
     setPaymentStatus('all');
     setCategory('all');
@@ -250,12 +256,29 @@ export default function FullFinanceReportsPage() {
             <label className="block text-xs font-semibold text-muted-foreground mb-1">Category / Type</label>
             <select
               value={category}
-              onChange={(e) => setCategory(e.target.value)}
+              onChange={(e) => {
+                setCategory(e.target.value);
+                setPage(1);
+              }}
               className="w-full px-3.5 py-2.5 bg-background border border-border rounded-xl text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500"
             >
-              {CATEGORY_OPTIONS.map((c) => (
-                <option key={c.value} value={c.value}>
-                  {c.label}
+              <option value="all">All Categories & Campaigns</option>
+              {((reportData?.categories && reportData.categories.length > 0)
+                ? reportData.categories
+                : [
+                    'General Sadaqah',
+                    'Recurring Donation',
+                    'Mosque Renovation',
+                    'Orphan Support',
+                    'Madrasa Fund',
+                    'Property Rent',
+                    'Certificate Fee',
+                    'Nikah Fee',
+                    'donation',
+                  ]
+              ).map((cat: string) => (
+                <option key={cat} value={cat}>
+                  {cat.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
                 </option>
               ))}
             </select>
@@ -452,6 +475,62 @@ export default function FullFinanceReportsPage() {
                 ))}
               </tbody>
             </table>
+          </div>
+        )}
+
+        {/* Pagination Bar */}
+        {pagination && pagination.total > 0 && (
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-6 py-4 border-t border-border bg-card">
+            <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+              <span>
+                Showing{' '}
+                {limit === 'all'
+                  ? `1–${pagination.total}`
+                  : `${(page - 1) * Number(limit) + 1}–${Math.min(page * Number(limit), pagination.total)}`}{' '}
+                of {pagination.total} financial records
+              </span>
+              <div className="flex items-center gap-1.5 ml-2">
+                <span className="text-xs font-medium">Show:</span>
+                <select
+                  value={limit}
+                  onChange={(e) => {
+                    const val = e.target.value === 'all' ? 'all' : Number(e.target.value);
+                    setLimit(val);
+                    setPage(1);
+                  }}
+                  className="px-2.5 py-1 rounded-lg border border-border bg-background text-xs font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer shadow-sm"
+                >
+                  {[10, 20, 50, 80, 100, 200].map((count) => (
+                    <option key={count} value={count}>
+                      {count} per page
+                    </option>
+                  ))}
+                  <option value="all">Show All</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                disabled={!(pagination.hasPrev ?? page > 1) || limit === 'all'}
+                className="px-3.5 py-1.5 rounded-xl border border-border text-xs font-bold disabled:opacity-40 hover:bg-muted transition-colors cursor-pointer"
+              >
+                Previous
+              </button>
+
+              <span className="text-xs font-bold px-3 py-1.5 bg-muted rounded-xl text-foreground">
+                Page {page} of {pagination.totalPages || 1}
+              </span>
+
+              <button
+                onClick={() => setPage((p) => p + 1)}
+                disabled={!(pagination.hasNext ?? page < pagination.totalPages) || limit === 'all'}
+                className="px-3.5 py-1.5 rounded-xl border border-border text-xs font-bold disabled:opacity-40 hover:bg-muted transition-colors cursor-pointer"
+              >
+                Next
+              </button>
+            </div>
           </div>
         )}
       </div>

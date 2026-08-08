@@ -308,6 +308,8 @@ router.get('/reports/finance', authorize(PERMISSIONS.PAYMENT_VIEW || PERMISSIONS
       endDate,
       month,
       year,
+      page = '1',
+      limit = '20',
       format = 'json',
     } = req.query;
 
@@ -317,7 +319,13 @@ router.get('/reports/finance', authorize(PERMISSIONS.PAYMENT_VIEW || PERMISSIONS
     };
 
     if (category && category !== 'all') {
-      filter.type = category;
+      const cleanCat = String(category).trim();
+      const catRegex = new RegExp(cleanCat.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+      filter.$or = [
+        { type: category },
+        { type: catRegex },
+        { description: catRegex },
+      ];
     }
 
     if (paymentStatus && paymentStatus !== 'all') {
@@ -474,7 +482,100 @@ router.get('/reports/finance', authorize(PERMISSIONS.PAYMENT_VIEW || PERMISSIONS
       }
     }
 
-    const items = [...paymentItems, ...duesItems].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    // Include Donation collection records (Campaign dues, Manual donations, Select All Families donations)
+    let donationItems: any[] = [];
+    {
+      const { Donation } = await import('../models/Donation');
+      const { Member } = await import('../models/Member');
+      const { Family } = await import('../models/Family');
+
+      const donationFilter: Record<string, any> = {
+        tenantId,
+      };
+
+      if (paymentStatus === 'completed') {
+        donationFilter.status = 'paid';
+      } else if (paymentStatus === 'pending' || paymentStatus === 'unpaid') {
+        donationFilter.status = 'pending';
+      } else if (paymentStatus === 'overdue') {
+        donationFilter.status = 'pending';
+      }
+
+      if (createdAtFilter) {
+        donationFilter.createdAt = createdAtFilter;
+      }
+
+      if (category && category !== 'all') {
+        donationFilter.$or = [{ campaign: category }, { purpose: category }];
+      }
+
+      if (search) {
+        const cleanSearch = String(search).trim();
+        const searchRegex = new RegExp(cleanSearch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+
+        const matchingMembers = await Member.find({
+          tenantId,
+          $or: [{ name: searchRegex }, { phone: searchRegex }],
+        }).select('_id').lean();
+        const memberIds = matchingMembers.map(m => m._id);
+
+        const matchingFamilies = await Family.find({
+          tenantId,
+          $or: [{ familyCode: searchRegex }, { headMemberId: { $in: memberIds } }],
+        }).select('_id').lean();
+        const familyIds = matchingFamilies.map(f => f._id);
+
+        donationFilter.$or = [
+          { campaign: searchRegex },
+          { donorName: searchRegex },
+          { donorId: { $in: memberIds } },
+          { familyId: { $in: familyIds } },
+        ];
+      }
+
+      const donations = await Donation.find(donationFilter)
+        .populate('donorId', 'name phone')
+        .populate({
+          path: 'familyId',
+          select: 'familyCode headMemberId',
+          populate: { path: 'headMemberId', select: 'name phone' },
+        })
+        .populate('receiptId', 'receiptNo')
+        .sort({ createdAt: -1 })
+        .lean();
+
+      // Only include donations that don't already have a paymentId in paymentItems (to avoid double counting)
+      const existingPaymentIds = new Set(payments.map((p: any) => String(p._id)));
+
+      donationItems = donations
+        .filter((d: any) => !d.paymentId || !existingPaymentIds.has(String(d.paymentId)))
+        .map((d: any) => {
+          const head = d.familyId?.headMemberId;
+          const donor = d.donorId;
+          const isPaid = d.status === 'paid';
+          return {
+            _id: `donation_${d._id}`,
+            paymentNo: `DON-${String(d._id).slice(-6).toUpperCase()}`,
+            receiptNo: d.receiptId?.receiptNo || (isPaid ? 'PAID' : 'UNPAID'),
+            payerName: d.isAnonymous
+              ? 'Anonymous'
+              : d.familyId
+              ? `${head?.name || 'Family Head'} (${d.familyId.familyCode})`
+              : donor?.name || d.donorName || 'General Donor',
+            payerPhone: donor?.phone || head?.phone || 'N/A',
+            category: d.campaign || d.purpose || 'donation',
+            amount: d.amount || 0,
+            gateway: isPaid ? 'direct' : 'pending_due',
+            status: isPaid ? 'completed' : 'pending',
+            description: `Donation campaign: ${d.campaign || 'General Sadaqah'}`,
+            createdAt: d.createdAt,
+          };
+        });
+    }
+
+    const items = [...paymentItems, ...duesItems, ...donationItems].sort(
+      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
 
     // Summary calculations
     const completedPayments = items.filter(i => i.status === 'completed');
@@ -519,11 +620,61 @@ router.get('/reports/finance', authorize(PERMISSIONS.PAYMENT_VIEW || PERMISSIONS
       return res.send(csvRows.join('\n'));
     }
 
+    const pageNum = parseInt(page as string) || 1;
+    const isAllLimit = limit === 'all' || limit === '0';
+    const limitNum = isAllLimit ? items.length : (parseInt(limit as string) || 20);
+    const total = items.length;
+    const totalPages = isAllLimit || total === 0 ? 1 : Math.ceil(total / limitNum);
+
+    const paginatedItems = isAllLimit
+      ? items
+      : items.slice((pageNum - 1) * limitNum, pageNum * limitNum);
+
+    // Extract dynamic categories across Payment and Donation models
+    const { Donation: DonationModel } = await import('../models/Donation');
+    const [distinctPaymentTypes, distinctDonationCampaigns, distinctDonationPurposes] = await Promise.all([
+      Payment.distinct('type', { tenantId }),
+      DonationModel.distinct('campaign', { tenantId }),
+      DonationModel.distinct('purpose', { tenantId }),
+    ]);
+
+    const defaultCategories = [
+      'General Sadaqah',
+      'Recurring Donation',
+      'Mosque Renovation',
+      'Orphan Support',
+      'Madrasa Fund',
+      'Property Rent',
+      'Certificate Fee',
+      'Nikah Fee',
+      'donation',
+    ];
+
+    const availableCategories = Array.from(
+      new Set(
+        [
+          ...defaultCategories,
+          ...distinctPaymentTypes.filter(Boolean),
+          ...distinctDonationCampaigns.filter(Boolean),
+          ...distinctDonationPurposes.filter(Boolean),
+        ].map((c: string) => String(c).trim())
+      )
+    ).filter(Boolean).sort();
+
     res.json({
       success: true,
       data: {
         summary,
-        items,
+        items: paginatedItems,
+        categories: availableCategories,
+        pagination: {
+          page: pageNum,
+          limit: limitNum,
+          total,
+          totalPages,
+          hasPrev: pageNum > 1,
+          hasNext: pageNum < totalPages,
+        },
       },
     });
   } catch (e) { next(e); }

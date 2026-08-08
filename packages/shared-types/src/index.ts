@@ -187,7 +187,6 @@ export interface TenantSettings {
     zakatCalculator: boolean;
     whatsappNotifications: boolean;
     smsNotifications: boolean;
-    cemeteryManagement: boolean;
     propertyRental: boolean;
     madrasaPortal: boolean;
   };
@@ -484,7 +483,6 @@ export interface IDeathRecord extends BaseDocument {
   janazaDate: string;
   janazaTime?: string;
   janazaMasjid?: string;
-  cemeteryPlotNo?: string;
   informantName: string;
   informantRelation: string;
   informantPhone: string;
@@ -492,16 +490,7 @@ export interface IDeathRecord extends BaseDocument {
   notes?: string;
 }
 
-export interface ICemeteryPlot extends BaseDocument {
-  plotNo: string;
-  section: string;
-  row?: string;
-  status: 'available' | 'occupied' | 'reserved';
-  occupiedByMemberId?: string;
-  occupiedByMember?: IMember;
-  burialDate?: string;
-  notes?: string;
-}
+
 
 export interface ICertificate extends BaseDocument {
   certificateNo: string;

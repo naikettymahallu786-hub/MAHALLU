@@ -46,14 +46,13 @@ export default function DeathPage() {
                   <th>Member ID</th>
                   <th>Date of Death</th>
                   <th>Burial Place</th>
-                  <th>Cemetery Plot</th>
                   <th>Cause of Death</th>
                 </tr>
               </thead>
               <tbody>
                 {deathList.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="text-center py-12 text-muted-foreground">
+                    <td colSpan={5} className="text-center py-12 text-muted-foreground">
                       <Skull size={40} className="mx-auto mb-3 opacity-30" />
                       <p>No death records registered yet</p>
                     </td>
@@ -76,12 +75,7 @@ export default function DeathPage() {
                         {formatDate(death.dateOfDeath)}
                       </td>
                       <td className="text-sm font-medium">
-                        {death.burialPlace || 'Mahallu Cemetery'}
-                      </td>
-                      <td>
-                        <span className="text-xs px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400 font-bold">
-                          Plot {death.plotId || '—'}
-                        </span>
+                        {death.burialPlace || 'Mahallu Ground'}
                       </td>
                       <td className="text-sm text-muted-foreground">
                         {death.causeOfDeath || 'Natural'}

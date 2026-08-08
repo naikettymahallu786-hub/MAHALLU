@@ -30,12 +30,7 @@ router.get('/', async (req: AuthRequest, res, next) => {
       .sort({ createdAt: -1 })
       .lean();
 
-    // Fetch plot requests
-    const plots = await PlotRequest.find({ tenantId, status: genStatusQuery })
-      .populate('requestedBy', 'name')
-      .populate('cemeteryId', 'name')
-      .sort({ createdAt: -1 })
-      .lean();
+    const plots: any[] = [];
       
     // Fetch certificate requests
     const certs = await CertificateRequest.find({ tenantId, status: genStatusQuery })

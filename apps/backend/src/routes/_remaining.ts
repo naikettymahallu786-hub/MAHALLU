@@ -459,21 +459,19 @@ export const reportRoutes = (() => {
 
       const records = await DeathRecord.find(filter)
         .populate({ path: 'memberId', select: 'name phone', options: { strictPopulate: false } })
-        .populate({ path: 'cemeteryId', select: 'name', options: { strictPopulate: false } })
         .sort({ dateOfDeath: -1 })
         .lean();
 
       if (format === 'json') return res.json({ success: true, data: records });
 
-      const headers = ['Deceased Name', 'Phone', 'Date of Death', 'Cause of Death', 'Janazah Date & Venue', 'Burial Date', 'Cemetery / Grave No'];
+      const headers = ['Deceased Name', 'Phone', 'Date of Death', 'Cause of Death', 'Janazah Date & Venue', 'Burial Place'];
       const rows = records.map((d: any) => [
         d.memberId?.name || '',
         d.memberId?.phone || '',
         d.dateOfDeath ? new Date(d.dateOfDeath).toLocaleDateString() : '',
         d.causeOfDeath || '',
         `${d.janazahDate ? new Date(d.janazahDate).toLocaleDateString() : ''} ${d.janazahVenue || ''}`.trim(),
-        d.burialDate ? new Date(d.burialDate).toLocaleDateString() : '',
-        `${d.cemeteryId?.name || d.burialPlace || ''} ${d.plotId ? `Plot: ${d.plotId}` : ''}`.trim()
+        d.burialPlace || 'Mahallu Ground'
       ]);
 
       const csvContent = [headers.join(','), ...rows.map(r => r.map(escapeCSV).join(','))].join('\n');

@@ -71,20 +71,6 @@ export const translations = {
     facilities: 'Facilities',
     properties: 'Properties',
     propertiesDesc: 'Rentals & assets',
-    cemetery: 'Cemetery',
-    cemeteryDesc: 'Burial records',
-
-    // Cemetery page
-    cemeteryPlots: 'Cemetery Plots',
-    cemeteryInfo: 'Select an available green plot to request an advance booking for your family.',
-    available: 'Available',
-    booked: 'Booked',
-    occupied: 'Occupied',
-    requestPlot: 'Request Plot',
-    additionalNotes: 'Additional Notes (Optional)',
-    bookingNotesPlaceholder: 'E.g. Booking in advance for family',
-    submitRequest: 'Submit Request',
-    cemeteryHistory: 'Cemetery History',
 
     // Rental & Equipment page
     rentalsTitle: 'Rentals & Equipment',
@@ -100,7 +86,6 @@ export const translations = {
     profileTitle: 'Profile',
     account: 'Account',
     personalProfile: 'Personal Profile',
-    myCemeteryPlots: 'My Cemetery Plots',
     changePassword: 'Change Password',
     notificationSettings: 'Notification Settings',
     appSettings: 'App Settings',
@@ -185,20 +170,6 @@ export const translations = {
     facilities: 'സൗകര്യങ്ങൾ',
     properties: 'വസ്തുവകകൾ',
     propertiesDesc: 'വാടക & അസറ്റുകൾ',
-    cemetery: 'ഖബർസ്ഥാൻ',
-    cemeteryDesc: 'ഖബറടക്ക വിവരങ്ങൾ',
-
-    // Cemetery page
-    cemeteryPlots: 'ഖബർസ്ഥാൻ പ്ലോട്ടുകൾ',
-    cemeteryInfo: 'കുടുംബത്തിനായി മുൻകൂട്ടി ബുക്ക് ചെയ്യാൻ ലഭ്യമായ പച്ച പ്ലോട്ട് തിരഞ്ഞെടുക്കുക.',
-    available: 'ലഭ്യമാണ്',
-    booked: 'ബുക്ക് ചെയ്തവ',
-    occupied: 'ഉപയോഗിച്ചവ',
-    requestPlot: 'പ്ലോട്ട് ബുക്ക് ചെയ്യാൻ അപേക്ഷിക്കുക',
-    additionalNotes: 'കൂടുതൽ വിവരങ്ങൾ (നിർബന്ധമില്ല)',
-    bookingNotesPlaceholder: 'ഉദാഹരണത്തിന്: കുടുംബത്തിന് വേണ്ടി മുൻകൂട്ടി ബുക്ക് ചെയ്യുന്നു',
-    submitRequest: 'അപേക്ഷ സമർപ്പിക്കുക',
-    cemeteryHistory: 'ഖബർസ്ഥാൻ ചരിത്രം',
 
     // Rental & Equipment page
     rentalsTitle: 'വാടക ഉപകരണങ്ങൾ',
@@ -214,7 +185,6 @@ export const translations = {
     profileTitle: 'പ്രൊഫൈൽ',
     account: 'അക്കൗണ്ട്',
     personalProfile: 'വ്യക്തിഗത വിവരങ്ങൾ',
-    myCemeteryPlots: 'എന്റെ ഖബർസ്ഥാൻ പ്ലോട്ടുകൾ',
     changePassword: 'പാസ്‌വേഡ് മാറ്റുക',
     notificationSettings: 'നോട്ടിഫിക്കേഷൻ ക്രമീകരണങ്ങൾ',
     appSettings: 'ആപ്പ് ക്രമീകരണങ്ങൾ',

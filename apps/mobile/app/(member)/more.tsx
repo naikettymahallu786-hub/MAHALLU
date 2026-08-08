@@ -34,7 +34,6 @@ export default function MoreScreen() {
       title: t('account', language),
       items: [
         { icon: 'person-outline', label: t('personalProfile', language), route: null },
-        { icon: 'moon-outline', label: t('myCemeteryPlots', language), route: '/(member)/cemetery-history' },
         { icon: 'lock-closed-outline', label: t('changePassword', language), route: null },
         { icon: 'notifications-outline', label: t('notificationSettings', language), route: null },
       ]

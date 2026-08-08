@@ -54,13 +54,9 @@ export default function NewDeathPage() {
               <label className="block text-sm font-medium mb-1.5">Date of Death *</label>
               <input type="date" {...register('dateOfDeath', { required: true })} className="w-full px-4 py-2.5 rounded-xl border bg-background text-sm" />
             </div>
-            <div>
+            <div className="md:col-span-2">
               <label className="block text-sm font-medium mb-1.5">Burial Place</label>
-              <input type="text" {...register('burialPlace')} placeholder="Mahallu Cemetery" className="w-full px-4 py-2.5 rounded-xl border bg-background text-sm" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1.5">Cemetery Plot ID</label>
-              <input type="text" {...register('plotId')} placeholder="e.g. A-24" className="w-full px-4 py-2.5 rounded-xl border bg-background text-sm" />
+              <input type="text" {...register('burialPlace')} placeholder="Mahallu Burial Ground / Other" className="w-full px-4 py-2.5 rounded-xl border bg-background text-sm" />
             </div>
             <div className="md:col-span-2">
               <label className="block text-sm font-medium mb-1.5">Cause of Death</label>

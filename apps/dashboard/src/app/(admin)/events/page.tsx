@@ -25,12 +25,20 @@ export default function EventsPage() {
           <h1 className="page-title">{t('events.title')}</h1>
           <p className="page-subtitle">{t('events.subtitle')}</p>
         </div>
-        <Link href="/events/new">
-          <button id="add-event-btn" className="btn-brand flex items-center gap-2">
-            <Plus size={16} />
-            {t('events.createEvent')}
-          </button>
-        </Link>
+        <div className="flex items-center gap-3">
+          <Link href="/events/templates">
+            <button className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-emerald-300 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 text-sm font-bold hover:bg-emerald-100 transition-colors cursor-pointer">
+              <Calendar size={16} />
+              Event Templates (ടെംപ്ലേറ്റുകൾ)
+            </button>
+          </Link>
+          <Link href="/events/new">
+            <button id="add-event-btn" className="btn-brand flex items-center gap-2">
+              <Plus size={16} />
+              {t('events.createEvent')}
+            </button>
+          </Link>
+        </div>
       </div>
 
       {/* Events Cards Grid */}

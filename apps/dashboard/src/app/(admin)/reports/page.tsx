@@ -416,7 +416,7 @@ export default function ReportsPage() {
                     <th className="px-6 py-4">Deceased Name</th>
                     <th className="px-6 py-4">Date of Death</th>
                     <th className="px-6 py-4">Cause</th>
-                    <th className="px-6 py-4">Burial Place / Cemetery</th>
+                    <th className="px-6 py-4">Burial Place</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border">
@@ -425,7 +425,7 @@ export default function ReportsPage() {
                       <td className="px-6 py-4"><div className="font-bold">{d.memberId?.name || 'N/A'}</div><div className="text-xs text-muted-foreground">{d.memberId?.phone}</div></td>
                       <td className="px-6 py-4 font-semibold">{formatDate(d.dateOfDeath)}</td>
                       <td className="px-6 py-4 text-xs">{d.causeOfDeath || 'N/A'}</td>
-                      <td className="px-6 py-4 text-xs font-semibold">{d.cemeteryId?.name || d.burialPlace || 'Mahallu Cemetery'} {d.plotId ? `(Plot: ${d.plotId})` : ''}</td>
+                      <td className="px-6 py-4 text-xs font-semibold">{d.burialPlace || 'Mahallu Ground'}</td>
                     </tr>
                   ))}
                 </tbody>

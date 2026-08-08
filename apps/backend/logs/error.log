@@ -4481,3 +4481,199 @@ Use mongoose.model(name, schema)
 2026-08-08 03:37:28 [error]: AggregateError [ECONNREFUSED]: 
     at internalConnectMultiple (node:net:1135:18)
     at afterConnectMultiple (node:net:1716:7)
+2026-08-08 03:42:24 [error]: ReferenceError: familyId is not defined
+    at <anonymous> (/Users/sajalurahman/Desktop/Backup/mahallu/apps/backend/src/routes/donation.routes.ts:27:5)
+    at Layer.handle [as handle_request] (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/layer.js:95:5)
+    at next (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/route.js:149:13)
+    at <anonymous> (/Users/sajalurahman/Desktop/Backup/mahallu/apps/backend/src/middleware/auth.ts:76:5)
+    at Layer.handle [as handle_request] (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/layer.js:95:5)
+    at next (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/layer.js:95:5)
+    at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/index.js:346:12)
+    at next (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/index.js:280:10)
+    at authenticate (/Users/sajalurahman/Desktop/Backup/mahallu/apps/backend/src/middleware/auth.ts:50:5)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2026-08-08 03:42:30 [error]: ReferenceError: familyId is not defined
+    at <anonymous> (/Users/sajalurahman/Desktop/Backup/mahallu/apps/backend/src/routes/donation.routes.ts:27:5)
+    at Layer.handle [as handle_request] (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/layer.js:95:5)
+    at next (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/route.js:149:13)
+    at <anonymous> (/Users/sajalurahman/Desktop/Backup/mahallu/apps/backend/src/middleware/auth.ts:76:5)
+    at Layer.handle [as handle_request] (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/layer.js:95:5)
+    at next (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/layer.js:95:5)
+    at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/index.js:346:12)
+    at next (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/index.js:280:10)
+    at authenticate (/Users/sajalurahman/Desktop/Backup/mahallu/apps/backend/src/middleware/auth.ts:50:5)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2026-08-08 03:42:39 [error]: ReferenceError: familyId is not defined
+    at <anonymous> (/Users/sajalurahman/Desktop/Backup/mahallu/apps/backend/src/routes/donation.routes.ts:27:5)
+    at Layer.handle [as handle_request] (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/layer.js:95:5)
+    at next (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/route.js:149:13)
+    at <anonymous> (/Users/sajalurahman/Desktop/Backup/mahallu/apps/backend/src/middleware/auth.ts:76:5)
+    at Layer.handle [as handle_request] (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/layer.js:95:5)
+    at next (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/layer.js:95:5)
+    at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/index.js:346:12)
+    at next (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/index.js:280:10)
+    at authenticate (/Users/sajalurahman/Desktop/Backup/mahallu/apps/backend/src/middleware/auth.ts:50:5)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2026-08-08 03:43:15 [error]: ReferenceError: familyId is not defined
+    at <anonymous> (/Users/sajalurahman/Desktop/Backup/mahallu/apps/backend/src/routes/donation.routes.ts:27:5)
+    at Layer.handle [as handle_request] (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/layer.js:95:5)
+    at next (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/route.js:149:13)
+    at <anonymous> (/Users/sajalurahman/Desktop/Backup/mahallu/apps/backend/src/middleware/auth.ts:76:5)
+    at Layer.handle [as handle_request] (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/layer.js:95:5)
+    at next (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/layer.js:95:5)
+    at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/index.js:346:12)
+    at next (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/express/lib/router/index.js:280:10)
+    at authenticate (/Users/sajalurahman/Desktop/Backup/mahallu/apps/backend/src/middleware/auth.ts:50:5)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+2026-08-08 03:43:40 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 03:43:41 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 03:43:41 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 03:43:42 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 03:44:14 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 03:44:14 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 03:44:15 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 03:44:15 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 03:44:21 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 03:44:21 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 03:44:22 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 03:44:22 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 11:16:34 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 11:16:35 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 11:16:35 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 11:16:36 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 11:16:42 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 11:16:42 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 11:16:43 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 11:16:43 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 11:19:26 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 11:19:26 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 11:19:27 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 11:19:27 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 11:21:25 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 11:21:25 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 11:21:26 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 11:21:26 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 11:21:32 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 11:21:33 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 11:21:33 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 11:21:34 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 17:11:30 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 17:11:31 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 17:11:31 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 17:11:32 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 17:11:36 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 17:11:36 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 17:11:37 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 17:11:37 [error]: AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1135:18)
+    at afterConnectMultiple (node:net:1716:7)
+2026-08-08 18:21:34 [error]: ValidationError: Payment validation failed: status: `completed` is not a valid enum value for path `status`.
+    at Document.invalidate (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/document.js:3387:32)
+    at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/document.js:3148:17
+    at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/schemaType.js:1443:9
+    at process.processTicksAndRejections (node:internal/process/task_queues:84:11)
+2026-08-08 18:21:36 [error]: ValidationError: Payment validation failed: status: `completed` is not a valid enum value for path `status`.
+    at Document.invalidate (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/document.js:3387:32)
+    at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/document.js:3148:17
+    at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/schemaType.js:1443:9
+    at process.processTicksAndRejections (node:internal/process/task_queues:84:11)
+2026-08-08 18:21:37 [error]: ValidationError: Payment validation failed: status: `completed` is not a valid enum value for path `status`.
+    at Document.invalidate (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/document.js:3387:32)
+    at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/document.js:3148:17
+    at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/schemaType.js:1443:9
+    at process.processTicksAndRejections (node:internal/process/task_queues:84:11)
+2026-08-08 18:21:39 [error]: ValidationError: Payment validation failed: status: `completed` is not a valid enum value for path `status`.
+    at Document.invalidate (/Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/document.js:3387:32)
+    at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/document.js:3148:17
+    at /Users/sajalurahman/Desktop/Backup/mahallu/node_modules/mongoose/lib/schemaType.js:1443:9
+    at process.processTicksAndRejections (node:internal/process/task_queues:84:11)

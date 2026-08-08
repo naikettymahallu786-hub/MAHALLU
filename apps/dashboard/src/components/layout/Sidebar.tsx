@@ -53,7 +53,6 @@ const NAV_ITEMS: NavItem[] = [
   { id: 'zakat', label: 'Sadaqah', href: '/sadaqah', icon: Zap },
   { id: 'nikah', label: 'Nikah', href: '/nikah', icon: Heart },
   { id: 'death', label: 'Death & Burial', href: '/death', icon: Skull },
-  { id: 'cemetery', label: 'Cemetery', href: '/cemetery', icon: MapPin },
   { id: 'events', label: 'Events', href: '/events', icon: Calendar },
   { id: 'notices', label: 'Notices', href: '/notices', icon: Bell },
   { id: 'whatsapp', label: 'WhatsApp', href: '/whatsapp', icon: MessageCircle },

@@ -32,7 +32,6 @@ export default function ServicesScreen() {
       title: t('facilities', language),
       items: [
         { icon: 'business-outline', label: t('properties', language), desc: t('propertiesDesc', language), route: '/(member)/properties', color: '#10b981', bg: 'bg-emerald-500/20' },
-        { icon: 'moon-outline', label: t('cemetery', language), desc: t('cemeteryDesc', language), route: '/(member)/cemetery', color: '#71717a', bg: 'bg-zinc-500/20' },
       ]
     }
   ];

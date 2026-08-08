@@ -254,7 +254,7 @@ export default function MosquePage() {
             {t('mosque.facilities')}
           </h3>
           <div className="flex flex-wrap gap-2">
-            {(mosque?.facilities || ['Ablution Place', 'Library', 'Cemetery Annex', 'Conference Hall', 'Nikah Stage', 'Separate Ladies Area']).map((facility: string, i: number) => (
+            {(mosque?.facilities || ['Ablution Place', 'Library', 'Conference Hall', 'Nikah Stage', 'Separate Ladies Area']).map((facility: string, i: number) => (
               <span key={i} className="px-3.5 py-1.5 rounded-xl border border-border text-xs font-semibold hover:border-emerald-500/30 hover:bg-emerald-50 dark:hover:bg-emerald-950/10 cursor-default transition-all duration-200">
                 {facility}
               </span>
