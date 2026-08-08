@@ -87,7 +87,7 @@
       "typedRoutes": true
     },
     "extra": {
-      "apiUrl": "https://api.mahallu.app/api/v1",
+      "apiUrl": "https://mahallu-4d9t.onrender.com/api/v1",
       "router": {},
       "eas": {
         "projectId": "01231ac7-cf33-4c1c-b32a-e1dfa6b7eaa9"

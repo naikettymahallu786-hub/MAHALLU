@@ -2,13 +2,12 @@ import axios, { InternalAxiosRequestConfig } from 'axios';
 import { useAuthStore } from '../store/auth.store';
 import Constants from 'expo-constants';
 
-const hostUri = Constants.expoConfig?.hostUri;
-const ip = hostUri ? hostUri.split(':')[0] : '127.0.0.1';
+const DEFAULT_API_URL = 'https://mahallu-4d9t.onrender.com/api/v1';
 
-let rawUrl = process.env.EXPO_PUBLIC_API_URL || `http://${ip}:5000/api/v1`;
+let rawUrl = process.env.EXPO_PUBLIC_API_URL || Constants.expoConfig?.extra?.apiUrl || DEFAULT_API_URL;
 
-if (ip && ip !== '127.0.0.1' && ip !== 'localhost') {
-  rawUrl = rawUrl.replace('localhost', ip).replace('127.0.0.1', ip);
+if (!rawUrl || !rawUrl.startsWith('http')) {
+  rawUrl = DEFAULT_API_URL;
 }
 
 export const baseURL = rawUrl;
